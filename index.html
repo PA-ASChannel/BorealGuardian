@@ -292,6 +292,58 @@
       padding: 28px 32px;
     }
 
+    /* Consequence & Previous Action Recap Box */
+    .consequence-card {
+      background: #091322;
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--pan-blue);
+      border-radius: var(--radius-sm);
+      padding: 16px 20px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      animation: fadeInConsequence 0.3s ease;
+    }
+
+    .consequence-card.platform {
+      border-left-color: var(--accent-green);
+      background: linear-gradient(135deg, rgba(0, 230, 118, 0.05) 0%, #091322 100%);
+    }
+
+    .consequence-card.legacy {
+      border-left-color: var(--accent-amber);
+      background: linear-gradient(135deg, rgba(255, 171, 0, 0.05) 0%, #091322 100%);
+    }
+
+    .consequence-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .consequence-choice-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .consequence-outcome-text {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeInConsequence {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .console-location-tag {
       display: inline-flex;
       align-items: center;
@@ -480,6 +532,36 @@
       font-size: 14px;
       color: #cbd5e1;
       line-height: 1.65;
+    }
+
+    .banner-story-spotlight {
+      background: rgba(5, 9, 18, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .banner-story-header {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--pan-blue);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .banner-story-quote {
+      font-size: 13px;
+      color: #f1f5f9;
+      font-style: italic;
+      line-height: 1.5;
     }
 
     .dashboard-kpi-grid {
@@ -1036,8 +1118,8 @@
       </div>
 
       <div class="modal-section">
-        <h4>Consequential Branching, Operational Dashboards & Career Outcomes</h4>
-        <p>Every choice shapes the narrative and alters operational telemetry. At the conclusion of your 15-stage mission, you receive a full Operational Dashboard evaluating each Palo Alto Networks solution, paired with your authentic (and tongue-in-cheek) corporate career fate.</p>
+        <h4>Dynamic Cause &amp; Effect, Operational Dashboards &amp; Career Outcomes</h4>
+        <p>Every choice delivers immediate operational consequences. Starting from Stage 2, each stage opens with an explicit recap of what you did and the operational outcome of that action before framing the next challenge. At the conclusion, review your product-aligned operational dashboard and authentic corporate career fate.</p>
       </div>
 
       <button class="btn-modal-start" onclick="closeTutorial()">CHOOSE YOUR OPERATIONAL PATH</button>
@@ -1112,7 +1194,8 @@
       legacyPicks: 0,
       history: [],
       panwPillarsActivated: [],
-      legacyExposures: []
+      legacyExposures: [],
+      lastDecision: null // Stores { label, outcome, isPlatform } for subsequent stage recap
     };
 
     const personaConfigs = {
@@ -2761,6 +2844,7 @@
       appState.history = [];
       appState.panwPillarsActivated = [];
       appState.legacyExposures = [];
+      appState.lastDecision = null;
 
       document.getElementById('m1-lbl').textContent = config.m1Label;
       document.getElementById('m2-lbl').textContent = config.m2Label;
@@ -2881,6 +2965,30 @@
       const contentBox = document.createElement('div');
       contentBox.className = 'console-content';
 
+      // Consequence Recap Box (Displayed for Stages 2 through 15)
+      if (appState.lastDecision && appState.stageCount > 1) {
+        const consCard = document.createElement('div');
+        consCard.className = 'consequence-card ' + (appState.lastDecision.isPlatform ? 'platform' : 'legacy');
+        
+        const consHeader = document.createElement('div');
+        consHeader.className = 'consequence-header';
+        consHeader.style.color = appState.lastDecision.isPlatform ? 'var(--accent-green)' : 'var(--accent-amber)';
+        consHeader.textContent = (appState.lastDecision.isPlatform ? '⚡ PLATFORM COUNTERMEASURE EXECUTED' : '⚠️ LEGACY WORKAROUND ENGAGED') + ' // PREVIOUS OUTCOME:';
+        consCard.appendChild(consHeader);
+
+        const consLabel = document.createElement('div');
+        consLabel.className = 'consequence-choice-label';
+        consLabel.textContent = 'You chose: ' + appState.lastDecision.label;
+        consCard.appendChild(consLabel);
+
+        const consOutcome = document.createElement('p');
+        consOutcome.className = 'consequence-outcome-text';
+        consOutcome.textContent = appState.lastDecision.outcome;
+        consCard.appendChild(consOutcome);
+
+        contentBox.appendChild(consCard);
+      }
+
       const caption = document.createElement('div');
       caption.className = 'console-location-tag';
       caption.textContent = 'LOCATION: CALGARY HQ // OPERATIONAL LENS: ' + appState.persona.toUpperCase();
@@ -2977,6 +3085,12 @@
         appState.legacyExposures.push(opt.legacy);
       }
 
+      appState.lastDecision = {
+        label: opt.label,
+        outcome: opt.telemetryLog,
+        isPlatform: !!opt.panw
+      };
+
       appState.history.push({
         stage: appState.stageCount,
         title: node.title,
@@ -3005,6 +3119,7 @@
             statusBadge: 'PROMOTED TO VP OF GLOBAL INFRASTRUCTURE',
             badgeClass: 'promoted',
             cardClass: 'promoted',
+            summaryQuote: 'Upstream BGP attacks and rail-corridor fiber cuts were rerouted in under 1 second. The CEO personally brought two dozen fresh maple donuts from Tim Hortons to the Calgary NOC floor.',
             businessOutcome: 'Boreal Core Technologies logged 99.999% uptime across all Canadian transits. Upstream BGP attacks and rail-corridor fiber severances were routed away in under 1 second. The CEO personally delivered two dozen fresh maple donuts from Tim Hortons to the Calgary NOC floor.',
             careerFate: 'You were promoted to VP of Global Infrastructure. Your automated routing scripts are now laminated and framed in the server room, and executive leadership approved your next three quarterly budget requests without reading them.'
           },
@@ -3012,6 +3127,7 @@
             statusBadge: 'RETAINED (UNDER PERPETUAL ON-CALL SUPERVISION)',
             badgeClass: 'survived',
             cardClass: 'survived',
+            summaryQuote: 'The network survived, but packet loss across Vancouver caused 14 hours of delayed pipeline scheduling. You are now permanently on Sunday 02:00 AM change windows.',
             businessOutcome: 'The network survived by the skin of its teeth, but packet loss across Vancouver and Toronto during peak crisis caused 14 hours of delayed pipeline scheduling and angry executive conference calls.',
             careerFate: 'You kept your badge, but your manager assigned you to the Sunday 02:00 AM maintenance change window indefinitely. You have also been formally prohibited from ever saying "let\'s just bounce the border BGP peers" on company-wide incident bridges.'
           },
@@ -3019,6 +3135,7 @@
             statusBadge: 'TERMINATED FOR GROSS INFRASTRUCTURE NEGLIGENCE',
             badgeClass: 'terminated',
             cardClass: 'terminated',
+            summaryQuote: 'Total transit collapse. Physical safety valves had to be cranked open manually in -25°C blizzard conditions. You were escorted off premises clutching a Cat6 patch cable.',
             businessOutcome: 'Total transit collapse. The core backbone flapped continuously for 6 hours, dropping critical SCADA commands and halting Alberta pipeline flow. Physical safety valves had to be cranked open manually in -25°C blizzard conditions.',
             careerFate: 'HR and Corporate Security arrived at your desk with a cardboard banker\'s box. You were escorted off premises by 18:30 MST, clutching a single blue Cat6 patch cable and a half-eaten bagel.'
           }
@@ -3028,6 +3145,7 @@
             statusBadge: 'PROMOTED TO PRINCIPAL THREAT ARCHITECT',
             badgeClass: 'promoted',
             cardClass: 'promoted',
+            summaryQuote: 'From memory hooks to 124,000 EPS alert storms, all threats were neutralized in milliseconds. You were rewarded with a quad-curved-monitor workstation and unlimited espresso.',
             businessOutcome: 'Every single cyber foothold—from fileless memory injections to rogue MCP AI tools and 124,000 EPS alert floods—was halted at machine speed. Zero bytes of sensitive customer data left Canadian soil, and zero production systems were encrypted.',
             careerFate: 'You were granted an immediate promotion, a quad-curved-monitor workstation, and unlimited espresso privileges. Unit 42 even cited your autonomous XSIAM incident response playbooks in their annual global threat report.'
           },
@@ -3035,6 +3153,7 @@
             statusBadge: 'SURVIVED // MANDATORY POST-MORTEM PURGATORY',
             badgeClass: 'survived',
             cardClass: 'survived',
+            summaryQuote: 'Primary ransomware was arrested, but rogue cryptominers ran on serverless clusters for days. Your calendar is now blocked with daily 07:30 AM lessons-learned audits.',
             businessOutcome: 'You contained the primary ransomware detonation, but rogue cryptominers ran on serverless clusters for three days and three staging database servers had to be completely wiped and re-imaged from cold tapes.',
             careerFate: 'You survived the post-incident purge, but your calendar is now blocked with mandatory daily 07:30 AM "Security Hygiene & Lessons Learned" meetings with the Audit Committee through next quarter.'
           },
@@ -3042,6 +3161,7 @@
             statusBadge: 'FIRED BEFORE THE INCIDENT REPORT HIT JIRA',
             badgeClass: 'terminated',
             cardClass: 'terminated',
+            summaryQuote: '480 terabytes of database servers were encrypted with AES-256 and leaked to the dark web. Your Okta access was revoked while you were still typing in Slack.',
             businessOutcome: '480 terabytes of sensitive enterprise databases and virtual machines were locked behind AES-256 encryption. Plaintext customer SINs were leaked onto dark web leak sites, and Boreal’s name led the evening national news broadcast.',
             careerFate: 'Your Okta and Slack access were systematically revoked while you were still typing in the incident war room. Your security key was confiscated at reception, and your LinkedIn profile now optimistically lists you as "Open to Work // Seeking Stealth Advisory Roles."'
           }
@@ -3051,6 +3171,7 @@
             statusBadge: 'PRAISED BY BOARD // EXPANDED BUDGET APPROVED',
             badgeClass: 'promoted',
             cardClass: 'promoted',
+            summaryQuote: 'The 400 Bitcoin extortion demand was rebuffed with zero compromise and zero fines. Harvard Business Review is writing a case study on your platform leadership.',
             businessOutcome: 'The 400 Bitcoin extortion demand was rebuffed with zero compromise, Bill C-26 and PIPEDA compliance reports were signed off by federal authorities with zero fines, and Boreal’s stock closed up 3.4% on the Toronto Stock Exchange.',
             careerFate: 'The Board granted you an eight-figure platformization capital expenditure mandate and a significant executive performance bonus. Harvard Business Review reached out to publish a case study on your crisis leadership.'
           },
@@ -3058,6 +3179,7 @@
             statusBadge: 'RETAINED WITH SEVERE BUDGET CONSTRAINTS',
             badgeClass: 'survived',
             cardClass: 'survived',
+            summaryQuote: 'Catastrophe was averted, but insurance underwriters imposed a 45% surcharge and the CFO now audits every laptop adapter expense report you submit.',
             businessOutcome: 'Boreal avoided catastrophic operational destruction, but late regulatory filings triggered an official investigation from the Privacy Commissioner, and cyber insurance underwriters renewed your policy with a painful 45% surcharge.',
             careerFate: 'You retained the CISO title, but the CFO now scrutinizes every single expense report down to third-party laptop charging cables, and your platform consolidation timeline has been compressed to 90 days.'
           },
@@ -3065,6 +3187,7 @@
             statusBadge: 'RESIGNED TO PURSUE PERSONAL INTERESTS',
             badgeClass: 'terminated',
             cardClass: 'terminated',
+            summaryQuote: 'Boreal paid a humiliating $12M CAD extortion fee in Bitcoin and shares plunged 18%. The Board accepted your resignation "to spend more time with family."',
             businessOutcome: 'The organization authorized a humiliating $12M CAD extortion payout in Bitcoin that made front-page news. Federal regulators slapped Boreal with maximum non-compliance penalties, and the TSX share price plunged 18%.',
             careerFate: 'The Board accepted your resignation "effective immediately to allow you to spend more time with family." A crisis PR firm was engaged to scrub your executive quote and headshot from the corporate about-us page before midnight.'
           }
@@ -3115,7 +3238,9 @@
       const debriefBox = document.createElement('div');
       debriefBox.className = 'debrief-container';
 
-      // 1. Dashboard Top Banner
+      const epilogue = generateEpilogueData(appState.persona, platformPicks, appState.m1, appState.m3);
+
+      // 1. Dashboard Top Banner with Story Spotlight
       const banner = document.createElement('div');
       banner.className = 'dashboard-banner';
       banner.style.borderLeft = '4px solid ' + outcomeColor;
@@ -3130,6 +3255,16 @@
       bannerSub.className = 'dashboard-banner-sub';
       bannerSub.textContent = outcomeSummary;
       banner.appendChild(bannerSub);
+
+      const spotlight = document.createElement('div');
+      spotlight.className = 'banner-story-spotlight';
+      spotlight.innerHTML = 
+        '<div class="banner-story-header">' +
+          '<span>EXECUTIVE SUMMARY POSTSCRIPT // ' + epilogue.statusBadge + '</span>' +
+          '<span>★ ' + platformPicks + '/15 PLATFORM DECISIONS</span>' +
+        '</div>' +
+        '<div class="banner-story-quote">“' + epilogue.summaryQuote + '”</div>';
+      banner.appendChild(spotlight);
       debriefBox.appendChild(banner);
 
       // 2. High-Impact Operational KPI HUD
@@ -3222,8 +3357,6 @@
       debriefBox.appendChild(matrixSection);
 
       // 4. Tongue-in-Cheek Professional Story Ending / Epilogue
-      const epilogue = generateEpilogueData(appState.persona, platformPicks, appState.m1, appState.m3);
-
       const epilogueCard = document.createElement('div');
       epilogueCard.className = 'epilogue-card ' + epilogue.cardClass;
 
