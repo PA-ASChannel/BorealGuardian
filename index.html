@@ -2969,7 +2969,7 @@
       if (appState.lastDecision && appState.stageCount > 1) {
         const consCard = document.createElement('div');
         consCard.className = 'consequence-card ' + (appState.lastDecision.isPlatform ? 'platform' : 'legacy');
-        
+
         const consHeader = document.createElement('div');
         consHeader.className = 'consequence-header';
         consHeader.style.color = appState.lastDecision.isPlatform ? 'var(--accent-green)' : 'var(--accent-amber)';
