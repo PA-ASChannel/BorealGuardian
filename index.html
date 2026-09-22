@@ -15,29 +15,29 @@
  --bg-surface-elevated: #0a121f;
  --bg-subtle: #0d1a2d;
  
- /* PANW Neon Cyber Palette */
+/* PANW Neon Cyber Palette */
  --pan-orange: #fa582d;
  --pan-orange-soft: rgba(250, 88, 45, 0.15);
  --pan-blue: #00c0f7;
  --pan-blue-soft: rgba(0, 192, 247, 0.15);
  
- --accent-green: #00ff41; /* True terminal phosphor green */
+--accent-green: #00ff41; /* True terminal phosphor green */
  --accent-green-soft: rgba(0, 255, 65, 0.15);
  --accent-amber: #ffb000;
  --accent-amber-soft: rgba(255, 176, 0, 0.15);
  --accent-red: #ff2a2a;
  --accent-red-soft: rgba(255, 42, 42, 0.15);
  
- --text-primary: #e2e8f0;
+--text-primary: #e2e8f0;
  --text-secondary: #00c0f7; /* Defaulting secondary text to tech cyan */
  --text-tertiary: #476b8a;
  
- /* Sharp Geometries - Zero Radius */
+/* Sharp Geometries - Zero Radius */
  --border-subtle: rgba(0, 192, 247, 0.25);
  --border-medium: rgba(0, 192, 247, 0.45);
  --border-focus: var(--pan-blue);
  
- /* Dynamic HUD Color (Updated via JS based on DEFCON) */
+/* Dynamic HUD Color (Updated via JS based on DEFCON) */
  --hud-color: var(--pan-blue);
  --hud-glow: 0 0 10px rgba(0, 192, 247, 0.5);
  }
@@ -60,7 +60,7 @@
  flex-direction: column;
  /* Tech grid background */
  background-image: 
- linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
+linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  linear-gradient(90deg, rgba(0, 192, 247, 0.03) 1px, transparent 1px);
  background-size: 40px 40px;
  -webkit-font-smoothing: antialiased;
@@ -85,7 +85,7 @@
  .boot-sys { color: var(--accent-green); }
  .boot-err { color: var(--accent-red); }
  
- /* Top App Navigation & Global HUD */
+/* Top App Navigation & Global HUD */
  header {
  background: rgba(2, 4, 10, 0.95);
  border-bottom: 1px solid var(--border-medium);
@@ -102,7 +102,7 @@
 
  .brand-wrap { display: flex; align-items: center; gap: 14px; }
  
- .brand-badge {
+.brand-badge {
  background: var(--pan-orange);
  color: #000;
  font-size: 13px;
@@ -201,7 +201,7 @@
  .role-badge { font-size: 10px; font-weight: 800; padding: 4px 8px; text-transform: uppercase; letter-spacing: 1px; }
  .badge-noc { background: var(--pan-blue-soft); color: var(--pan-blue); border: 1px solid var(--pan-blue); }
  .badge-soc { background: var(--pan-orange-soft); color: var(--pan-orange); border: 1px solid var(--pan-orange); }
- .badge-cloud { background: rgba(147, 51, 234, 0.15); color: #c084fc; border: 1px solid #c084fc; }
+ .badge-cloud { background: rgba(147, 51, 234, 0.15); color: #c084fc; border: 1px solid #c084fc; } /* Purple for Cloud */
  .badge-exec { background: var(--accent-green-soft); color: var(--accent-green); border: 1px solid var(--accent-green); }
 
  .status-indicator { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--hud-color); text-shadow: 0 0 5px var(--hud-color); }
@@ -528,7 +528,7 @@
  <!-- Dynamic Content Canvas -->
  <div id="dynamic-content"></div>
  
- <!-- CLI Easter Egg Bar -->
+<!-- CLI Easter Egg Bar -->
  <div class="cli-bar" id="cli-bar" style="display: none;">
  <div class="cli-log" id="cli-log"></div>
  <span class="cli-prompt">sysadmin@boreal-core:~#</span>
@@ -561,7 +561,7 @@
  relevantProducts: ['Strata Cloud Manager', 'Prisma SASE & SD-WAN', 'Strata NGFW & CDSS', 'Prisma Browser'],
  realWorldIntel: {
  title: "Colonial Pipeline & Edge Device Zero-Days",
- incident: "The NOC track directly mirrors the devastating 2021 Colonial Pipeline breach and the massive 2023/2024 wave of zero-day exploits targeting legacy edge VPN appliances (such as Volt Typhoon campaigns). In these real-world scenarios, attackers completely bypassed traditional authentication by exploiting unpatched hardware, moved laterally across flat internal networks, and ultimately forced the manual shutdown of physical OT infrastructure—triggering national supply chain emergencies and massive physical safety risks.",
+ incident: "The NOC track directly mirrors the devastating 2021 Colonial Pipeline breach and the massive 2023/2024 wave of zero-day exploits targeting legacy edge VPN appliances (such as Volt Typhoon campaigns). In these real-world scenarios, attackers completely bypassed traditional authentication by exploiting unpatched hardware, moved laterally across flat internal networks, and ultimately forced the manual shutdown of physical OT infrastructure—triggering national supply chain emergencies and massive physical safety risks.<br><br><a href='https://unit42.paloaltonetworks.com/darkside-ransomware/' target='_blank' style='color: var(--pan-blue); text-decoration: underline;'>[Unit 42: DarkSide Ransomware Assessment]</a>",
  mitigation: "Palo Alto Networks neutralizes this entire attack chain through Enterprise Platformization. Prisma SASE eliminates the exposed legacy VPN attack surface entirely by moving secure access to the cloud. Simultaneously, Strata Industrial OT Security enforces strict IT/OT Purdue model segmentation, ensuring that even if the IT network is breached, malicious Modbus/DNP3 commands are intercepted before they ever reach physical pipeline actuators."
  }
  },
@@ -573,7 +573,7 @@
  relevantProducts: ['Cortex XDR', 'Cortex AES', 'Cortex Cloud', 'Prisma AIRS', 'Idira', 'Cortex XSIAM'],
  realWorldIntel: {
  title: "MGM/Caesars Identity Theft & Change Healthcare Alert Smokescreens",
- incident: "The SOC track authentically replicates the tactics of the Scattered Spider group (responsible for crippling major Las Vegas casinos) and ALPHV/BlackCat (Change Healthcare). These adversaries used AI-enhanced social engineering (vishing) to trick helpdesks into bypassing MFA, forged Active Directory Golden Tickets, and blasted SIEMs with hundreds of thousands of fake alerts to blind analysts while they deployed fileless ransomware across core hypervisors.",
+ incident: "The SOC track authentically replicates the tactics of the Scattered Spider group (responsible for crippling major Las Vegas casinos) and ALPHV/BlackCat (Change Healthcare). These adversaries used AI-enhanced social engineering (vishing) to trick helpdesks into bypassing MFA, forged Active Directory Golden Tickets, and blasted SIEMs with hundreds of thousands of fake alerts to blind analysts while they deployed fileless ransomware across core hypervisors.<br><br><a href='https://unit42.paloaltonetworks.com/muddled-libra/' target='_blank' style='color: var(--pan-blue); text-decoration: underline;'>[Unit 42: Muddled Libra (Scattered Spider) Threat Assessment]</a>",
  mitigation: "The Palo Alto Networks platform breaks this kill chain instantly. Idira (Identity Threat Detection) recognizes the behavioral anomalies of a hijacked Okta token immediately after the MFA bypass, quarantining the user. Cortex XSIAM utilizes machine learning to automatically collapse 120,000+ EPS alert floods into a single actionable narrative, while Cortex XDR halts fileless ransomware execution in memory in under 200 milliseconds."
  }
  },
@@ -585,8 +585,8 @@
  relevantProducts: ['Cortex Xpanse', 'Cortex Cloud', 'Cortex Cloud DSPM', 'AI Gateway', 'Prisma AIRS'],
  realWorldIntel: {
  title: "SaaS OAuth Abuse & CI/CD Supply Chain Poisoning",
- incident: "The Cloud Architect track is based on the highly destructive 2024/2025 SaaS OAuth abuse campaigns (targeting platforms like Snowflake and Salesforce) and CI/CD poisoning attacks (like SolarWinds and Codecov). Threat actors bypassed perimeter firewalls entirely by compromising third-party vendor credentials, using legitimate, delegated API keys to scrape terabytes of unencrypted customer data directly from cloud storage buckets.",
- mitigation: "The platform defends the perimeter-less enterprise via Cortex Xpanse, which continuously maps and governs third-party API attack surfaces. Cortex Cloud DSPM actively monitors cloud data lakes, instantly detecting mass data exfiltration from S3 buckets and enforcing zero-trust encryption inline. Finally, Prisma Cloud's shift-left guardrails prevent poisoned Terraform configurations from ever being compiled into production."
+ incident: "The Cloud Architect track is based on the highly destructive 2024/2025 SaaS OAuth abuse campaigns (targeting platforms like Snowflake and Salesforce) and CI/CD poisoning attacks (like SolarWinds and Codecov). Threat actors bypassed perimeter firewalls entirely by compromising third-party vendor credentials, using legitimate, delegated API keys to scrape terabytes of unencrypted customer data directly from cloud storage buckets.<br><br><a href='https://unit42.paloaltonetworks.com/muddled-libra-ops-playbook/' target='_blank' style='color: var(--pan-blue); text-decoration: underline;'>[Unit 42: Muddled Libra SaaS Ops Playbook]</a> &bull; <a href='https://unit42.paloaltonetworks.com/fireeye-solarstorm-sunburst/' target='_blank' style='color: var(--pan-blue); text-decoration: underline;'>[Unit 42: SolarStorm Coverage]</a>",
+ mitigation: "The platform defends the perimeter-less enterprise via Cortex Xpanse, which continuously maps and governs third-party API attack surfaces. Cortex Cloud DSPM actively monitors cloud data lakes, instantly detecting mass data exfiltration from S3 buckets and enforcing zero-trust encryption inline. Finally, Cortex Cloud's shift-left guardrails prevent poisoned Terraform configurations from ever being compiled into production."
  }
  },
  exec: {
@@ -597,7 +597,7 @@
  relevantProducts: ['Enterprise Platformization', 'Strata Cloud Manager', 'AI Gateway', 'Cortex Cloud DSPM', 'Cortex Xpanse', 'Idira', 'Unit 42', 'Cortex XSIAM'],
  realWorldIntel: {
  title: "Executive Liability & The SEC 4-Day Disclosure Mandate",
- incident: "The Executive track is deeply inspired by the executive fallout seen during the Clorox and SolarWinds breaches, alongside strict new SEC and Canadian Bill C-26 reporting mandates. Fragmented tool sprawl led to paralyzing operational friction during incident response. Executives faced severe personal liability, class-action lawsuits, and crushing multi-million dollar ransom payouts simply because they lacked the consolidated visibility required to definitively prove data integrity to regulators.",
+ incident: "The Executive track is deeply inspired by the executive fallout seen during the Clorox and SolarWinds breaches, alongside strict new SEC and Canadian Bill C-26 reporting mandates. Fragmented tool sprawl led to paralyzing operational friction during incident response. Executives faced severe personal liability, class-action lawsuits, and crushing multi-million dollar ransom payouts simply because they lacked the consolidated visibility required to definitively prove data integrity to regulators.<br><br><a href='https://unit42.paloaltonetworks.com/cyber-extortion-economy/' target='_blank' style='color: var(--pan-blue); text-decoration: underline;'>[Unit 42: The Evolving Cyber Extortion Economy]</a>",
  mitigation: "Enterprise Platformization resolves this by consolidating 18+ disconnected point tools into a single architecture, drastically reducing MTTR and integration overhead. Unit 42 provides board-level forensic attestation to confidently refuse extortion demands. Strata Cloud Manager and Cortex XSIAM automate real-time compliance tracking, allowing the CISO to deliver flawless, instantaneous regulatory reporting within strict 4-day mandates."
  }
  }
@@ -750,13 +750,13 @@
  let opac = defcon <= 3 ? 0.6 : 0.3;
 
  dynamicSceneElements = 
- '<circle cx="300" cy="100" r="' + (30 + (stageNum%8) * 4) + '" stroke="' + col.primary + '" stroke-width="1.2" fill="none" opacity="' + opac + '" stroke-dasharray="5 3"/>' +
+'<circle cx="300" cy="100" r="' + (30 + (stageNum%8) * 4) + '" stroke="' + col.primary + '" stroke-width="1.2" fill="none" opacity="' + opac + '" stroke-dasharray="5 3"/>' +
  '<circle cx="300" cy="100" r="' + (60 + (stageNum%5) * 4) + '" stroke="' + col.accent + '" stroke-width="0.8" fill="none" opacity="0.2" stroke-dasharray="2 4"/>' +
  '<line x1="100" y1="100" x2="500" y2="100" stroke="' + col.primary + '" stroke-width="1" opacity="0.4"/>' +
  '<rect x="' + (200 + (stageNum%5) * 15) + '" y="95" width="10" height="10" fill="' + col.accent + '"><animate attributeName="opacity" values="1;0.2;1" dur="0.8s" repeatCount="indefinite"/></rect>' +
  '<text x="140" y="165" fill="' + col.accent + '" font-family="monospace" font-size="10">SYS OP // STAGE ' + stageNum + ' TELEMETRY ACTIVE</text>';
  
- return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">' +
+return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">' +
  '<rect width="600" height="200" fill="' + col.bg + '"/>' +
  dynamicSceneElements +
  '<text x="25" y="25" fill="' + col.primary + '" font-family="monospace" font-size="10" font-weight="bold">> ' + persona.toUpperCase() + ' // STAGE ' + (stageNum < 10 ? '0' + stageNum : stageNum) + '</text>' +
@@ -783,7 +783,7 @@
  // =========================================================================
  const storyGraphs = {
  
- // ---------------- NOC TRACK ----------------
+// ---------------- NOC TRACK ----------------
  noc_1: {
  act: 'NOC // PERIMETER & TRANSIT',
  burst: 'EDGE EXPLOIT',
@@ -1325,7 +1325,7 @@
  createGenericOption(
  'Enforce Cortex Cloud Data Security Posture Management (DSPM) & Real-Time Data Guardrails',
  'If you choose to deploy Cortex Cloud DSPM to discover sensitive data assets and instantly sever unauthorized exfiltration streams, proceed.',
- 'Cortex Cloud', null, -10, // Reusing Cortex Cloud here for alignment
+ 'Cortex Cloud DSPM', null, -10, // Reusing Cortex Cloud here for alignment
  'Cortex Cloud DSPM terminated the exfiltration session immediately and applied zero-trust encryption across the entire data lake.',
  'soc_6'
  ),
@@ -1576,8 +1576,8 @@
  telemetry: 'Approved OAuth App "MarketSync Pro" requesting 450,000 CRM records per minute from external IP pool.',
  options: [
  createGenericOption(
- 'Deploy Cortex Xpanse & Prisma Cloud to map the rogue API connection and surgically revoke the specific token',
- 'If you engage Xpanse to trace the attack surface and Prisma Cloud to dynamically revoke only the abused token, proceed.',
+ 'Deploy Cortex Xpanse & Cortex Cloud to map the rogue API connection and surgically revoke the specific token',
+ 'If you engage Xpanse to trace the attack surface and Cortex Cloud to dynamically revoke only the abused token, proceed.',
  'Cortex Xpanse', null, -10,
  'Cortex Xpanse mapped the rogue infrastructure and immediately revoked the specific abused token, saving the data without dropping legitimate marketing operations.',
  'cloud_2'
@@ -2367,7 +2367,7 @@
  bootScreen.style.display = 'flex';
  bootLog.innerHTML = '';
  
- const lines = [
+const lines = [
  { text: 'Loading PAN-OS kernel modules...', type: 'sys' },
  { text: 'Mounting XDR heuristics engine...', type: 'sys' },
  { text: 'Initializing Prisma Access pathways...', type: 'sys' },
@@ -2446,7 +2446,7 @@
  document.getElementById('sim-clock').textContent = 'CALGARY HQ: 07:30 MST';
  document.getElementById('sim-status').textContent = 'STATUS: ROLE SELECTION';
  
- document.getElementById('cli-bar').style.display = 'none';
+document.getElementById('cli-bar').style.display = 'none';
  appState.riskLevel = 15;
  updateHud();
 
@@ -2479,7 +2479,7 @@
  card.className = 'role-select-card ' + key;
  card.onclick = function() { selectPersona(key); };
  
- let desc = '';
+let desc = '';
  if(key === 'noc') desc = 'Defend against Edge-device Zero-Days, master SD-WAN path routing, intercept TLS 1.3 C2 beaconing, and protect sub-zero SCADA pipelines from physical disruption.';
  if(key === 'soc') desc = 'Hunt fileless memory injections, combat Helpdesk Vishing attacks, sandbox rogue MCP developer AI agents, and arrest ransomware encryption in milliseconds.';
  if(key === 'cloud') desc = 'Combat modern perimeter-less threats. Revoke abused SaaS OAuth tokens, sever S3 data exfiltration, and defend multi-cloud CI/CD pipelines.';
@@ -2512,7 +2512,7 @@
  return;
  }
  
- document.getElementById('cli-bar').style.display = 'flex';
+document.getElementById('cli-bar').style.display = 'flex';
 
  const stageDisplay = appState.stageCount < 10 ? '0' + appState.stageCount : appState.stageCount;
  document.getElementById('sim-badge').textContent = node.act + ' // STAGE ' + stageDisplay;
@@ -2554,6 +2554,24 @@
 
  contentBox.appendChild(headerBar);
 
+ // Contextual Telemetry Data Box (MOVED HERE AS REQUESTED)
+ const telem = document.createElement('div');
+ telem.className = 'telemetry-ticker';
+ const telemStrong = document.createElement('span');
+ telemStrong.className = 'telemetry-ticker-label';
+ telemStrong.textContent = 'TELEMETRY FEED';
+ telem.appendChild(telemStrong);
+ 
+let telemString = ' CURRENT SENSOR: ' + node.telemetry;
+ if (appState.lastDecision && appState.stageCount > 1) {
+ telemString = ' <span class="telem-highlight">[PRIOR OUTCOME: ' + appState.lastDecision.outcome + ']</span> // CURRENT SENSOR: ' + node.telemetry;
+ }
+ 
+const telemTextWrap = document.createElement('span');
+ telemTextWrap.innerHTML = telemString;
+ telem.appendChild(telemTextWrap);
+ contentBox.appendChild(telem);
+
  // Narrative Briefing Card
  const narrativeWrap = document.createElement('div');
  narrativeWrap.className = 'narrative-block';
@@ -2572,24 +2590,6 @@
  });
  narrativeWrap.appendChild(narrativeBox);
  contentBox.appendChild(narrativeWrap);
-
- // Contextual Telemetry Data Box
- const telem = document.createElement('div');
- telem.className = 'telemetry-ticker';
- const telemStrong = document.createElement('span');
- telemStrong.className = 'telemetry-ticker-label';
- telemStrong.textContent = 'TELEMETRY FEED';
- telem.appendChild(telemStrong);
- 
- let telemString = ' CURRENT SENSOR: ' + node.telemetry;
- if (appState.lastDecision && appState.stageCount > 1) {
- telemString = ' <span class="telem-highlight">[PRIOR OUTCOME: ' + appState.lastDecision.outcome + ']</span> // CURRENT SENSOR: ' + node.telemetry;
- }
- 
- const telemTextWrap = document.createElement('span');
- telemTextWrap.innerHTML = telemString;
- telem.appendChild(telemTextWrap);
- contentBox.appendChild(telem);
 
  // Decision Section
  const decisionWrap = document.createElement('div');
@@ -2692,7 +2692,7 @@
  function generateEpilogueData(persona, platformPicks, riskLevel, isEarlyTermination) {
  let tier = 'failure';
  
- if (isEarlyTermination || riskLevel >= 80) {
+if (isEarlyTermination || riskLevel >= 80) {
  tier = 'failure';
  } else if (platformPicks >= 9 && riskLevel <= 40) {
  tier = 'excellence';
@@ -2848,7 +2848,7 @@
  let outcomeColor = '';
  let outcomeSummary = '';
  
- let tier = 'failure';
+let tier = 'failure';
  if (appState.earlyTermination || appState.riskLevel >= 80) {
  tier = 'failure';
  } else if (platformPicks >= 9 && appState.riskLevel <= 40) {
@@ -2891,7 +2891,7 @@
  const newsBlock = document.createElement('div');
  newsBlock.className = 'news-epilogue ' + tier;
  newsBlock.innerHTML = 
- '<div class="news-header"><span>GLOBAL NEWS INTERCEPT // THE GLOBE AND MAIL</span><span>' + getSimTime(appState.stageCount) + '</span></div>' +
+'<div class="news-header"><span>GLOBAL NEWS INTERCEPT // THE GLOBE AND MAIL</span><span>' + getSimTime(appState.stageCount) + '</span></div>' +
  '<div class="news-headline">' + epilogue.newsHeadline + '</div>' +
  '<div class="news-body">' + epilogue.newsBody + '</div>';
  debriefBox.appendChild(newsBlock);
@@ -3021,7 +3021,7 @@
  const intelCard = document.createElement('div');
  intelCard.className = 'unit42-dossier';
  intelCard.innerHTML = 
- '<div class="dossier-header">[ UNIT 42 DECLASSIFIED ] REAL-WORLD THREAT ANALYSIS: ' + cfg.realWorldIntel.title + '</div>' +
+'<div class="dossier-header">[ UNIT 42 DECLASSIFIED ] REAL-WORLD THREAT ANALYSIS: ' + cfg.realWorldIntel.title + '</div>' +
  '<div class="dossier-grid">' +
  '<div class="dossier-col">' +
  '<h4>The Real-World Precedent</h4>' +
@@ -3114,10 +3114,10 @@
  const defcon = getDefconLevel(appState.riskLevel);
  const color = getDefconColor(defcon);
  
- document.documentElement.style.setProperty('--hud-color', color);
+document.documentElement.style.setProperty('--hud-color', color);
  document.documentElement.style.setProperty('--hud-glow', `0 0 10px ${color}`);
  
- document.getElementById('defcon-val').textContent = defcon;
+document.getElementById('defcon-val').textContent = defcon;
  document.getElementById('risk-num').textContent = appState.riskLevel;
  }
 
@@ -3137,9 +3137,9 @@
  const val = cliInput.value.trim().toLowerCase();
  cliInput.value = '';
  
- if (!val) return;
+if (!val) return;
  
- let response = '';
+let response = '';
  if (val === 'help') {
  response = "system: No one is coming to save you. Trust the platform.";
  } else if (val === 'sudo' || val.startsWith('sudo ')) {
@@ -3158,7 +3158,7 @@
  cliLog.textContent = "> " + val + "\n" + response;
  cliLog.classList.add('active');
  
- setTimeout(() => {
+setTimeout(() => {
  cliLog.classList.remove('active');
  }, 5000);
  }
