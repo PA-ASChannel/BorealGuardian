@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Operation Boreal Guardian | Cyber Defense Console</title>
+ <title>Operation Boreal Guardian | Palo Alto Networks Cyber Defense Console</title>
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -323,6 +323,17 @@
  .news-headline { font-size: 24px; color: #fff; font-weight: 800; line-height: 1.3; text-shadow: 0 0 8px rgba(255,255,255,0.3); }
  .news-body { font-size: 13.5px; color: #cbd5e1; line-height: 1.7; }
 
+ /* Unit 42 Real World Dossier */
+ .unit42-dossier {
+ background: rgba(0, 192, 247, 0.02); border: 1px dashed var(--border-medium); padding: 24px;
+ display: flex; flex-direction: column; gap: 16px; margin-bottom: 24px;
+ }
+ .dossier-header { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 800; color: var(--pan-blue); text-transform: uppercase; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; }
+ .dossier-header::before { content: '■'; animation: alertBlink 1.5s step-end infinite; }
+ .dossier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+ .dossier-col h4 { font-size: 11px; font-weight: 800; color: var(--pan-orange); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
+ .dossier-col p { font-size: 12.5px; color: #cbd5e1; line-height: 1.6; }
+
  /* Debrief Operational Dashboard */
  .debrief-layout { padding: 30px; display: flex; flex-direction: column; gap: 24px; z-index: 11; position: relative; }
  .debrief-summary-banner { background: var(--bg-surface-elevated); border: 1px solid var(--border-medium); padding: 20px 24px; display: flex; flex-direction: column; gap: 14px; }
@@ -424,7 +435,7 @@
  .hud-telemetry { width: 100%; justify-content: center; flex-wrap: wrap;}
  .terminal-body, .debrief-layout, .role-selection-wrapper, .modal-box { padding: 20px; }
  .terminal-stage { height: 160px; }
- .aftermath-split { grid-template-columns: 1fr; }
+ .aftermath-split, .dossier-grid { grid-template-columns: 1fr; }
  }
  </style>
 </head>
@@ -547,28 +558,48 @@
  badgeClass: 'badge-noc',
  badgeText: 'ROLE: NOC ENGINEER',
  initialNode: 'noc_1',
- relevantProducts: ['Strata Cloud Manager', 'Prisma SASE & SD-WAN', 'Strata NGFW & CDSS', 'Prisma Browser']
+ relevantProducts: ['Strata Cloud Manager', 'Prisma SASE & SD-WAN', 'Strata NGFW & CDSS', 'Prisma Browser'],
+ realWorldIntel: {
+ title: "Colonial Pipeline & Edge Device Zero-Days",
+ incident: "The NOC track directly mirrors the devastating 2021 Colonial Pipeline breach and the massive 2023/2024 wave of zero-day exploits targeting legacy edge VPN appliances (such as Volt Typhoon campaigns). In these real-world scenarios, attackers completely bypassed traditional authentication by exploiting unpatched hardware, moved laterally across flat internal networks, and ultimately forced the manual shutdown of physical OT infrastructure—triggering national supply chain emergencies and massive physical safety risks.",
+ mitigation: "Palo Alto Networks neutralizes this entire attack chain through Enterprise Platformization. Prisma SASE eliminates the exposed legacy VPN attack surface entirely by moving secure access to the cloud. Simultaneously, Strata Industrial OT Security enforces strict IT/OT Purdue model segmentation, ensuring that even if the IT network is breached, malicious Modbus/DNP3 commands are intercepted before they ever reach physical pipeline actuators."
+ }
  },
  soc: {
  title: 'SOC ANALYST // CYBER THREAT HUNTING',
  badgeClass: 'badge-soc',
  badgeText: 'ROLE: SOC ANALYST',
  initialNode: 'soc_1',
- relevantProducts: ['Cortex XDR', 'Cortex AES', 'Cortex Cloud', 'Prisma AIRS', 'Idira', 'Cortex XSIAM']
+ relevantProducts: ['Cortex XDR', 'Cortex AES', 'Cortex Cloud', 'Prisma AIRS', 'Idira', 'Cortex XSIAM'],
+ realWorldIntel: {
+ title: "MGM/Caesars Identity Theft & Change Healthcare Alert Smokescreens",
+ incident: "The SOC track authentically replicates the tactics of the Scattered Spider group (responsible for crippling major Las Vegas casinos) and ALPHV/BlackCat (Change Healthcare). These adversaries used AI-enhanced social engineering (vishing) to trick helpdesks into bypassing MFA, forged Active Directory Golden Tickets, and blasted SIEMs with hundreds of thousands of fake alerts to blind analysts while they deployed fileless ransomware across core hypervisors.",
+ mitigation: "The Palo Alto Networks platform breaks this kill chain instantly. Idira (Identity Threat Detection) recognizes the behavioral anomalies of a hijacked Okta token immediately after the MFA bypass, quarantining the user. Cortex XSIAM utilizes machine learning to automatically collapse 120,000+ EPS alert floods into a single actionable narrative, while Cortex XDR halts fileless ransomware execution in memory in under 200 milliseconds."
+ }
  },
  cloud: {
  title: 'CLOUD ARCHITECT // MULTI-CLOUD & SUPPLY CHAIN',
  badgeClass: 'badge-cloud',
  badgeText: 'ROLE: CLOUD ARCHITECT',
  initialNode: 'cloud_1',
- relevantProducts: ['Cortex Xpanse', 'Cortex Cloud', 'Cortex Cloud DSPM', 'AI Gateway', 'Prisma AIRS']
+ relevantProducts: ['Cortex Xpanse', 'Cortex Cloud', 'Cortex Cloud DSPM', 'AI Gateway', 'Prisma AIRS'],
+ realWorldIntel: {
+ title: "SaaS OAuth Abuse & CI/CD Supply Chain Poisoning",
+ incident: "The Cloud Architect track is based on the highly destructive 2024/2025 SaaS OAuth abuse campaigns (targeting platforms like Snowflake and Salesforce) and CI/CD poisoning attacks (like SolarWinds and Codecov). Threat actors bypassed perimeter firewalls entirely by compromising third-party vendor credentials, using legitimate, delegated API keys to scrape terabytes of unencrypted customer data directly from cloud storage buckets.",
+ mitigation: "The platform defends the perimeter-less enterprise via Cortex Xpanse, which continuously maps and governs third-party API attack surfaces. Cortex Cloud DSPM actively monitors cloud data lakes, instantly detecting mass data exfiltration from S3 buckets and enforcing zero-trust encryption inline. Finally, Prisma Cloud's shift-left guardrails prevent poisoned Terraform configurations from ever being compiled into production."
+ }
  },
  exec: {
  title: 'EXECUTIVE // CISO STRATEGIC RISK',
  badgeClass: 'badge-exec',
  badgeText: 'ROLE: CISO / EXEC',
  initialNode: 'exec_1',
- relevantProducts: ['Enterprise Platformization', 'Strata Cloud Manager', 'AI Gateway', 'Cortex Cloud DSPM', 'Cortex Xpanse', 'Idira', 'Unit 42', 'Cortex XSIAM']
+ relevantProducts: ['Enterprise Platformization', 'Strata Cloud Manager', 'AI Gateway', 'Cortex Cloud DSPM', 'Cortex Xpanse', 'Idira', 'Unit 42', 'Cortex XSIAM'],
+ realWorldIntel: {
+ title: "Executive Liability & The SEC 4-Day Disclosure Mandate",
+ incident: "The Executive track is deeply inspired by the executive fallout seen during the Clorox and SolarWinds breaches, alongside strict new SEC and Canadian Bill C-26 reporting mandates. Fragmented tool sprawl led to paralyzing operational friction during incident response. Executives faced severe personal liability, class-action lawsuits, and crushing multi-million dollar ransom payouts simply because they lacked the consolidated visibility required to definitively prove data integrity to regulators.",
+ mitigation: "Enterprise Platformization resolves this by consolidating 18+ disconnected point tools into a single architecture, drastically reducing MTTR and integration overhead. Unit 42 provides board-level forensic attestation to confidently refuse extortion demands. Strata Cloud Manager and Cortex XSIAM automate real-time compliance tracking, allowing the CISO to deliver flawless, instantaneous regulatory reporting within strict 4-day mandates."
+ }
  }
  };
 
@@ -1294,7 +1325,7 @@
  createGenericOption(
  'Enforce Cortex Cloud Data Security Posture Management (DSPM) & Real-Time Data Guardrails',
  'If you choose to deploy Cortex Cloud DSPM to discover sensitive data assets and instantly sever unauthorized exfiltration streams, proceed.',
- 'Cortex Cloud DSPM', null, -10, // Reusing Cortex Cloud here for alignment
+ 'Cortex Cloud', null, -10, // Reusing Cortex Cloud here for alignment
  'Cortex Cloud DSPM terminated the exfiltration session immediately and applied zero-trust encryption across the entire data lake.',
  'soc_6'
  ),
@@ -1449,7 +1480,7 @@
  speaker: 'CENTRAL SIEM INGESTION',
  title: 'The Blinding Fog of 124,000 Events Per Second',
  paragraphs: [
- 'In a tactic seen during the devastating Change Healthcare ransomware attack, the adversary unleashes a blinding smokescreen: over one hundred and twenty-four thousand security events per second are blasted into Boreal’s central logging infrastructure.',
+ 'In a tactic identical to the devastating Change Healthcare ransomware attack, the adversary unleashes a blinding smokescreen: over one hundred and twenty-four thousand security events per second are blasted into Boreal’s central logging infrastructure.',
  'Traditional SIEM databases groan, stall, and crash. Over four thousand eight hundred unassigned alerts flood the dashboard in three minutes, creating a fifty-minute triage backlog. Analysts are paralyzed by alert fatigue, drowning in a sea of red indicators. Deep inside this artificial storm, the attacker is quietly moving into position to deploy their final ransomware payload.'
  ],
  telemetry: '124,000 EPS deluge. Traditional databases dropping packets. 4,800 unassigned alerts in queue.',
@@ -1504,7 +1535,7 @@
  speaker: 'CORTEX XDR AGENT SENSOR',
  title: 'The In-Memory Ransomware Showdown',
  paragraphs: [
- 'The final, desperate strike lands. Blocked at every perimeter, the adversary detonates custom in-memory ransomware (`svchost_update.exe`) targeting Boreal Core’s primary database servers in Calgary. The ransomware begins rapid file encryption using AES-256, attempting to overwrite shadow volume backups and rename database files.',
+ 'The final, desperate strike lands. Blocked at every perimeter, the adversary detonates custom in-memory ransomware (`svchost_update.exe`) targeting Boreal Core’s primary ESXi hypervisors and database servers in Calgary. The ransomware begins rapid file encryption using AES-256, attempting to overwrite shadow volume backups and rename database files.',
  'Your monitors light up with rising disk I/O. The heart of Boreal Core Technologies—every pipeline contract, financial ledger, and employee record—is being encrypted right before your eyes. You have fractions of a second to stop the encryption process in memory before the data is permanently locked away forever.'
  ],
  telemetry: 'Process `svchost_update.exe` rapidly encrypting `.db` and `.vmdk` files using AES-256.',
@@ -1539,7 +1570,7 @@
  speaker: 'CLOUD THREAT MONITOR',
  title: 'The Invisible Door',
  paragraphs: [
- 'Your morning begins with a silent anomaly in the cloud dashboard. An approved, third-party marketing SaaS application—granted read-only OAuth access to Boreal Core’s CRM data lake months ago—has suddenly initiated mass data scraping outside of standard business hours.',
+ 'Mirroring the catastrophic 2024 Snowflake and Salesforce data breaches, your morning begins with a silent anomaly in the cloud dashboard. An approved, third-party marketing SaaS application—granted read-only OAuth access to Boreal Core’s CRM data lake months ago—has suddenly initiated mass data scraping outside of standard business hours.',
  'The adversary hasn’t breached your firewalls; they compromised the vendor’s infrastructure and are using the vendor’s legitimate, delegated API keys to legally request terabytes of Canadian customer data. If you blindly sever the vendor’s API access, the entire global marketing and sales pipeline will crash.'
  ],
  telemetry: 'Approved OAuth App "MarketSync Pro" requesting 450,000 CRM records per minute from external IP pool.',
@@ -2662,7 +2693,7 @@
  let tier = 'failure';
  
  if (isEarlyTermination || riskLevel >= 80) {
- tier = 'failure'; // Override if aborted early or risk too high
+ tier = 'failure';
  } else if (platformPicks >= 9 && riskLevel <= 40) {
  tier = 'excellence';
  } else if (platformPicks >= 4) {
@@ -2984,6 +3015,25 @@
 
  matrixWrap.appendChild(productGrid);
  debriefBox.appendChild(matrixWrap);
+
+ // Real-World Threat Intelligence Dossier
+ if (cfg.realWorldIntel) {
+ const intelCard = document.createElement('div');
+ intelCard.className = 'unit42-dossier';
+ intelCard.innerHTML = 
+ '<div class="dossier-header">[ UNIT 42 DECLASSIFIED ] REAL-WORLD THREAT ANALYSIS: ' + cfg.realWorldIntel.title + '</div>' +
+ '<div class="dossier-grid">' +
+ '<div class="dossier-col">' +
+ '<h4>The Real-World Precedent</h4>' +
+ '<p>' + cfg.realWorldIntel.incident + '</p>' +
+ '</div>' +
+ '<div class="dossier-col">' +
+ '<h4>The Platform Mitigation</h4>' +
+ '<p>' + cfg.realWorldIntel.mitigation + '</p>' +
+ '</div>' +
+ '</div>';
+ debriefBox.appendChild(intelCard);
+ }
 
  // Corporate Aftermath Card
  const aftermathCard = document.createElement('div');
