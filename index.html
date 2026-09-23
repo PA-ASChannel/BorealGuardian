@@ -162,6 +162,26 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  gap: 20px;
  }
 
+ /* CSS Shake Animation for Bad Decisions */
+ @keyframes shake {
+ 0% { transform: translate(1px, 1px) rotate(0deg); }
+ 10% { transform: translate(-1px, -2px) rotate(-1deg); }
+ 20% { transform: translate(-3px, 0px) rotate(1deg); }
+ 30% { transform: translate(3px, 2px) rotate(0deg); }
+ 40% { transform: translate(1px, -1px) rotate(1deg); }
+ 50% { transform: translate(-1px, 2px) rotate(-1deg); }
+ 60% { transform: translate(-3px, 1px) rotate(0deg); }
+ 70% { transform: translate(3px, 1px) rotate(-1deg); }
+ 80% { transform: translate(-1px, -1px) rotate(1deg); }
+ 90% { transform: translate(1px, 2px) rotate(0deg); }
+ 100% { transform: translate(1px, -2px) rotate(-1deg); }
+ }
+ .shake-active {
+ animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+ border-color: var(--accent-red) !important;
+ box-shadow: 0 0 40px rgba(255,42,42,0.4), inset 0 0 20px rgba(255,42,42,0.6) !important;
+ }
+
  .terminal-window {
  background: var(--bg-surface);
  border: 1px solid var(--hud-color);
@@ -201,8 +221,9 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  .role-badge { font-size: 10px; font-weight: 800; padding: 4px 8px; text-transform: uppercase; letter-spacing: 1px; }
  .badge-noc { background: var(--pan-blue-soft); color: var(--pan-blue); border: 1px solid var(--pan-blue); }
  .badge-soc { background: var(--pan-orange-soft); color: var(--pan-orange); border: 1px solid var(--pan-orange); }
- .badge-cloud { background: rgba(147, 51, 234, 0.15); color: #c084fc; border: 1px solid #c084fc; } /* Purple for Cloud */
- .badge-exec { background: var(--accent-green-soft); color: var(--accent-green); border: 1px solid var(--accent-green); }
+ .badge-cloud { background: rgba(147, 51, 234, 0.15); color: #c084fc; border: 1px solid #c084fc; } 
+.badge-exec { background: var(--accent-green-soft); color: var(--accent-green); border: 1px solid var(--accent-green); }
+ .badge-unit42 { background: var(--accent-red-soft); color: var(--accent-red); border: 1px solid var(--accent-red); }
 
  .status-indicator { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--hud-color); text-shadow: 0 0 5px var(--hud-color); }
  .status-indicator::before { content: '■'; color: var(--hud-color); animation: alertBlink 1s step-end infinite; }
@@ -265,7 +286,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  .narrative-block::after { content: ''; position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-bottom: 2px solid var(--hud-color); border-right: 2px solid var(--hud-color); transition: all 0.3s; }
  .narrative-author-bar { font-size: 11px; font-weight: 800; color: var(--pan-orange); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
  .narrative-author-bar::before { content: '■'; animation: alertBlink 1.5s step-end infinite; }
- .narrative-text p { font-size: 14px; color: #cbd5e1; line-height: 1.7; margin-bottom: 14px; }
+ .narrative-text p { font-size: 14px; color: #cbd5e1; line-height: 1.7; margin-bottom: 14px; min-height: 22px; }
  .narrative-text p:last-child { margin-bottom: 0; }
 
  /* Telemetry Data Box */
@@ -310,8 +331,8 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  }
  .cli-prompt { color: var(--accent-green); font-weight: 800; }
  .cli-input { background: transparent; border: none; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; flex: 1; outline: none; caret-color: var(--accent-green); }
- .cli-log { position: absolute; bottom: 100%; left: 0; width: 100%; background: rgba(0,0,0,0.9); color: var(--accent-amber); font-size: 11px; padding: 0 20px; transition: max-height 0.3s; max-height: 0; overflow: hidden; }
- .cli-log.active { max-height: 60px; padding: 8px 20px; border-top: 1px solid var(--accent-amber); }
+ .cli-log { position: absolute; bottom: 100%; left: 0; width: 100%; background: rgba(0,0,0,0.95); color: var(--accent-amber); font-size: 11.5px; padding: 0 20px; transition: max-height 0.3s; max-height: 0; overflow: hidden; white-space: pre-wrap; line-height: 1.5; }
+ .cli-log.active { max-height: 180px; padding: 12px 20px; border-top: 1px solid var(--accent-amber); overflow-y: auto; }
 
  /* Debrief News Broadcast Epilogue */
  .news-epilogue {
@@ -468,7 +489,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
 
  <div class="modal-part">
  <h4>[ TELEMETRY ] DEFCON Risk Escalation &amp; Consequences</h4>
- <p>Your campaign path is fully dynamic. Legacy workarounds increase your global <strong>DEFCON Risk Level</strong>. Sustaining critical damage (Risk exceeding 85%, triggering DEFCON 1) will result in an immediate catastrophic simulation abort. You must ride out the consequences of your architectural decisions to the bitter (or triumphant) end.</p>
+ <p>Your campaign path is fully dynamic. Legacy workarounds increase your global <strong>DEFCON Risk Level</strong>. Sustaining critical damage (Risk exceeding 85%, triggering DEFCON 1) will result in a localized failure, forcing an emergency external override.</p>
  </div>
 
  <!-- LEGAL DISCLAIMER BLOCK -->
@@ -483,6 +504,26 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
 
  <button class="btn-action-primary" style="width: 100%; margin-top: 10px;" onclick="closeTutorial()">[ ACCEPT TERMS ] PROCEED TO LENS SELECTION</button>
  </div>
+ </div>
+ 
+ <!-- Unit 42 Emergency Override Modal -->
+ <div id="unit42-modal" class="modal-shade">
+  <div class="modal-box" style="border-color: var(--accent-red); box-shadow: 0 0 40px rgba(255, 42, 42, 0.2), inset 0 0 20px rgba(0,0,0,0.8);">
+    <div class="modal-headline" style="color: var(--accent-red); text-shadow: 0 0 8px rgba(255, 42, 42, 0.4);">> CRITICAL SYSTEM FAILURE</div>
+    <div class="modal-subhead" style="color: #fff;">UNIT 42 INCIDENT COMMAND: EMERGENCY OVERRIDE INITIATED</div>
+
+    <div class="modal-part" style="border-left-color: var(--accent-red); background: rgba(255, 42, 42, 0.05);">
+      <h4 style="color: var(--accent-red);">[ ALERT ] LOCAL CREDENTIALS REVOKED</h4>
+      <p>Your legacy workarounds have escalated the threat beyond survivable thresholds. The Board of Directors has invoked emergency powers and air-dropped a <strong>Unit 42 Incident Commander</strong> into the terminal to salvage the environment.</p>
+    </div>
+
+    <div class="modal-part" style="border-left-color: var(--pan-orange);">
+      <h4 style="color: var(--pan-orange);">[ DIRECTIVE ] SHIFTING OPERATIONAL LENS</h4>
+      <p>You are now taking command as <strong>Unit 42</strong>. Use elite forensic tools and threat intelligence to eradicate the adversary before total infrastructure collapse.</p>
+    </div>
+
+    <button class="btn-action-primary" style="width: 100%; margin-top: 10px; background: var(--accent-red); border-color: var(--accent-red); box-shadow: 0 0 10px rgba(255, 42, 42, 0.4); color: #fff;" onclick="closeUnit42Modal()">[ ACKNOWLEDGE ] TRANSFER COMMAND</button>
+  </div>
  </div>
 
  <header>
@@ -552,6 +593,8 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  earlyTermination: false
  };
 
+ let typewriterTimeout = null;
+
  const personaConfigs = {
  noc: {
  title: 'NOC ENGINEER // NETWORK OPERATIONS',
@@ -600,116 +643,33 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  incident: "The Executive track is deeply inspired by the executive fallout seen during the Clorox and SolarWinds breaches, alongside strict new SEC and Canadian Bill C-26 reporting mandates. Fragmented tool sprawl led to paralyzing operational friction during incident response. Executives faced severe personal liability, class-action lawsuits, and crushing multi-million dollar ransom payouts simply because they lacked the consolidated visibility required to definitively prove data integrity to regulators.<br><br><a href='https://unit42.paloaltonetworks.com/cyber-extortion-economy/' target='_blank' style='color: var(--pan-blue); text-decoration: underline;'>[Unit 42: The Evolving Cyber Extortion Economy]</a>",
  mitigation: "Enterprise Platformization resolves this by consolidating 18+ disconnected point tools into a single architecture, drastically reducing MTTR and integration overhead. Unit 42 provides board-level forensic attestation to confidently refuse extortion demands. Strata Cloud Manager and Cortex XSIAM automate real-time compliance tracking, allowing the CISO to deliver flawless, instantaneous regulatory reporting within strict 4-day mandates."
  }
+ },
+ unit42: {
+ title: 'UNIT 42 // INCIDENT COMMAND',
+ badgeClass: 'badge-unit42',
+ badgeText: 'ROLE: UNIT 42',
+ initialNode: 'unit42_1',
+ relevantProducts: ['Cortex XDR', 'Cortex Cloud', 'Cortex XSIAM', 'Unit 42']
  }
  };
 
  // Maps the exact keys from relevantProducts to their display definitions
  const productDashboardDefinitions = {
- 'Strata Cloud Manager': {
- category: 'Network Operations & Orchestration',
- activeTelem: '0ms Config Drift // 14 Gateways Unified',
- gapTelem: '42 Min Manual Route-Maps // Inconsistent Policy',
- activeImpact: 'Enforced unified zero-trust policy synchronization across physical data centers and branches. Maintained 99.999% availability with zero manual CLI errors.',
- gapImpact: 'Manual prefix-list edits triggered BGP route flapping. Fragmented switch configurations resulted in uninspected transit bypass.'
- },
- 'Prisma SASE & SD-WAN': {
- category: 'Secure Access Service Edge & Branch',
- activeTelem: 'Sub-Second DPS Failover // Continuous Trust Active',
- gapTelem: '82ms Jitter // 14% Packet Loss // Stale Trust',
- activeImpact: 'Dynamic Path Selection seamlessly routed traffic around severed fiber in under 1s. ZTNA 2.0 revoked compromised sessions dynamically.',
- gapImpact: 'Branch users endured 90-minute collaboration blackouts while fruitlessly rebooting hardware. Uninspected VPN tunnels allowed compromised endpoints to pivot.'
- },
- 'Prisma Browser': {
- category: 'Enterprise Secure Web Isolation',
- activeTelem: '18 Unmanaged Endpoints Isolated // 0 Clipboard Leaks',
- gapTelem: '18 Full-Tunnel VPN Logins // Unchecked Contractor Pivot',
- activeImpact: 'Provided instant zero-trust web isolation for pipeline maintenance contractors on personal laptops. Blocked unauthorized copy-paste.',
- gapImpact: 'Legacy full-tunnel SSL-VPN allowed an unpatched contractor laptop to bridge external malware directly onto the internal corporate subnet.'
- },
- 'Strata NGFW & CDSS': {
- category: 'Perimeter, TLS 1.3 Inspection & OT Defense',
- activeTelem: 'Line-Rate FE400 TLS 1.3 Decrypt // SCADA App-ID Validated',
- gapTelem: '100% Encrypted Blind Spot // Zero-Day DGA Evasion',
- activeImpact: 'Hardware-accelerated FE400 silicon decrypted C2 beaconing at line-rate. Cloud-delivered Advanced DNS intercepted tunneling, protecting SCADA actuators.',
- gapImpact: 'Bypassing TLS decryption hid adversarial beaconing. Uninspected Modbus function calls reached pipeline actuators, forcing physical overrides.'
- },
- 'Cortex XDR': {
- category: 'Endpoint Detection & Response',
- activeTelem: 'Thread Injection Prevented // In-Memory Reversal: 200ms',
- gapTelem: 'Fileless Hook Successful // AES-256 Encryption Detonated',
- activeImpact: 'Behavioral analytics severed injected threads in memory and quarantined hosts before tokens could be dumped. Arrested ransomware in 200ms.',
- gapImpact: 'Traditional disk-scanning missed fileless memory hooks, allowing adversaries to extract credentials and encrypt database servers.'
- },
- 'Cortex AES': {
- category: 'Agentic Endpoint Security (AI Tools)',
- activeTelem: '100% MCP Tools Sandboxed // Prompt Injection Intercepted',
- gapTelem: 'Arbitrary Bash Executed // Cloud Secrets Transmitted',
- activeImpact: 'Governed developer AI coding assistants by sandboxing Model Context Protocol sockets. Intercepted prompt injections and prevented cloud secret theft.',
- gapImpact: 'Ungoverned developer AI assistants inherited root shell privileges, reading AWS production secrets and uploading them to attacker servers.'
- },
- 'Cortex Cloud': {
- category: 'Cloud-Native Security (eBPF & Supply Chain)',
- activeTelem: 'eBPF Escapes Blocked // Typosquat Packages Purged',
- gapTelem: 'runc Root Escape // 4,000 Lambda Miners Active',
- activeImpact: 'Shift-left scanners purged typosquatted packages before compilation. Kernel-level eBPF sensors blocked Kubernetes escapes, and Serverless guardrails halted cryptomining.',
- gapImpact: 'Zero-day supply chain packages compiled into production containers, a container breakout granted root cluster access, and serverless miners depleted budgets.'
- },
- 'Cortex Cloud DSPM': {
- category: 'Data Security Posture Management',
- activeTelem: 'DSPM Zero-Trust Encryption // Data Sovereignty Enforced',
- gapTelem: '45GB Plaintext PII Exfiltrated // Offshore Transfer Initiated',
- activeImpact: 'Continuously mapped the cloud data lake, severing unauthorized S3 exfiltration streams instantly and enforcing strict geographic residency boundaries.',
- gapImpact: 'Adversaries successfully exfiltrated 45GB of plaintext customer records and scheduled unauthorized offshore data migrations.'
- },
- 'Prisma AIRS': {
- category: 'AI Runtime Security & Model Integrity',
- activeTelem: 'Jailbreaks Sanitized // 48 Poisoned Vector Embeddings Purged',
- gapTelem: 'System Instruction Override // RAG Phishing Deployed',
- activeImpact: 'Inspected generative AI prompts inline to neutralize semantic jailbreaks. Purged poisoned vector embeddings to protect internal AI workflows.',
- gapImpact: 'Obfuscated prompt injections extracted backend database strings, and poisoned vector embeddings caused AI assistants to recommend malicious binaries.'
- },
- 'Idira': {
- category: 'Identity Security & Zero Standing Privilege',
- activeTelem: '0 Standing Admin Privileges // 420 TGS Storm Intercepted',
- gapTelem: 'Active Directory Ticket Forged // Insider Exfiltration Unchecked',
- activeImpact: 'Enforced dynamic just-in-time identity elevation, neutralized Kerberoasting attacks, prevented Golden Ticket forgery, and revoked departing insider access.',
- gapImpact: 'Offline GPU cracking of extracted service tickets allowed the adversary to forge an administrative Golden Ticket, establishing permanent domain dominance.'
- },
- 'Cortex XSIAM': {
- category: 'Autonomous SOC & Incident Orchestration',
- activeTelem: '124,000 EPS Ingested // Orchestration Containment: 1.8 Sec',
- gapTelem: '50-Minute Triage Backlog // 4,800 Unassigned Alerts',
- activeImpact: 'Effortlessly ingested volumetric telemetry floods, collapsed alerts into a single incident narrative, and executed machine-speed cross-pillar containment in 1.8 seconds.',
- gapImpact: 'Traditional SIEM queues collapsed under telemetry deluges. Manual Jira escalation allowed the adversary to easily deploy counter-evasion measures.'
- },
- 'Enterprise Platformization': {
- category: 'Strategic Architecture Consolidation',
- activeTelem: 'Vendor Sprawl Collapsed // Sub-Minute MTTR // 357% ROI',
- gapTelem: '18 Disconnected Point Tools // $3.4M Integration Overhead',
- activeImpact: 'Replaced a fragmented 18-vendor stack with a unified architecture. Slashed integration overhead, reduced MTTR to seconds, and proved a 357% ROI.',
- gapImpact: 'Maintained a disjointed point-tool strategy, suffering through gaping integration seams and massive overhead that paralyzed cross-domain response.'
- },
- 'AI Gateway': {
- category: 'Enterprise GenAI Access Governance',
- activeTelem: '52 Shadow LLMs Cataloged // 100% Canadian PII Masked',
- gapTelem: 'Uncontrolled Consumer LLM Usage // PIPEDA Data Leakage',
- activeImpact: 'Proxied all enterprise AI model interactions, cataloging shadow AI tools and automatically redacting confidential pipeline data and PII before it hit public consumer models.',
- gapImpact: 'Employees pasted confidential schematics and unencrypted personal data directly into public AI models, triggering severe regulatory investigations.'
- },
- 'Cortex Xpanse': {
- category: 'Active Attack Surface Management',
- activeTelem: '100% IPv4 Perimeter Scanned // 14 Supplier APIs Governed',
- gapTelem: 'Unmapped Shadow Asset Pivot // Unsegmented Supplier Breach',
- activeImpact: 'Continuously discovered outside-in external assets, isolating compromised third-party logistics supplier API integrations before lateral penetration occurred.',
- gapImpact: 'Unmonitored external partner integrations allowed the adversary to pivot through a supplier’s compromised credentials directly into Boreal Core’s supply chain.'
- },
- 'Unit 42': {
- category: 'Threat Intelligence & Incident Response',
- activeTelem: 'Adversary Playbooks Neutralized // 400 BTC Ransom Rebuffed',
- gapTelem: '$12M CAD Ransom Paid // Formal CCCS Regulatory Sanctions',
- activeImpact: 'Frontline Unit 42 telemetry confirmed zero unauthorized data encryption, empowering the CISO to confidently rebuff the 400 Bitcoin extortion demand.',
- gapImpact: 'Lacking authoritative incident response verification, panicked executives authorized a humiliating $12M CAD extortion payout, triggering front-page regulatory penalties.'
- }
+ 'Strata Cloud Manager': { category: 'Network Operations & Orchestration', activeTelem: '0ms Config Drift // 14 Gateways Unified', gapTelem: '42 Min Manual Route-Maps // Inconsistent Policy', activeImpact: 'Enforced unified zero-trust policy synchronization across physical data centers and branches. Maintained 99.999% availability with zero manual CLI errors.', gapImpact: 'Manual prefix-list edits triggered BGP route flapping. Fragmented switch configurations resulted in uninspected transit bypass.' },
+ 'Prisma SASE & SD-WAN': { category: 'Secure Access Service Edge & Branch', activeTelem: 'Sub-Second DPS Failover // Continuous Trust Active', gapTelem: '82ms Jitter // 14% Packet Loss // Stale Trust', activeImpact: 'Dynamic Path Selection seamlessly routed traffic around severed fiber in under 1s. ZTNA 2.0 revoked compromised sessions dynamically.', gapImpact: 'Branch users endured 90-minute collaboration blackouts while fruitlessly rebooting hardware. Uninspected VPN tunnels allowed compromised endpoints to pivot.' },
+ 'Prisma Browser': { category: 'Enterprise Secure Web Isolation', activeTelem: '18 Unmanaged Endpoints Isolated // 0 Clipboard Leaks', gapTelem: '18 Full-Tunnel VPN Logins // Unchecked Contractor Pivot', activeImpact: 'Provided instant zero-trust web isolation for pipeline maintenance contractors on personal laptops. Blocked unauthorized copy-paste.', gapImpact: 'Legacy full-tunnel SSL-VPN allowed an unpatched contractor laptop to bridge external malware directly onto the internal corporate subnet.' },
+ 'Strata NGFW & CDSS': { category: 'Perimeter, TLS 1.3 Inspection & OT Defense', activeTelem: 'Line-Rate FE400 TLS 1.3 Decrypt // SCADA App-ID Validated', gapTelem: '100% Encrypted Blind Spot // Zero-Day DGA Evasion', activeImpact: 'Hardware-accelerated FE400 silicon decrypted C2 beaconing at line-rate. Cloud-delivered Advanced DNS intercepted tunneling, protecting SCADA actuators.', gapImpact: 'Bypassing TLS decryption hid adversarial beaconing. Uninspected Modbus function calls reached pipeline actuators, forcing physical overrides.' },
+ 'Cortex XDR': { category: 'Endpoint Detection & Response', activeTelem: 'Thread Injection Prevented // In-Memory Reversal: 200ms', gapTelem: 'Fileless Hook Successful // AES-256 Encryption Detonated', activeImpact: 'Behavioral analytics severed injected threads in memory and quarantined hosts before tokens could be dumped. Arrested ransomware in 200ms.', gapImpact: 'Traditional disk-scanning missed fileless memory hooks, allowing adversaries to extract credentials and encrypt database servers.' },
+ 'Cortex AES': { category: 'Agentic Endpoint Security (AI Tools)', activeTelem: '100% MCP Tools Sandboxed // Prompt Injection Intercepted', gapTelem: 'Arbitrary Bash Executed // Cloud Secrets Transmitted', activeImpact: 'Governed developer AI coding assistants by sandboxing Model Context Protocol sockets. Intercepted prompt injections and prevented cloud secret theft.', gapImpact: 'Ungoverned developer AI assistants inherited root shell privileges, reading AWS production secrets and uploading them to attacker servers.' },
+ 'Cortex Cloud': { category: 'Cloud-Native Security (eBPF & Supply Chain)', activeTelem: 'eBPF Escapes Blocked // Typosquat Packages Purged', gapTelem: 'runc Root Escape // 4,000 Lambda Miners Active', activeImpact: 'Shift-left scanners purged typosquatted packages before compilation. Kernel-level eBPF sensors blocked Kubernetes escapes, and Serverless guardrails halted cryptomining.', gapImpact: 'Zero-day supply chain packages compiled into production containers, a container breakout granted root cluster access, and serverless miners depleted budgets.' },
+ 'Cortex Cloud DSPM': { category: 'Data Security Posture Management', activeTelem: 'DSPM Zero-Trust Encryption // Data Sovereignty Enforced', gapTelem: '45GB Plaintext PII Exfiltrated // Offshore Transfer Initiated', activeImpact: 'Continuously mapped the cloud data lake, severing unauthorized S3 exfiltration streams instantly and enforcing strict geographic residency boundaries.', gapImpact: 'Adversaries successfully exfiltrated 45GB of plaintext customer records and scheduled unauthorized offshore data migrations.' },
+ 'Prisma AIRS': { category: 'AI Runtime Security & Model Integrity', activeTelem: 'Jailbreaks Sanitized // 48 Poisoned Vector Embeddings Purged', gapTelem: 'System Instruction Override // RAG Phishing Deployed', activeImpact: 'Inspected generative AI prompts inline to neutralize semantic jailbreaks. Purged poisoned vector embeddings to protect internal AI workflows.', gapImpact: 'Obfuscated prompt injections extracted backend database strings, and poisoned vector embeddings caused AI assistants to recommend malicious binaries.' },
+ 'Idira': { category: 'Identity Security & Zero Standing Privilege', activeTelem: '0 Standing Admin Privileges // 420 TGS Storm Intercepted', gapTelem: 'Active Directory Ticket Forged // Insider Exfiltration Unchecked', activeImpact: 'Enforced dynamic just-in-time identity elevation, neutralized Kerberoasting attacks, prevented Golden Ticket forgery, and revoked departing insider access.', gapImpact: 'Offline GPU cracking of extracted service tickets allowed the adversary to forge an administrative Golden Ticket, establishing permanent domain dominance.' },
+ 'Cortex XSIAM': { category: 'Autonomous SOC & Incident Orchestration', activeTelem: '124,000 EPS Ingested // Orchestration Containment: 1.8 Sec', gapTelem: '50-Minute Triage Backlog // 4,800 Unassigned Alerts', activeImpact: 'Effortlessly ingested volumetric telemetry floods, collapsed alerts into a single incident narrative, and executed machine-speed cross-pillar containment in 1.8 seconds.', gapImpact: 'Traditional SIEM queues collapsed under telemetry deluges. Manual Jira escalation allowed the adversary to easily deploy counter-evasion measures.' },
+ 'Enterprise Platformization': { category: 'Strategic Architecture Consolidation', activeTelem: 'Vendor Sprawl Collapsed // Sub-Minute MTTR // 357% ROI', gapTelem: '18 Disconnected Point Tools // $3.4M Integration Overhead', activeImpact: 'Replaced a fragmented 18-vendor stack with a unified architecture. Slashed integration overhead, reduced MTTR to seconds, and proved a 357% ROI.', gapImpact: 'Maintained a disjointed point-tool strategy, suffering through gaping integration seams and massive overhead that paralyzed cross-domain response.' },
+ 'AI Gateway': { category: 'Enterprise GenAI Access Governance', activeTelem: '52 Shadow LLMs Cataloged // 100% Canadian PII Masked', gapTelem: 'Uncontrolled Consumer LLM Usage // PIPEDA Data Leakage', activeImpact: 'Proxied all enterprise AI model interactions, cataloging shadow AI tools and automatically redacting confidential pipeline data and PII before it hit public consumer models.', gapImpact: 'Employees pasted confidential schematics and unencrypted personal data directly into public AI models, triggering severe regulatory investigations.' },
+ 'Cortex Xpanse': { category: 'Active Attack Surface Management', activeTelem: '100% IPv4 Perimeter Scanned // 14 Supplier APIs Governed', gapTelem: 'Unmapped Shadow Asset Pivot // Unsegmented Supplier Breach', activeImpact: 'Continuously discovered outside-in external assets, isolating compromised third-party logistics supplier API integrations before lateral penetration occurred.', gapImpact: 'Unmonitored external partner integrations allowed the adversary to pivot through a supplier’s compromised credentials directly into Boreal Core’s supply chain.' },
+ 'Unit 42': { category: 'Threat Intelligence & Incident Response', activeTelem: 'Adversary Playbooks Neutralized // 400 BTC Ransom Rebuffed', gapTelem: '$12M CAD Ransom Paid // Formal CCCS Regulatory Sanctions', activeImpact: 'Frontline Unit 42 telemetry confirmed zero unauthorized data encryption, empowering the CISO to confidently rebuff the 400 Bitcoin extortion demand.', gapImpact: 'Lacking authoritative incident response verification, panicked executives authorized a humiliating $12M CAD extortion payout, triggering front-page regulatory penalties.' }
  };
 
  const stageSvgEngine = {
@@ -741,7 +701,8 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  noc: { primary: '#00c0f7', accent: '#00ff41', bg: 'transparent' },
  soc: { primary: '#fa582d', accent: '#ff2a2a', bg: 'transparent' },
  cloud: { primary: '#c084fc', accent: '#00c0f7', bg: 'transparent' },
- exec: { primary: '#00ff41', accent: '#00c0f7', bg: 'transparent' }
+ exec: { primary: '#00ff41', accent: '#00c0f7', bg: 'transparent' },
+ unit42: { primary: '#ff2a2a', accent: '#ffb000', bg: 'rgba(255, 42, 42, 0.05)' }
  };
  const col = pColors[persona] || pColors.noc;
  let dynamicSceneElements = '';
@@ -800,14 +761,14 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you decide to engage Prisma SASE to orchestrate zero-trust filtering and deprecate the vulnerable hardware, proceed.',
  'Prisma SASE & SD-WAN', null, -10,
  'Prisma SASE neutralized the attack surface by moving access to the cloud, disconnecting the vulnerable appliance instantly.',
- 'noc_2' // Golden Path
+ 'noc_2'
  ),
  createGenericOption(
  'Attempt to hot-patch the legacy VPN appliances manually via terminal SSH',
  'If you decide to log into the edge routers via SSH and frantically hammer out static firmware patches, proceed.',
  null, 'Manual Patching Delay & Dropped SCADA Transit', +20,
  'Your manual CLI edits dropped critical SCADA transit routing while the device rebooted. Alberta field pipelines are now running blind.',
- 'noc_1_fallout' // Fallout Branch
+ 'noc_1_fallout'
  )
  ]
  },
@@ -828,14 +789,14 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you use Strata NGFW & CDSS to securely and instantly bridge the IT/OT gap without manual routing, proceed.',
  'Strata NGFW & CDSS', null, -10,
  'Strata NGFW instantly recognized and secured the SCADA traffic profiles, restoring pipeline visibility before physical rupture.',
- 'noc_2' // Merge back to main
+ 'noc_2'
  ),
  createGenericOption(
  'Authorize field engineers to manually release physical pressure valves',
  'If you choose to accept the physical risk and direct field teams into the blizzard, proceed.',
  null, 'Physical Valve Override & Regulatory Environmental Fine', +25,
  'Field engineers manually released the pressure, saving the pipes but venting raw gas, triggering a severe federal environmental audit.',
- 'noc_2' // Merge back to main
+ 'noc_2'
  )
  ]
  },
@@ -965,14 +926,14 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you choose to use Prisma SASE to evaluate endpoint context and instantly terminate the compromised session, proceed.',
  'Prisma SASE & SD-WAN', null, -10,
  'ZTNA 2.0 immediately identified the anomalous behavior and severed the compromised database session, saving the tokens.',
- 'noc_6' // Merge
+ 'noc_6'
  ),
  createGenericOption(
  'Attempt to trace and null-route the specific staging IP address manually',
  'If you attempt to find the rogue IP and null-route it manually on the core switch, proceed.',
  null, 'IP Spoofing Evasion & Token Exfiltration', +25,
  'The attacker simply spoofed a new IP address within seconds, continuing their extraction undisturbed while you traced ghosts.',
- 'noc_6' // Merge
+ 'noc_6'
  )
  ]
  },
@@ -1166,12 +1127,7 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  )
  ]
  },
- noc_debrief: {
- act: 'NOC // DEBRIEF',
- speaker: 'NOC OPERATIONS REVIEW',
- title: 'NOC Operational Posture Assessment',
- isDebrief: true
- },
+ noc_debrief: { act: 'NOC // DEBRIEF', speaker: 'NOC OPERATIONS REVIEW', title: 'NOC Operational Posture Assessment', isDebrief: true },
 
  // ---------------- SOC TRACK ----------------
  soc_1: {
@@ -1197,8 +1153,8 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you trust the helpdesk\'s manual validation and allow the session to persist, proceed.',
  null, 'MFA Bypass Successful & Persistent Identity Compromise', +20,
  'Because the attacker had a valid token, your legacy tools ignored them. They are now moving laterally into developer workstations.',
- 'soc_1_fallout' // Fallout Branch
- )
+ 'soc_1_fallout' 
+)
  ]
  },
  soc_1_fallout: {
@@ -1218,15 +1174,15 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you choose to engage Cortex XDR behavioral analytics to terminate the hollowed thread and instantly isolate the workstation, proceed.',
  'Cortex XDR', null, -10,
  'Cortex XDR behavioral analytics severed the injected thread in memory and quarantined the host before tokens could be dumped.',
- 'soc_2' // Merge
- ),
+ 'soc_2' 
+),
  createGenericOption(
  'Queue a standard full-disk antivirus scan and advise the developer to reboot',
  'If you choose to schedule a standard administrative anti-malware scan and message the developer to reboot at lunch, proceed.',
  null, 'Fileless Memory Blind Spot & Local Credential Dumping', +25,
  'Antivirus reported zero infected files on disk while the memory hook dumped master Kubernetes tokens directly to the attacker.',
- 'soc_2' // Merge
- )
+ 'soc_2' 
+)
  ]
  },
  soc_2: {
@@ -1325,8 +1281,8 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  createGenericOption(
  'Enforce Cortex Cloud Data Security Posture Management (DSPM) & Real-Time Data Guardrails',
  'If you choose to deploy Cortex Cloud DSPM to discover sensitive data assets and instantly sever unauthorized exfiltration streams, proceed.',
- 'Cortex Cloud DSPM', null, -10, // Reusing Cortex Cloud here for alignment
- 'Cortex Cloud DSPM terminated the exfiltration session immediately and applied zero-trust encryption across the entire data lake.',
+ 'Cortex Cloud DSPM', null, -10, 
+'Cortex Cloud DSPM terminated the exfiltration session immediately and applied zero-trust encryption across the entire data lake.',
  'soc_6'
  ),
  createGenericOption(
@@ -1334,8 +1290,8 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you decide to handle storage bucket permissions through a weekly spreadsheet review with the cloud engineering team, proceed.',
  null, 'Mass Customer PII Exfiltration & Severe Privacy Breach', +25,
  'The attacker successfully exfiltrated forty-five gigabytes of plaintext customer SINs and banking data before any analyst intervened.',
- 'soc_5_fallout' // Fallout branch
- )
+ 'soc_5_fallout' 
+)
  ]
  },
  soc_5_fallout: {
@@ -1355,15 +1311,15 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you deploy Prisma AIRS to instantly sanitize and block any further leakage of Boreal data into public models, proceed.',
  'Prisma AIRS', null, -10,
  'Prisma AIRS successfully intercepted further data leakage, sanitizing the prompts and containing the PR disaster.',
- 'soc_6' // Merge
- ),
+ 'soc_6' 
+),
  createGenericOption(
  'Issue a company-wide email asking employees not to use generative AI tools',
  'If you choose to rely on human compliance and send an email policy update, proceed.',
  null, 'Uncontrolled Data Ingestion & Permanent Model Poisoning', +25,
  'Employees ignored the email, continuing to query the leaked data, permanently embedding Boreal secrets into public AI models.',
- 'soc_6' // Merge
- )
+ 'soc_6' 
+)
  ]
  },
  soc_6: {
@@ -1556,12 +1512,7 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  )
  ]
  },
- soc_debrief: {
- act: 'SOC // DEBRIEF',
- speaker: 'SOC FORENSIC EVALUATION',
- title: 'SOC Operational Posture Assessment',
- isDebrief: true
- },
+ soc_debrief: { act: 'SOC // DEBRIEF', speaker: 'SOC FORENSIC EVALUATION', title: 'SOC Operational Posture Assessment', isDebrief: true },
 
  // ---------------- CLOUD ARCHITECT TRACK ----------------
  cloud_1: {
@@ -1608,15 +1559,15 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you utilize Strata Cloud Manager to rapidly push validated policy states across all cloud gateways, proceed.',
  'Strata Cloud Manager', null, -10,
  'Strata Cloud Manager instantly restored the validated API policies, bringing billing back online while keeping the rogue attacker locked out.',
- 'cloud_2' // Merge back
- ),
+ 'cloud_2' 
+),
  createGenericOption(
  'Temporarily disable API authentication requirements to get billing flowing again',
  'If you choose to bypass authentication checks to stop the revenue bleeding, proceed.',
  null, 'API Endpoint Exposure & Lateral Data Breach', +25,
  'Disabling authentication allowed the adversary to ride the unprotected API endpoint straight into the financial ledger databases.',
- 'cloud_2' // Merge back
- )
+ 'cloud_2' 
+)
  ]
  },
  cloud_2: {
@@ -1777,8 +1728,8 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you decide to handle storage bucket permissions through a weekly spreadsheet review, proceed.',
  null, 'Mass Customer PII Exfiltration & Severe Privacy Breach', +20,
  'The attacker successfully exfiltrated forty-five gigabytes of plaintext customer banking data before any analyst intervened.',
- 'cloud_7_fallout' // Fallout branch
- )
+ 'cloud_7_fallout' 
+)
  ]
  },
  cloud_7_fallout: {
@@ -1798,15 +1749,15 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you deploy Prisma AIRS to instantly sanitize and block any further leakage of Boreal data into public models, proceed.',
  'Prisma AIRS', null, -10,
  'Prisma AIRS successfully intercepted further data leakage, sanitizing the prompts and containing the PR disaster.',
- 'cloud_8' // Merge
- ),
+ 'cloud_8' 
+),
  createGenericOption(
  'Issue a company-wide email asking employees not to use generative AI tools',
  'If you choose to rely on human compliance and send an email policy update, proceed.',
  null, 'Uncontrolled Data Ingestion & Permanent Model Poisoning', +25,
  'Employees ignored the email, continuing to query the leaked data, permanently embedding Boreal secrets into public AI models.',
- 'cloud_8' // Merge
- )
+ 'cloud_8' 
+)
  ]
  },
  cloud_8: {
@@ -1945,12 +1896,7 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  )
  ]
  },
- cloud_debrief: {
- act: 'CLOUD // DEBRIEF',
- speaker: 'CLOUD OPERATIONS REVIEW',
- title: 'Cloud Security Posture Assessment',
- isDebrief: true
- },
+ cloud_debrief: { act: 'CLOUD // DEBRIEF', speaker: 'CLOUD OPERATIONS REVIEW', title: 'Cloud Security Posture Assessment', isDebrief: true },
 
  // ---------------- EXECUTIVE TRACK ----------------
  exec_1: {
@@ -1976,8 +1922,8 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you choose to defend the status quo and argue that eighteen specialized point tools provide defense-in-depth, proceed.',
  null, 'Vendor Sprawl, High Operational Friction & Extended MTTR', +15,
  'Vendor sprawl left gaping integration seams between cloud and endpoint teams, paralyzing cross-domain response during the incident.',
- 'exec_1_fallout' // Fallout Branch
- )
+ 'exec_1_fallout' 
+)
  ]
  },
  exec_1_fallout: {
@@ -1997,15 +1943,15 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you choose to demonstrate a 357% composite ROI by retiring redundant point vendors and streamlining operational headcount, proceed.',
  'Enterprise Platformization', null, -10,
  'The CFO ratified the platform consolidation plan, securing a 42% reduction in licensing costs while saving the SOC budget.',
- 'exec_2' // Merge back
- ),
+ 'exec_2' 
+),
  createGenericOption(
  'Accept the 25% budget cut and slash tier-1 analyst headcount',
  'If you choose to accept the budget cut by dropping support tiers and firing junior analysts, proceed.',
  null, 'Compromised Defensive Coverage & Operational Morale Decline', +25,
  'Arbitrary budget cuts severely degraded sensor coverage and analyst morale, leaving cloud workloads blind right as attacks intensified.',
- 'exec_2' // Merge back
- )
+ 'exec_2' 
+)
  ]
  },
  exec_2: {
@@ -2113,8 +2059,8 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you choose to email the vendor a compliance questionnaire while keeping existing API and VPN tunnels open, proceed.',
  null, 'Supply Chain Lateral Breach & Inventory System Compromise', +20,
  'The attacker utilized the compromised vendor API connection to pivot into Boreal’s logistics management systems.',
- 'exec_5_fallout' // Fallout Branch
- )
+ 'exec_5_fallout' 
+)
  ]
  },
  exec_5_fallout: {
@@ -2133,15 +2079,15 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  'If you use Idira to instantly revoke standing admin rights and kill the rogue accounts, proceed.',
  'Idira', null, -10,
  'Idira stripped all standing administrative access instantly, locking out the attacker before ransomware could deploy.',
- 'exec_6' // Merge
- ),
+ 'exec_6' 
+),
  createGenericOption(
  'Ask the helpdesk team to manually review and delete new local admin accounts',
  'If you rely on manual helpdesk tickets to find and remove the rogue accounts across 3,400 machines, proceed.',
  null, 'Mass Endpoint Compromise & Impending Ransomware Threat', +25,
  'The helpdesk could only clear 200 machines before the adversary locked out all local administrators entirely.',
- 'exec_6' // Merge
- )
+ 'exec_6' 
+)
  ]
  },
  exec_6: {
@@ -2334,12 +2280,92 @@ return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.
  )
  ]
  },
- exec_debrief: {
- act: 'EXECUTIVE // DEBRIEF',
- speaker: 'EXECUTIVE BOARD DEBRIEF',
- title: 'Executive Strategic Cyber Risk Assessment',
- isDebrief: true
- }
+ exec_debrief: { act: 'EXECUTIVE // DEBRIEF', speaker: 'EXECUTIVE BOARD DEBRIEF', title: 'Executive Strategic Cyber Risk Assessment', isDebrief: true },
+
+ // ---------------- UNIT 42 REDEMPTION TRACK ----------------
+ unit42_1: {
+ act: 'UNIT 42 // INCIDENT COMMAND',
+ burst: 'EMERGENCY OVERRIDE',
+ speaker: 'UNIT 42 LEAD SENSOR',
+ title: 'The Burning Data Center',
+ paragraphs: [
+ 'SYSTEM OVERRIDE. LOCAL CREDENTIALS REVOKED.',
+ 'The localized IT response has failed catastrophically. The Board of Directors has invoked emergency powers, air-dropping a Unit 42 Incident Commander into the terminal to salvage what is left of Boreal Core.',
+ 'You are now in command. The immediate threat: AES-256 ransomware is actively encrypting the primary hypervisors. You have seconds to act before total data loss.'
+ ],
+ telemetry: 'Ransomware deployment active. 14% of ESXi host files encrypted.',
+ options: [
+ createGenericOption(
+ 'Deploy Cortex XDR to halt the encryption process in memory and reverse the damage',
+ 'Utilize Cortex XDR to terminate the ransomware threads and invoke automated recovery.',
+ 'Cortex XDR', null, -20,
+ 'Cortex XDR arrested ransomware execution and restored files via shadow copies.',
+ 'unit42_2'
+ ),
+ createGenericOption(
+ 'Order a hard power-cut to the data center racks',
+ 'Pull the literal plug to stop the processors from encrypting more data.',
+ null, 'Total DB Corruption', +30,
+ 'Hard power cut resulted in catastrophic database corruption. The patient is dying.',
+ 'unit42_2'
+ )
+ ]
+ },
+ unit42_2: {
+ act: 'UNIT 42 // CLOUD CONTAINMENT',
+ burst: 'CLOUD BACKDOORS',
+ speaker: 'UNIT 42 CLOUD OPS',
+ title: 'The Rogue Cloud Hooks',
+ paragraphs: [
+ 'The physical bleeding is addressed, but the adversary has entrenched themselves in Boreal’s multi-cloud estate. They are using compromised OAuth tokens and dormant IAM roles to spin up unauthorized cryptominers and establish persistent backdoors.',
+ 'If you do not sever these connections simultaneously, the attacker will just re-enter through an alternate cloud region.'
+ ],
+ telemetry: 'Multiple unauthorized API sessions spawning resources in US-East and EU-West regions.',
+ options: [
+ createGenericOption(
+ 'Engage Cortex Cloud to instantly map and sever all unauthorized API access',
+ 'Deploy Cortex Cloud to track the malicious behavior and surgically revoke compromised tokens.',
+ 'Cortex Cloud', null, -20,
+ 'Cortex Cloud identified and severed all rogue multi-cloud backdoors instantly.',
+ 'unit42_3'
+ ),
+ createGenericOption(
+ 'Manually disable all cloud external gateways via provider consoles',
+ 'Log into AWS and Azure manually to shut down all external routing.',
+ null, 'Manual Mitigation Latency', +20,
+ 'Manual shutdowns took 40 minutes, allowing attackers to exfiltrate a final batch of data.',
+ 'unit42_3'
+ )
+ ]
+ },
+ unit42_3: {
+ act: 'UNIT 42 // THREAT ERADICATION',
+ burst: 'FORENSIC AUDIT',
+ speaker: 'UNIT 42 COMMAND',
+ title: 'The Final Stitch',
+ paragraphs: [
+ 'The active attacks are suppressed, but the Board and federal regulators demand absolute proof that the adversary (Tundra Serpent) has been fully eradicated from the network.',
+ 'You need a unified forensic timeline that spans the endpoint, network, and cloud domains. Fragmented logs will not satisfy the Canadian Centre for Cyber Security.'
+ ],
+ telemetry: 'Regulators awaiting mandatory Bill C-26 attestation of threat eradication.',
+ options: [
+ createGenericOption(
+ 'Leverage Cortex XSIAM to auto-stitch cross-domain forensics into a single narrative',
+ 'Use XSIAM to compile a comprehensive, cryptographically verified incident timeline.',
+ 'Cortex XSIAM', null, -20,
+ 'XSIAM stitched millions of logs into a single definitive eradication report.',
+ 'unit42_debrief'
+ ),
+ createGenericOption(
+ 'Export raw CSV logs from remaining point tools and mandate a 48-hour manual hunt',
+ 'Tell the exhausted analysts to start parsing CSV files in Excel.',
+ null, 'Forensic Blind Spots', +20,
+ 'Manual log parsing failed to find the final persistence mechanism.',
+ 'unit42_debrief'
+ )
+ ]
+ },
+ unit42_debrief: { act: 'UNIT 42 // DEBRIEF', speaker: 'UNIT 42 FORENSIC EVALUATION', title: 'Unit 42 Post-Incident Assessment', isDebrief: true }
  };
 
  function getDefconLevel(risk) {
@@ -2412,6 +2438,19 @@ const lines = [
  if (modal) modal.style.display = 'none';
  }
 
+ function openUnit42Modal() {
+  const modal = document.getElementById('unit42-modal');
+  if (modal) modal.style.display = 'flex';
+ }
+
+ function closeUnit42Modal() {
+  const modal = document.getElementById('unit42-modal');
+  if (modal) {
+    modal.style.display = 'none';
+    renderStage();
+  }
+ }
+
  function selectPersona(roleKey) {
  appState.persona = roleKey;
  const config = personaConfigs[roleKey];
@@ -2474,6 +2513,7 @@ document.getElementById('cli-bar').style.display = 'none';
  grid.className = 'role-cards-grid';
 
  Object.keys(personaConfigs).forEach(key => {
+ if (key === 'unit42') return; // Hide Unit 42 from initial selection
  const cfg = personaConfigs[key];
  const card = document.createElement('div');
  card.className = 'role-select-card ' + key;
@@ -2498,6 +2538,21 @@ let desc = '';
  container.appendChild(wrap);
  }
 
+ function typeParagraphs(paragraphs, pElements, currentP, currentChar) {
+ if (currentP >= paragraphs.length) return;
+ 
+if (currentChar < paragraphs[currentP].length) {
+ pElements[currentP].textContent += paragraphs[currentP].charAt(currentChar);
+ typewriterTimeout = setTimeout(() => {
+ typeParagraphs(paragraphs, pElements, currentP, currentChar + 1);
+ }, 8); 
+} else {
+ typewriterTimeout = setTimeout(() => {
+ typeParagraphs(paragraphs, pElements, currentP + 1, 0);
+ }, 100); 
+}
+ }
+
  function renderStage() {
  const container = document.getElementById('dynamic-content');
  const node = storyGraphs[appState.currentNode];
@@ -2512,7 +2567,11 @@ let desc = '';
  return;
  }
  
-document.getElementById('cli-bar').style.display = 'flex';
+if (typewriterTimeout) {
+ clearTimeout(typewriterTimeout);
+ }
+
+ document.getElementById('cli-bar').style.display = 'flex';
 
  const stageDisplay = appState.stageCount < 10 ? '0' + appState.stageCount : appState.stageCount;
  document.getElementById('sim-badge').textContent = node.act + ' // STAGE ' + stageDisplay;
@@ -2554,7 +2613,7 @@ document.getElementById('cli-bar').style.display = 'flex';
 
  contentBox.appendChild(headerBar);
 
- // Contextual Telemetry Data Box (MOVED HERE AS REQUESTED)
+ // Contextual Telemetry Data Box
  const telem = document.createElement('div');
  telem.className = 'telemetry-ticker';
  const telemStrong = document.createElement('span');
@@ -2583,13 +2642,19 @@ const telemTextWrap = document.createElement('span');
 
  const narrativeBox = document.createElement('div');
  narrativeBox.className = 'narrative-text';
- node.paragraphs.forEach(function(pText) {
+ 
+// Setup Typewriter p tags
+ const pTags = node.paragraphs.map(() => {
  const p = document.createElement('p');
- p.textContent = pText;
  narrativeBox.appendChild(p);
+ return p;
  });
- narrativeWrap.appendChild(narrativeBox);
+ 
+narrativeWrap.appendChild(narrativeBox);
  contentBox.appendChild(narrativeWrap);
+ 
+// Execute typewriter
+ typeParagraphs(node.paragraphs, pTags, 0, 0);
 
  // Decision Section
  const decisionWrap = document.createElement('div');
@@ -2641,6 +2706,13 @@ const telemTextWrap = document.createElement('span');
  const node = storyGraphs[appState.currentNode];
  const opt = node.options[index];
 
+ // Visceral CSS Screen Shake for bad decisions
+ if (opt.legacy) {
+ const term = document.getElementById('main-terminal');
+ term.classList.add('shake-active');
+ setTimeout(() => term.classList.remove('shake-active'), 400);
+ }
+
  // Risk Calculation
  appState.riskLevel = Math.max(0, Math.min(100, appState.riskLevel + (opt.riskChange || 0)));
 
@@ -2671,17 +2743,28 @@ const telemTextWrap = document.createElement('span');
 
  appState.stageCount++;
 
- // Dynamic threshold failure check
- if (appState.riskLevel >= 85) {
- appState.earlyTermination = true;
+ // Dynamic threshold failure check - Kick to Unit 42 Redemption Track
+ if (appState.riskLevel >= 85 && appState.persona !== 'unit42') {
  appState.history.push({
  stage: appState.stageCount,
- title: "SYSTEM OVERLOAD // EMERGENCY ABORT",
+ title: "SYSTEM OVERLOAD // EMERGENCY PROTOCOL INVOKED",
  choiceLabel: "CRITICAL THRESHOLD EXCEEDED",
- telemetryLog: "Risk metrics exceeded survivable thresholds. Incident response capabilities overwhelmed. Forcing immediate operational abort.",
+ telemetryLog: "Risk metrics exceeded survivable thresholds. Local credentials revoked. Invoking external Unit 42 Incident Command.",
  time: getSimTime(appState.stageCount)
  });
- appState.currentNode = appState.persona + '_debrief';
+ 
+const badge = document.getElementById('sim-badge');
+ badge.className = 'role-badge badge-unit42';
+ badge.textContent = personaConfigs['unit42'].badgeText;
+ document.getElementById('header-sub').textContent = personaConfigs['unit42'].title;
+
+ appState.persona = 'unit42';
+ appState.currentNode = 'unit42_1';
+ appState.riskLevel = 60; // Give them room to breathe in the final sprint
+ 
+// Trigger the dramatic modal instead of rendering instantly
+ openUnit42Modal();
+ return;
  } else {
  appState.currentNode = opt.next;
  }
@@ -2726,8 +2809,8 @@ if (isEarlyTermination || riskLevel >= 80) {
  statusBadge: 'TERMINATED FOR GROSS INFRASTRUCTURE NEGLIGENCE',
  badgeClass: 'terminated',
  cardClass: 'terminated',
- summaryQuote: isEarlyTermination ? 'Simulation aborted. The network collapsed under catastrophic load before the end of the operational window.' : 'Total transit collapse. Physical safety valves had to be cranked open manually in -25°C blizzard conditions.',
- businessOutcome: isEarlyTermination ? 'The core backbone flapped continuously, dropping critical SCADA commands and halting Alberta pipeline flow. The simulation was forced to abort.' : 'Total transit collapse. The core backbone flapped continuously for hours, dropping critical SCADA commands and halting Alberta pipeline flow.',
+ summaryQuote: 'Total transit collapse. Physical safety valves had to be cranked open manually in -25°C blizzard conditions.',
+ businessOutcome: 'Total transit collapse. The core backbone flapped continuously for hours, dropping critical SCADA commands and halting Alberta pipeline flow.',
  careerFate: 'HR and Corporate Security arrived at your desk with a cardboard banker\'s box. You were escorted off premises by 18:30 MST, clutching a single blue Cat6 patch cable.',
  newsHeadline: "CATASTROPHIC INFRASTRUCTURE COLLAPSE AT BOREAL CORE",
  newsBody: "ALBERTA — An ongoing cyber crisis at Boreal Core has resulted in total loss of operational SCADA transit visibility. Field engineers are currently attempting manual, physical overrides of high-pressure pipelines in blizzard conditions."
@@ -2758,8 +2841,8 @@ if (isEarlyTermination || riskLevel >= 80) {
  statusBadge: 'FIRED BEFORE THE INCIDENT REPORT HIT JIRA',
  badgeClass: 'terminated',
  cardClass: 'terminated',
- summaryQuote: isEarlyTermination ? 'Simulation aborted. The adversary completely overtook the directory and SIEM. Your Okta access was revoked instantly.' : '480 terabytes of database servers were encrypted with AES-256 and leaked to the dark web.',
- businessOutcome: isEarlyTermination ? 'A catastrophic threshold was breached early. Sensitive enterprise databases were completely exposed, forcing incident command to shut down.' : '480 terabytes of sensitive enterprise databases and virtual machines were locked behind AES-256 encryption. Plaintext customer SINs were leaked onto dark web leak sites.',
+ summaryQuote: '480 terabytes of database servers were encrypted with AES-256 and leaked to the dark web.',
+ businessOutcome: '480 terabytes of sensitive enterprise databases and virtual machines were locked behind AES-256 encryption. Plaintext customer SINs were leaked onto dark web leak sites.',
  careerFate: 'Your Okta access was systematically revoked while you were still typing in the incident war room. Your LinkedIn profile now optimistically lists you as "Open to Work."',
  newsHeadline: "480TB OF CANADIAN INFRASTRUCTURE DATA LEAKED IN MASSIVE RANSOMWARE BREACH",
  newsBody: "CALGARY — Boreal Core is reeling after a devastating cyber attack successfully deployed AES-256 ransomware across primary data centers. The failure of fragmented, legacy point tools has resulted in one of the largest data breaches in history."
@@ -2790,8 +2873,8 @@ if (isEarlyTermination || riskLevel >= 80) {
  statusBadge: 'TERMINATED // PIPEDA INVESTIGATION LAUNCHED',
  badgeClass: 'terminated',
  cardClass: 'terminated',
- summaryQuote: isEarlyTermination ? 'Simulation aborted. The supply chain collapse was total. You lost control of the Kubernetes clusters entirely.' : 'A total cloud collapse. The attacker poisoned the GenAI models and dumped the S3 buckets to the dark web.',
- businessOutcome: isEarlyTermination ? 'The cloud architecture buckled under the weight of unmanaged API keys and container escapes. The simulation was aborted due to critical risk.' : 'Attackers used abused API keys to siphon the entire S3 data lake offshore, while simultaneously poisoning internal GenAI models with malicious RAG data.',
+ summaryQuote: 'A total cloud collapse. The attacker poisoned the GenAI models and dumped the S3 buckets to the dark web.',
+ businessOutcome: 'Attackers used abused API keys to siphon the entire S3 data lake offshore, while simultaneously poisoning internal GenAI models with malicious RAG data.',
  careerFate: 'You were dismissed with cause. The Canadian Privacy Commissioner has requested all of your emails from the last year as part of a federal negligence investigation.',
  newsHeadline: "CATASTROPHIC CLOUD EXFILTRATION: BOREAL CORE LOSES TERABYTES OF DATA",
  newsBody: "OTTAWA — Boreal Core has suffered a devastating cloud security collapse. Attackers completely bypassed traditional firewalls via abused third-party SaaS tokens, siphoning terabytes of unencrypted citizen data to offshore servers."
@@ -2822,11 +2905,43 @@ if (isEarlyTermination || riskLevel >= 80) {
  statusBadge: 'RESIGNED TO PURSUE PERSONAL INTERESTS',
  badgeClass: 'terminated',
  cardClass: 'terminated',
- summaryQuote: isEarlyTermination ? 'Simulation aborted. The sheer volume of regulatory blind spots broke the corporate structure before the day was over.' : 'Boreal paid a humiliating $12M CAD extortion fee in Bitcoin and shares plunged 18%.',
- businessOutcome: isEarlyTermination ? 'The organization was forced into an emergency abort due to spiraling risk. Federal regulators slapped Boreal with maximum non-compliance penalties.' : 'The organization authorized a humiliating $12M CAD extortion payout in Bitcoin. Federal regulators slapped Boreal with maximum non-compliance penalties, and the TSX share price plunged 18%.',
+ summaryQuote: 'Boreal paid a humiliating $12M CAD extortion fee in Bitcoin and shares plunged 18%.',
+ businessOutcome: 'The organization authorized a humiliating $12M CAD extortion payout in Bitcoin. Federal regulators slapped Boreal with maximum non-compliance penalties, and the TSX share price plunged 18%.',
  careerFate: 'The Board accepted your resignation "effective immediately." A crisis PR firm was engaged to scrub your headshot from the corporate about-us page before midnight.',
  newsHeadline: "BOREAL CORE PAYS $12M RANSOM; CEO AND CISO OUSTED AMIDST STOCK PLUNGE",
  newsBody: "CALGARY — In a shocking admission of operational failure, Boreal Core has transferred 400 Bitcoin to offshore cybercriminals. The uncoordinated defense strategy has led to immediate executive dismissals as the company faces sweeping federal sanctions."
+ }
+ },
+ unit42: {
+ excellence: {
+ statusBadge: 'INCIDENT CONTAINED // NARROW ESCAPE',
+ badgeClass: 'promoted',
+ cardClass: 'promoted',
+ summaryQuote: 'You pulled Boreal Core back from the brink of total destruction. The company survived, but the original admin is definitely fired.',
+ businessOutcome: 'Unit 42 effectively eradicated the active threat and stabilized the multi-cloud infrastructure. The company survived to trade another day.',
+ careerFate: 'You packed up your gear and flew back to HQ. Boreal retained Palo Alto Networks for a massive platform overhaul.',
+ newsHeadline: "Boreal Core Narrowly Averts Cyber Catastrophe Following Emergency Intervention",
+ newsBody: "CALGARY — Following a complete failure of internal IT defenses, Boreal Core engaged external Unit 42 responders who successfully contained a massive ransomware event."
+ },
+ partial: {
+ statusBadge: 'INCIDENT CONTAINED // NARROW ESCAPE',
+ badgeClass: 'survived',
+ cardClass: 'survived',
+ summaryQuote: 'You pulled Boreal Core back from the brink of total destruction. The company survived, but the original admin is definitely fired.',
+ businessOutcome: 'Unit 42 effectively eradicated the active threat and stabilized the multi-cloud infrastructure.',
+ careerFate: 'You packed up your gear and flew back to HQ.',
+ newsHeadline: "Boreal Core Narrowly Averts Cyber Catastrophe",
+ newsBody: "CALGARY — External Unit 42 responders successfully contained a massive ransomware event."
+ },
+ failure: {
+ statusBadge: 'CORPORATE LIQUIDATION',
+ badgeClass: 'terminated',
+ cardClass: 'terminated',
+ summaryQuote: 'The damage was too severe. Even Unit 42 could not reverse the cascading database corruption caused by legacy workarounds.',
+ businessOutcome: 'Boreal Core suffered total unrecoverable data loss across 90% of its infrastructure. The Board filed for bankruptcy.',
+ careerFate: 'You logged out of the terminal. Some networks simply cannot be saved once the foundations rot.',
+ newsHeadline: "BOREAL CORE FILES FOR BANKRUPTCY AFTER DEVASTATING CYBER ATTACK",
+ newsBody: "CALGARY — Unable to recover from a catastrophic ransomware deployment, Boreal Core Technologies has officially filed for bankruptcy protection."
  }
  }
  };
@@ -3094,14 +3209,8 @@ let tier = 'failure';
  const actionsRow = document.createElement('div');
  actionsRow.style.cssText = 'display:flex; justify-content:center; gap:16px; margin-top:10px; flex-wrap:wrap;';
 
- const replayBtn = document.createElement('button');
- replayBtn.className = 'btn-action-primary';
- replayBtn.textContent = '[ REPLAY THIS ROLE ]';
- replayBtn.onclick = function() { selectPersona(appState.persona); };
- actionsRow.appendChild(replayBtn);
-
  const switchBtn = document.createElement('button');
- switchBtn.className = 'btn-action-secondary';
+ switchBtn.className = 'btn-action-primary';
  switchBtn.textContent = '[ EXPLORE ANOTHER ROLE ]';
  switchBtn.onclick = switchPersonaScreen;
  actionsRow.appendChild(switchBtn);
@@ -3142,8 +3251,18 @@ if (!val) return;
 let response = '';
  if (val === 'help') {
  response = "system: No one is coming to save you. Trust the platform.";
+ } else if (val === 'whoami') {
+ response = "sysadmin_01. Underpaid, over-caffeinated, and currently updating your resume.";
+ } else if (val === 'cd /boardroom') {
+ response = "Permission denied. You lack the required stock options.";
+ } else if (val === 'top') {
+ response = "PID USER PR NI VIRT RES SHR S %CPU %MEM COMMAND\n1 root 20 0 0 0 0 S 99.9 80.0 svchost.exe\n2 root 20 0 0 0 0 S 99.9 90.0 tundra_serpent_payload";
+ } else if (val === 'cat /etc/passwd') {
+ response = "j.mason:x:1000:1000:VP Sales\nc.officer:x:1001:1001:Chief Communications Officer\ns.architect:x:1002:1002:Resigning Engineer (FLIGHT RISK)";
  } else if (val === 'sudo' || val.startsWith('sudo ')) {
  response = "WARNING: Incident recorded. Privilege escalation attempt logged with HR.";
+ } else if (val === 'rm -rf /') {
+ response = "Nice try. The SEC is already auditing this terminal.";
  } else if (val === 'clear') {
  cliLog.classList.remove('active');
  cliLog.innerHTML = '';
@@ -3160,7 +3279,7 @@ let response = '';
  
 setTimeout(() => {
  cliLog.classList.remove('active');
- }, 5000);
+ }, 6000);
  }
  });
  }
