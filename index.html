@@ -128,7 +128,8 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  .narrative-block::after { content: ''; position: absolute; bottom: 0; right: 0; width: 10px; height: 10px; border-bottom: 2px solid var(--hud-color); border-right: 2px solid var(--hud-color); transition: all 0.3s; }
  .narrative-author-bar { font-size: 11px; font-weight: 800; color: var(--pan-orange); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
  .narrative-author-bar::before { content: '■'; animation: alertBlink 1.5s step-end infinite; }
- .narrative-text p { font-size: 14px; color: #cbd5e1; line-height: 1.7; margin-bottom: 14px; min-height: 22px; }
+ .narrative-text p { font-size: 14px; color: #cbd5e1; line-height: 1.7; margin-bottom: 14px; min-height: 22px; opacity: 0; transition: opacity 0.5s ease-in; }
+ .narrative-text p.visible { opacity: 1; }
  .narrative-text p:last-child { margin-bottom: 0; }
 
  .telemetry-ticker { background: #010205; border: 1px solid var(--hud-color); padding: 14px 18px; font-size: 12.5px; color: #fff; display: flex; gap: 12px; align-items: flex-start; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); line-height: 1.5; transition: border-color 0.3s ease; }
@@ -160,26 +161,6 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  .cli-input { background: transparent; border: none; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 13px; flex: 1; outline: none; caret-color: var(--accent-green); }
  .cli-log { position: absolute; bottom: 100%; left: 0; width: 100%; background: rgba(0,0,0,0.95); color: var(--accent-amber); font-size: 11.5px; padding: 0 20px; transition: max-height 0.3s; max-height: 0; overflow: hidden; white-space: pre-wrap; line-height: 1.5; }
  .cli-log.active { max-height: 180px; padding: 12px 20px; border-top: 1px solid var(--accent-amber); overflow-y: auto; }
-
- /* CSS Shake Animation */
- @keyframes shake {
- 0% { transform: translate(1px, 1px) rotate(0deg); }
- 10% { transform: translate(-1px, -2px) rotate(-1deg); }
- 20% { transform: translate(-3px, 0px) rotate(1deg); }
- 30% { transform: translate(3px, 2px) rotate(0deg); }
- 40% { transform: translate(1px, -1px) rotate(1deg); }
- 50% { transform: translate(-1px, 2px) rotate(-1deg); }
- 60% { transform: translate(-3px, 1px) rotate(0deg); }
- 70% { transform: translate(3px, 1px) rotate(-1deg); }
- 80% { transform: translate(-1px, -1px) rotate(1deg); }
- 90% { transform: translate(1px, 2px) rotate(0deg); }
- 100% { transform: translate(1px, -2px) rotate(-1deg); }
- }
- .shake-active {
- animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
- border-color: var(--accent-red) !important;
- box-shadow: 0 0 40px rgba(255,42,42,0.4), inset 0 0 20px rgba(255,42,42,0.6) !important;
- }
 
  .blueprint-section { background: rgba(0, 192, 247, 0.03); border: 1px solid var(--border-medium); padding: 24px; margin-bottom: 24px; display: flex; flex-direction: column; gap: 16px; border-top: 4px solid var(--pan-blue); }
  .blueprint-header { font-size: 14px; font-weight: 800; color: var(--pan-blue); text-transform: uppercase; border-bottom: 1px dashed var(--border-subtle); padding-bottom: 8px; display: flex; align-items: center; gap: 10px; }
@@ -435,6 +416,37 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  return { label: label, desc: desc, panw: panw, pointProduct: pointProduct, riskChange: riskChange, telemetryLog: telemetryLog, next: next };
  }
 
+ // Inject real local time into the string
+ function injectRealTime(text) {
+ const now = new Date();
+ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+ const dayName = days[now.getDay()];
+ let h = now.getHours();
+ let m = now.getMinutes();
+ let timeStr = (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m);
+ let localTimeContext = `It is ${timeStr} on a ${dayName}`;
+ return text.replace('{{LOCAL_TIME}}', localTimeContext);
+ }
+
+ // Apply "Butterfly Effect" consequences to paragraphs based on past poor choices
+ function applyButterflyEffect(nodeId, pIndex, text) {
+ if (pIndex !== 0) return text; 
+ let injection = "";
+ if (nodeId === 'noc_6' && appState.legacyExposures.includes('Manual Standalone Patching')) {
+ injection = ' <span style="color:var(--accent-amber)">[SYSTEM NOTE: The manual patch you applied earlier is holding the perimeter, but its unoptimized memory footprint is now causing micro-stutters across these SCADA nodes.]</span>';
+ }
+ if (nodeId === 'soc_6' && appState.legacyExposures.includes('Siloed UBA Alert')) {
+ injection = ' <span style="color:var(--accent-amber)">[SYSTEM NOTE: Your analysts are still exhausted from manually verifying that earlier UBA alert, slowing down their response time to this new threat.]</span>';
+ }
+ if (nodeId === 'cloud_6' && appState.legacyExposures.includes('Manual Key Rotation')) {
+ injection = ' <span style="color:var(--accent-amber)">[SYSTEM NOTE: The marketing team is still furious about the 6-hour outage you caused earlier, adding intense political pressure to your next move.]</span>';
+ }
+ if (nodeId === 'exec_6' && appState.legacyExposures.includes('Ongoing Vendor Sprawl')) {
+ injection = ' <span style="color:var(--accent-amber)">[SYSTEM NOTE: The fragile API bridges between your siloed tools are starting to fail under the stress, severely degrading your cross-domain visibility.]</span>';
+ }
+ return text + injection;
+ }
+
  // ---------------- NARRATIVE GRAPHS (IMMERSIVE CYOA EDITION) ----------------
  const storyGraphs = {
  
@@ -442,7 +454,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  noc_1: {
  act: 'NOC // PERIMETER EXPLOIT', burst: 'EDGE EXPLOIT', speaker: 'NOC COMMAND', title: 'The Edge Appliance Zero-Day',
  paragraphs: [
- 'You stare at the glowing monitors of the Calgary Network Operations Center. It’s 07:30, your lukewarm coffee is already forgotten, and the master console is screaming blood-red. The intrusion detection buffer is overflowing faster than the UI can render.',
+ 'You stare at the glowing monitors of the Calgary Network Operations Center. {{LOCAL_TIME}}. Your lukewarm coffee is already forgotten, and the master console is screaming blood-red. The intrusion detection buffer is overflowing faster than the UI can render.',
  'A sophisticated threat actor has just weaponized a zero-day vulnerability in your standalone, third-party edge VPN appliances. They are bypassing traditional authentication entirely, slipping silently past the perimeter guard like ghosts.',
  'If that transit edge falls, the real-time logistics links connecting your branches in Calgary, Toronto, and Montreal will sever, plunging the national supply chain into the dark. The junior engineer looks to you in a panic. The clock is ticking.'
  ],
@@ -605,7 +617,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  soc_1: {
  act: 'SOC // THREAT HUNTING', burst: 'VISHING COMPROMISE', speaker: 'SOC COMMAND', title: 'The Helpdesk Vishing Compromise',
  paragraphs: [
- 'You settle into your chair at the Security Operations Center. Suddenly, an anomalous authentication pattern hits your dashboard.',
+ 'You settle into your chair at the Security Operations Center. {{LOCAL_TIME}}. Suddenly, an anomalous authentication pattern hits your dashboard.',
  'Using sophisticated AI voice cloning, an adversary just successfully spoofed a senior executive\'s voice, tricked your IT helpdesk, and bypassed MFA entirely to reset an Okta token.',
  'They are now authenticating into the corporate VPN from a residential IP address in Ontario. Standard SIEM logs view this as a perfectly valid, MFA-authenticated session. You must challenge this ghost in the machine.'
  ],
@@ -644,7 +656,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  soc_4: {
  act: 'SOC // CI/CD PIPELINE', burst: 'POISONED PACKAGE', speaker: 'CI/CD SENSOR', title: 'The Poison in the Software Well',
  paragraphs: [
- 'An automated alert chimes from the Montreal CI/CD build farm. Deep inside Boreal’s massive dependency tree, a clever typosquat of a popular python library was just pulled into the central logistics build pipeline.',
+ 'An automated alert chimes from the Montreal CI/CD build farm. Deep inside Boreal’s massive dependency tree, a clever typosquat of a popular python library was just pulled into the central logistics build pipeline. (Hidden artifact logged at: /var/log/tundra.txt)',
  'Embedded within the package’s installation script is an obfuscated payload designed to detonate exclusively during software compilation.',
  'If this poisoned package compiles into production container images, it will inject a persistent root backdoor into every microservice deployed across Canadian distribution centers.'
  ],
@@ -724,29 +736,28 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  ]
  },
  soc_10: {
- act: 'SOC // KERBEROASTING', burst: 'TGS STORM', speaker: 'DOMAIN CONTROLLER', title: 'The Kerberos Ticket Tempest',
+ act: 'SOC // 124K EPS DELUGE', burst: 'ALERT FLOOD', speaker: 'CENTRAL SIEM', title: 'The DDoS Smokescreen',
  paragraphs: [
- 'Inside the domain controller logs, a catastrophic storm breaks loose. An adversary on a compromised internal workstation has launched an aggressive Kerberoasting attack.',
- 'They are requesting 420 Kerberos TGS tickets in under 30 seconds. Their objective is clear: extract encrypted service tickets, take them offline to high-powered GPU cracking rigs, and forge an administrative Golden Ticket.',
- 'If they forge that ticket, they will possess god-mode access over every Windows system in Boreal Core.'
- ],
- telemetry: '420 TGS requests with RC4 encryption requested in 30 seconds from a single workstation.',
- options: [
- createGenericOption('Deploy Idira Identity Threat Detection & Kerberos Defense', 'If you choose to dynamically intercept the ticket harvesting storm and force automated service key rotation, execute the defense.', 'Idira', null, -10, 'Idira intercepted the Kerberoasting storm and rotated keys before offline cracking could begin.', 'soc_11'),
- createGenericOption('Rely on standard Windows Event ID 4769 logs stored in the SIEM', 'If you choose to allow standard Windows logs to accumulate in cold storage for post-incident review, wait for the logs to parse.', null, 'Delayed AD Log Analysis', +10, 'The sheer volume of standard Windows logs masked the attack until the adversary successfully cracked a service ticket offline.', 'soc_11')
- ]
- },
- soc_11: {
- act: 'SOC // 124K EPS DELUGE', burst: 'ALERT FLOOD', speaker: 'CENTRAL SIEM', title: 'The Blinding Fog of 124,000 EPS',
- paragraphs: [
- 'The adversary unleashes a blinding smokescreen: over 124,000 security events per second are blasted into Boreal’s central logging infrastructure.',
- 'Traditional SIEM databases groan, stall, and crash. Over 4,800 unassigned alerts flood the dashboard in three minutes. Your analysts are paralyzed by alert fatigue, drowning in a sea of red indicators.',
- 'Deep inside this artificial storm, the attacker is quietly moving into position to deploy their final ransomware payload.'
+ 'The adversary unleashes a blinding smokescreen: a massive, volumetric DDoS attack slams into Boreal’s public-facing web servers.',
+ 'Traditional SIEM databases groan, stall, and crash under the 124,000 EPS alert flood. But something feels wrong. Tundra Serpent doesn’t rely on noisy DDoS attacks. This is a distraction.',
+ 'Deep beneath the noise, the attacker is quietly moving into position to deploy their final ransomware payload.'
  ],
  telemetry: '124,000 EPS deluge. Traditional databases dropping packets. 4,800 unassigned alerts in queue.',
  options: [
- createGenericOption('Activate Cortex XSIAM Autonomous SOC Incident Stitching', 'If you choose to ingest telemetry at massive scale and auto-stitch alerts into a single, cohesive incident narrative, unleash XSIAM.', 'Cortex XSIAM', null, -10, 'Cortex XSIAM swallowed the 124k EPS flood effortlessly, collapsed alerts into one incident story, and isolated the true attack vector.', 'soc_12'),
- createGenericOption('Manually adjust SIEM alert thresholds to drop low-priority logs', 'If you decide to drastically raise alert severity thresholds to mute the noise so analysts can catch up, tweak the dials.', null, 'Analyst Alert Blindness', +10, 'Muting alerts blinded analysts to the attacker’s critical lateral movement signals hidden in the noise.', 'soc_12')
+ createGenericOption('Ignore the noise. Use Cortex XSIAM to auto-stitch alerts and hunt the real threat', 'If you choose to ingest telemetry at massive scale and auto-stitch alerts to cut through the smokescreen, unleash XSIAM.', 'Cortex XSIAM', null, -10, 'Cortex ignored the noisy diversion and caught the real threat: a fileless payload attempting to dump credentials.', 'soc_11'),
+ createGenericOption('Divert all SOC analysts to manually scrub the incoming DDoS traffic', 'If you decide to react to the noise and manually write IP block rules to save the web servers, command your analysts.', null, 'Analyst Alert Blindness', +10, 'Analysts were distracted by the noise, missing the stealthy lateral movement happening underneath.', 'soc_11')
+ ]
+ },
+ soc_11: {
+ act: 'SOC // AUTOMATED PLAYBOOK', burst: 'PLAYBOOK FIRED', speaker: 'AUTONOMOUS ENGINE', title: 'The 1.8-Second Counterstrike',
+ paragraphs: [
+ 'The SOC must execute immediate containment across firewalls, endpoints, and cloud identities. The threat actor is already testing execution triggers.',
+ 'Coordinating containment manually across disconnected dashboards will take forty-five minutes. You must strike across all domains at machine speed.'
+ ],
+ telemetry: 'Cross-pillar containment required. Attacker testing ransomware detonation execution.',
+ options: [
+ createGenericOption('Trigger Cortex XSIAM Automated Cross-Pillar Orchestration', 'Simultaneously isolate hosts, revoke tokens, and block IPs in under 2 seconds through unified data models.', 'Cortex XSIAM', null, -10, 'XSIAM executed cross-pillar containment in 1.8 seconds, severing every adversary foothold simultaneously.', 'soc_12'),
+ createGenericOption('Assign containment tasks via Jira to specialized tier-2 analyst teams', 'Create tickets for the network, cloud, and endpoint teams to execute containment in their respective point tools.', null, 'Manual Ticket Handoffs', +10, 'While analysts traded Jira comments, the adversary managed to partially encrypt three staging servers before being locked out.', 'soc_12')
  ]
  },
  soc_12: {
@@ -770,7 +781,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  cloud_1: {
  act: 'CLOUD // SaaS OAUTH ABUSE', burst: 'OAUTH COMPROMISE', speaker: 'CLOUD MONITOR', title: 'The Invisible Door',
  paragraphs: [
- 'You log into the cloud architecture dashboard. Your morning begins with a silent, terrifying anomaly. An approved, third-party marketing SaaS application has suddenly initiated mass data scraping.',
+ 'You log into the cloud architecture dashboard. {{LOCAL_TIME}}. Your session begins with a silent, terrifying anomaly. An approved, third-party marketing SaaS application has suddenly initiated mass data scraping.',
  'The adversary hasn’t breached your firewalls; they compromised the vendor’s infrastructure and are using legitimate, delegated OAuth API keys to legally request terabytes of Canadian customer data.',
  'If you blindly sever the vendor’s API access entirely, the global marketing and sales pipeline will crash immediately. You need a surgical response.'
  ],
@@ -812,7 +823,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  act: 'CLOUD // SERVERLESS DRIFT', burst: 'LAMBDA HIJACK', speaker: 'AWS LAMBDA', title: 'Parasite in the Ephemeral Cloud',
  paragraphs: [
  'An anomaly ripples through the cloud compute cluster. Boreal uses thousands of serverless functions to process pipeline sensor measurements. These functions spin up, execute, and evaporate into the ether in milliseconds.',
- 'Using compromised credentials, the adversary has modified the deployment package of an ephemeral function, embedding an obfuscated cryptominer.',
+ 'Using compromised credentials, the adversary has modified the deployment package of an ephemeral function, embedding an obfuscated cryptominer. (Intelligence stub saved to: /opt/panw/intel.dat)',
  'Over 4,000 serverless functions are concurrently executing unauthorized binaries, siphoning massive amounts of cloud compute budget every single minute.'
  ],
  telemetry: '4,000 Lambda invocations spawning unauthorized binary processes connecting to mining pools.',
@@ -935,7 +946,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  exec_1: {
  act: 'EXECUTIVE // STRATEGIC RISK', burst: 'BOARD AUDIT', speaker: 'BOARDROOM', title: 'The Boardroom Cross-Examination',
  paragraphs: [
- 'You sit at the head of the mahogany table in the executive boardroom on the 32nd floor of Boreal Tower. The atmosphere is suffocating.',
+ 'You sit at the head of the mahogany table in the executive boardroom on the 32nd floor of Boreal Tower. {{LOCAL_TIME}}. The atmosphere is suffocating.',
  'The Canadian Centre for Cyber Security has issued an urgent warning regarding state-sponsored cyber offensives. Boreal’s current cybersecurity estate is a chaotic patchwork of eighteen disconnected point vendors.',
  'This sprawl is saddling Boreal with $3.4M CAD in integration overhead and an agonizing 4.2-hour Mean Time to Respond. The Board demands your strategic path forward.'
  ],
@@ -1332,14 +1343,35 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  });
  }
 
- function typeParagraphs(paragraphs, pElements, currentP, currentChar) {
- if (currentP >= paragraphs.length) return;
- if (currentChar < paragraphs[currentP].length) {
- pElements[currentP].textContent += paragraphs[currentP].charAt(currentChar);
- typewriterTimeout = setTimeout(function() { typeParagraphs(paragraphs, pElements, currentP, currentChar + 1); }, 2); 
- } else {
- typewriterTimeout = setTimeout(function() { typeParagraphs(paragraphs, pElements, currentP + 1, 0); }, 30); 
+ function runDecryptEffect() {
+ const decryptElements = document.querySelectorAll('.decrypt');
+ const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
+ decryptElements.forEach(el => {
+ const targetText = el.getAttribute('data-text');
+ if(!targetText) return;
+ let iterations = 0;
+ const interval = setInterval(() => {
+ el.innerText = targetText.split('').map((char, index) => {
+ if(index < iterations) return targetText[index];
+ if(char === ' ') return ' ';
+ return chars[Math.floor(Math.random() * chars.length)];
+ }).join('');
+ iterations += 1.5;
+ if(iterations >= targetText.length) {
+ el.innerText = targetText;
+ clearInterval(interval);
  }
+ }, 20);
+ });
+ }
+
+ function fadeParagraphs(pElements, currentP) {
+ if (currentP >= pElements.length) {
+ runDecryptEffect(); // Trigger decryption effect after text appears
+ return;
+ }
+ pElements[currentP].classList.add('visible');
+ typewriterTimeout = setTimeout(function() { fadeParagraphs(pElements, currentP + 1); }, 600); 
  }
 
  function renderStage() {
@@ -1389,7 +1421,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  '</div>' +
  '<div class="telemetry-ticker">' +
  '<span class="telemetry-ticker-label">TELEMETRY FEED</span>' +
- '<span>' + ((appState.lastDecision && appState.stageCount > 1) ? '<span class="telem-highlight">[PRIOR OUTCOME: ' + appState.lastDecision.outcome + ']</span> // ' : '') + 'CURRENT SENSOR: ' + node.telemetry + '</span>' +
+ '<span>' + ((appState.lastDecision && appState.stageCount > 1) ? '<span style="color:var(--pan-blue); font-weight:700;">[PRIOR OUTCOME: ' + appState.lastDecision.outcome + ']</span> // ' : '') + 'CURRENT SENSOR: <span class="decrypt" data-text="' + node.telemetry + '">' + node.telemetry + '</span></span>' +
  '</div>';
 
  const narrativeWrap = document.createElement('div');
@@ -1398,10 +1430,19 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  
  const narrativeBox = document.createElement('div');
  narrativeBox.className = 'narrative-text';
- const pTags = node.paragraphs.map(function() { const p = document.createElement('p'); narrativeBox.appendChild(p); return p; });
+ 
+ const pTags = node.paragraphs.map(function(pText, index) { 
+ const p = document.createElement('p'); 
+ let processedText = injectRealTime(pText);
+ processedText = applyButterflyEffect(appState.currentNode, index, processedText);
+ p.innerHTML = processedText;
+ narrativeBox.appendChild(p); 
+ return p; 
+ });
+ 
  narrativeWrap.appendChild(narrativeBox);
  contentBox.appendChild(narrativeWrap);
- typeParagraphs(node.paragraphs, pTags, 0, 0);
+ fadeParagraphs(pTags, 0);
 
  const decisionWrap = document.createElement('div');
  decisionWrap.className = 'decision-wrap';
@@ -1552,7 +1593,6 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  '</div>' +
  '</div>';
 
- // Restore Real World Intel Dossier Block
  if (cfg.realWorldIntel) {
  box.innerHTML += 
  '<div class="unit42-dossier">' +
@@ -1570,7 +1610,6 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  '</div>';
  }
 
- // NEW: Product URLs Mapping
  const productUrls = {
  'Strata Cloud Manager': 'https://www.paloaltonetworks.com/network-security/strata-cloud-manager',
  'Prisma SASE & SD-WAN': 'https://www.paloaltonetworks.com/sase',
@@ -1655,6 +1694,7 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  const val = input.value.trim().toLowerCase();
  input.value = '';
  if (!val) return;
+ 
  let resp = "bash: " + val + ": command not found";
  if (val === 'help') resp = "system: Trust the platform.";
  else if (val === 'whoami') resp = "sysadmin_01. Underpaid, over-caffeinated, and updating your resume.";
@@ -1663,8 +1703,11 @@ linear-gradient(rgba(0, 192, 247, 0.03) 1px, transparent 1px),
  else if (val === 'cat /etc/passwd') resp = "j.mason:x:1000:1000:VP Sales\nc.officer:x:1001:1001:Chief Communications Officer\ns.architect:x:1002:1002:Resigning Engineer (FLIGHT RISK)";
  else if (val === 'sudo' || val.startsWith('sudo ')) resp = "WARNING: Incident recorded. Privilege escalation attempt logged with HR.";
  else if (val === 'rm -rf /') resp = "Nice try. The SEC is already auditing this terminal.";
+ else if (val === 'cat /var/log/tundra.txt') resp = "[ TUNDRA SERPENT MANIFESTO ]\n\nThe ice is breaking.\nYour legacy walls cannot hold the water.\nWe are already inside.";
+ else if (val === 'cat /opt/panw/intel.dat') resp = "[ UNIT 42 THREAT INTEL ]\n\nActor: Tundra Serpent\nMotivation: Chaos/Extortion\nNotes: Highly sophisticated. Avoids noisy attacks. Prefers SaaS OAuth abuse and fileless memory hooks.";
  else if (val === 'clear') { log.classList.remove('active'); log.innerHTML = ''; return; }
  else if (val === 'ping') resp = "pong. Latency 0.04ms.";
+ 
  log.textContent = "> " + val + "\n" + resp;
  log.classList.add('active');
  setTimeout(function() { log.classList.remove('active'); }, 6000);
