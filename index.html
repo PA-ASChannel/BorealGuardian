@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Operation Boreal Guardian | Palo Alto Networks Cyber Defense Console</title>
+ <title>Operation Boreal Guardian | Cyber Defense Console</title>
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -316,7 +316,7 @@ header { background: rgba(2, 4, 10, 0.95); border-bottom: 1px solid var(--border
  </div>
  <div class="modal-part">
  <h4>[ THE MECHANICS ] Narrative Divergence</h4>
- <p>Every decision shapes the story. You will face dynamic choices between <strong>Gritty Manual Tactics</strong> (duct-taping the network together like an action hero) and <strong>Sleek Platform Synergy</strong> (calling in automated, integrated defenses). There is no "wrong" choice—only different flavors of chaos and triumph. See how your unique architectural style alters the survival of Boreal Corp.</p>
+ <p>Every decision shapes the story. You will face dynamic choices between <strong>Gritty Manual Tactics</strong> (duct-taping the network together like an action hero) and <strong>Sleek Platform Synergy</strong> (calling in automated, integrated defenses). There is no "wrong" choice—only different flavors of chaos and triumph. See how your unique architectural style alters the survival of Boreal Corp. And there might be some easter eggs hidden around here too...</p>
  </div>
  
 <div class="modal-part" style="border-left: 3px solid var(--accent-amber); background: rgba(255, 176, 0, 0.05);">
@@ -509,7 +509,7 @@ relevantProducts: ['Cortex XDR', 'Cortex Cloud', 'Cortex XSIAM', 'Unit 42']
  let h = now.getHours();
  let m = now.getMinutes();
  let timeStr = (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m);
- let localTimeContext = `It is ${timeStr} on a ${dayName}`;
+ let localTimeContext = `${timeStr} on a ${dayName}`;
  return text.replace('{{LOCAL_TIME}}', localTimeContext);
  }
 
