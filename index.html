@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Operation Boreal Guardian | Cyber Defense Console</title>
+ <title>Operation Boreal Guardian | Palo Alto Networks Cyber Defense Console</title>
  <link rel="preconnect" href="https://fonts.googleapis.com">
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
@@ -141,7 +141,7 @@ header { background: rgba(2, 4, 10, 0.95); border-bottom: 1px solid var(--border
 
  .terminal-body { padding: 30px; display: flex; flex-direction: column; gap: 24px; position: relative; z-index: 11; }
 
- .crosstalk-banner { background: rgba(0, 192, 247, 0.08); border: 1px solid var(--pan-blue); border-left: 4px solid var(--pan-blue); color: var(--pan-blue); font-size: 11.5px; padding: 10px 16px; display: flex; gap: 12px; align-items: center; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: -10px; box-shadow: 0 0 10px rgba(0,192,247,0.1); flex-wrap: wrap; }
+ .crosstalk-banner { background: rgba(0, 192, 247, 0.08); border: 1px solid var(--pan-blue); border-left: 4px solid var(--pan-blue); color: var(--pan-blue); font-size: 11.5px; padding: 10px 16px; display: flex; gap: 12px; align-items: center; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; box-shadow: 0 0 10px rgba(0,192,247,0.1); flex-wrap: wrap; position: relative; z-index: 20; }
  .crosstalk-label { background: var(--pan-blue); color: #000; font-weight: 800; padding: 2px 8px; }
 
  .mission-header-bar { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid var(--border-medium); padding-bottom: 12px; }
@@ -316,7 +316,7 @@ header { background: rgba(2, 4, 10, 0.95); border-bottom: 1px solid var(--border
  </div>
  <div class="modal-part">
  <h4>[ THE MECHANICS ] Narrative Divergence</h4>
- <p>Every decision shapes the story. You will face dynamic choices between <strong>Gritty Manual Tactics</strong> (duct-taping the network together like an action hero) and <strong>Sleek Platform Synergy</strong> (calling in automated, integrated defenses). There is no "wrong" choice—only different flavors of chaos and triumph. See how your unique architectural style alters the survival of Boreal Corp. And there might be some easter eggs hidden around here too...</p>
+ <p>Every decision shapes the story. You will face dynamic choices between <strong>Gritty Manual Tactics</strong> (duct-taping the network together like an action hero) and <strong>Sleek Platform Synergy</strong> (calling in automated, integrated defenses). There is no "wrong" choice—only different flavors of chaos and triumph. See how your unique architectural style alters the survival of Boreal Corp.</p>
  </div>
  
 <div class="modal-part" style="border-left: 3px solid var(--accent-amber); background: rgba(255, 176, 0, 0.05);">
@@ -503,30 +503,30 @@ relevantProducts: ['Cortex XDR', 'Cortex Cloud', 'Cortex XSIAM', 'Unit 42']
  }
 
  function injectRealTime(text) {
- const now = new Date();
- const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
- const dayName = days[now.getDay()];
- let h = now.getHours();
- let m = now.getMinutes();
- let timeStr = (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m);
- let localTimeContext = `${timeStr} on a ${dayName}`;
+ var now = new Date();
+ var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+ var dayName = days[now.getDay()];
+ var h = now.getHours();
+ var m = now.getMinutes();
+ var timeStr = (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m);
+ var localTimeContext = 'It is ' + timeStr + ' on a ' + dayName;
  return text.replace('{{LOCAL_TIME}}', localTimeContext);
  }
 
  function applyButterflyEffect(nodeId, pIndex, text) {
  if (pIndex !== 0) return text; 
-let injection = "";
- if (nodeId === 'noc_5' && appState.legacyExposures.includes('Manual Standalone Patching')) {
- injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: The manual VPN hot-patch you applied at 07:30 held the perimeter, but its unoptimized memory footprint is now causing routing micro-stutters across the SCADA backbone.]</span>';
+ var injection = "";
+ if (nodeId === 'noc_9' && appState.legacyExposures.includes('Manual Standalone Patching')) {
+ injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: The manual VPN hot-patch you applied at 07:30 held the perimeter initially, but its unoptimized memory footprint is now severely compounding routing micro-stutters across the SCADA backbone.]</span>';
  }
- if (nodeId === 'soc_5' && appState.legacyExposures.includes('Siloed UBA Alert')) {
- injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: Your analysts are still exhausted from manually verifying that earlier isolated UBA alert, severely slowing their cognitive response time to this new threat.]</span>';
+ if (nodeId === 'soc_9' && appState.legacyExposures.includes('Siloed UBA Alert')) {
+ injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: Your analysts are running purely on adrenaline and burnt coffee after manually verifying that earlier isolated UBA alert, severely slowing their cognitive response time to this final, critical threat.]</span>';
  }
- if (nodeId === 'cloud_5' && appState.legacyExposures.includes('Manual Key Rotation')) {
- injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: The marketing VP is currently screaming in the hallway about the 6-hour outage you caused earlier with the manual key rotation, adding intense political pressure.]</span>';
+ if (nodeId === 'cloud_9' && appState.legacyExposures.includes('Manual Key Rotation')) {
+ injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: The marketing VP is currently screaming in the hallway about the 6-hour outage you caused earlier with the manual key rotation, adding unbearable political pressure to your next move.]</span>';
  }
- if (nodeId === 'exec_5' && appState.legacyExposures.includes('Ongoing Vendor Sprawl')) {
- injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: The fragile API bridges between your 18 different siloed point tools are actively buckling under the strain, blinding you when you need vision the most.]</span>';
+ if (nodeId === 'exec_9' && appState.legacyExposures.includes('Ongoing Vendor Sprawl')) {
+ injection = ' <span style="color:var(--accent-amber); font-weight: 700;">[BUTTERFLY EFFECT: The fragile API bridges between your 18 different siloed point tools are actively buckling under the intense strain, blinding you exactly when you need vision the most.]</span>';
  }
  return text + injection;
  }
@@ -535,7 +535,7 @@ let injection = "";
  
 // ==================== NOC TRACK ====================
  noc_1: {
- act: 'NOC // 07:30 MST', burst: 'VPN EXPLOIT', speaker: 'NOC COMMAND', title: 'The Perimeter Breach',
+ act: 'NOC // STAGE 1', burst: 'VPN EXPLOIT', speaker: 'NOC COMMAND', title: 'The Perimeter Breach',
  paragraphs: [
  'The hum of the server racks is a familiar lullaby, but today, it sounds like a warning. It is {{LOCAL_TIME}} in the Network Operations Center.',
  'You are nursing a lukewarm espresso when the primary intrusion detection dashboard blinks crimson. Tundra Serpent, a notorious cyber-syndicate, is actively knocking on the front door.',
@@ -544,14 +544,13 @@ let injection = "";
  ],
  telemetry: 'Buffer overflow detected on standalone VPN. Unauthorized root shell spawned via hijacked token.',
  crossTalk: 'SOC is fighting a vishing MFA bypass. Cloud is seeing API anomalies. We need the perimeter secured immediately.',
- handoff: { role: 'soc' },
  options: [
- createGenericOption('Deploy Prisma SASE ZTNA to orchestrate unified cloud-delivered access', 'Eradicate the exposed hardware entirely. Shift the attack surface to the cloud, disconnecting the vulnerable appliance while instantly syncing zero-trust policies for all remote users.', 'Prisma SASE & SD-WAN', null, -10, 'Prisma SASE seamlessly shifted access to the cloud, securing remote users with zero downtime.', 'noc_2'),
- createGenericOption('Deploy a gritty emergency patch via the standalone edge CLI', 'Roll up your sleeves and frantically hammer out a localized hot-patch directly into the firewall CLI. It is dirty, and manual route syncing will take hours, but it just might hold.', null, 'Manual Standalone Patching', +15, 'The sweaty manual patch held the line, but manual route re-syncs caused a frustrating 4-hour delay in SCADA telemetry.', 'noc_2')
+ createGenericOption('Deploy Prisma SASE ZTNA to orchestrate unified cloud-delivered access', 'Eradicate the exposed hardware entirely. Shift the attack surface to the cloud, disconnecting the vulnerable appliance while instantly syncing zero-trust policies for all remote users.', 'Prisma SASE & SD-WAN', null, -5, 'Prisma SASE seamlessly shifted access to the cloud, securing remote users with zero downtime.', 'noc_2'),
+ createGenericOption('Deploy a gritty emergency patch via the standalone edge CLI', 'Roll up your sleeves and frantically hammer out a localized hot-patch directly into the firewall CLI. It is dirty, and manual route syncing will take hours, but it just might hold.', null, 'Manual Standalone Patching', +8, 'The sweaty manual patch held the line, but manual route re-syncs caused a frustrating 4-hour delay in SCADA telemetry.', 'noc_2')
  ]
  },
  noc_2: {
- act: 'NOC // 08:15 MST', burst: 'EAST-WEST SWEEP', speaker: 'DC FABRIC', title: 'The Rot in the Server Farm',
+ act: 'NOC // STAGE 2', burst: 'EAST-WEST SWEEP', speaker: 'DC FABRIC', title: 'The Rot in the Server Farm',
  paragraphs: [
  'A chill runs down your spine as the internal data center fabric monitor chimes with a discordant trill. The threat is no longer at the perimeter. The ghost is in the machine.',
  'Compromised developer endpoints in the staging environment are suddenly initiating rapid, aggressive port sweeps directly against the core production finance cluster.',
@@ -560,12 +559,12 @@ let injection = "";
  ],
  telemetry: 'Port 1433 sweep detected moving laterally from Staging (10.10.40.0) toward Production (10.10.10.0).',
  options: [
- createGenericOption('Implement Strata Cloud Manager for unified Zero Trust Microsegmentation', 'Slam the blast doors shut automatically. Clamp down with Layer-7 zero-trust policies, restricting all east-west traffic purely by validated application and verified user ID.', 'Strata Cloud Manager', null, -10, 'Strata Cloud Manager recognized the lateral anomaly and instantly slammed the digital blast doors, isolating the rogue endpoints.', 'noc_3'),
- createGenericOption('Write static Layer-3 Access Control Lists on the core Nexus switches', 'Crack your knuckles, open the terminal, and frantically type out legacy IP and port-based ACLs directly into the core switch. One syntax typo could drop the entire building offline.', null, 'Manual Switch ACLs', +15, 'Your static ACLs stopped the sweep, but a slight IP range typo temporarily severed payroll processing for 400 employees.', 'noc_3')
+ createGenericOption('Implement Strata Cloud Manager for unified Zero Trust Microsegmentation', 'Slam the blast doors shut automatically. Clamp down with Layer-7 zero-trust policies, restricting all east-west traffic purely by validated application and verified user ID.', 'Strata Cloud Manager', null, -5, 'Strata Cloud Manager recognized the lateral anomaly and instantly slammed the digital blast doors, isolating the rogue endpoints.', 'noc_3'),
+ createGenericOption('Write static Layer-3 Access Control Lists on the core Nexus switches', 'Crack your knuckles, open the terminal, and frantically type out legacy IP and port-based ACLs directly into the core switch. One syntax typo could drop the entire building offline.', null, 'Manual Switch ACLs', +8, 'Your static ACLs stopped the sweep, but a slight IP range typo temporarily severed payroll processing for 400 employees.', 'noc_3')
  ]
  },
  noc_3: {
- act: 'NOC // 09:00 MST', burst: 'AI FLOOD SURGE', speaker: 'EDMONTON R&D', title: 'The Smokescreen Surge',
+ act: 'NOC // STAGE 3', burst: 'AI FLOOD SURGE', speaker: 'EDMONTON R&D', title: 'The Smokescreen Surge',
  paragraphs: [
  'Just as the SOC dashboard across the room lights up with a massive alert flood, an unscheduled avalanche of network traffic hits your western backbone.',
  'The massive, encrypted data dump is instantly saturating the fiber uplinks. Real-time telemetry packets from the Alberta SCADA network are getting queued behind the noise.',
@@ -574,12 +573,12 @@ let injection = "";
  ],
  telemetry: '40 Gbps backbone operating at 98.6% capacity. Critical SCADA queue dropping 6% of real-time packets.',
  options: [
- createGenericOption('Enforce Strata App-ID QoS Policies with dedicated AI traffic shaping', 'Let the platform do the heavy lifting. Guarantee ironclad bandwidth for the SCADA sessions while dynamically shaping the noisy, anomalous transfers into background lanes.', 'Strata NGFW & CDSS', null, -10, 'App-ID QoS policies effortlessly carved out priority VIP lanes for SCADA telemetry, bypassing the massive smokescreen.', 'noc_4'),
- createGenericOption('Manually shut down the Edmonton R&D switch ports via brute force', 'If the pipe is full, cut the pipe. Abruptly kill the physical switch interfaces via terminal command to eliminate the bottleneck immediately, regardless of collateral damage.', null, 'Developer Friction', +15, 'Dropping the ports cleared the bandwidth instantly, but wiped out seventy hours of distributed model training for the data science team.', 'noc_4')
+ createGenericOption('Enforce Strata App-ID QoS Policies with dedicated AI traffic shaping', 'Let the platform do the heavy lifting. Guarantee ironclad bandwidth for the SCADA sessions while dynamically shaping the noisy, anomalous transfers into background lanes.', 'Strata NGFW & CDSS', null, -5, 'App-ID QoS policies effortlessly carved out priority VIP lanes for SCADA telemetry, bypassing the massive smokescreen.', 'noc_4'),
+ createGenericOption('Manually shut down the Edmonton R&D switch ports via brute force', 'If the pipe is full, cut the pipe. Abruptly kill the physical switch interfaces via terminal command to eliminate the bottleneck immediately, regardless of collateral damage.', null, 'Developer Friction', +8, 'Dropping the ports cleared the bandwidth instantly, but wiped out seventy hours of distributed model training for the data science team.', 'noc_4')
  ]
  },
  noc_4: {
- act: 'NOC // 09:45 MST', burst: 'TLS 1.3 EXFIL', speaker: 'CORE CHASSIS', title: 'The Shadow in the Tunnel',
+ act: 'NOC // STAGE 4', burst: 'TLS 1.3 EXFIL', speaker: 'CORE CHASSIS', title: 'The Shadow in the Tunnel',
  paragraphs: [
  'The adversary is using the network noise as cover to extract the crown jewels. Outbound bandwidth on port 443 is pulsing rhythmically, like a digital heartbeat.',
  'They are burying stolen cloud API keys and massive blocks of customer PII deep inside encrypted TLS 1.3 tunnels. Your legacy firewalls are treating the traffic like a locked bank vault.',
@@ -588,14 +587,65 @@ let injection = "";
  ],
  telemetry: 'Fast-flux TLS 1.3 sessions established to untyped foreign external IP ranges across port 443.',
  crossTalk: 'Cloud architects are seeing massive S3 data scraping. We have to stop that data from leaving the pipe.',
- handoff: { role: 'cloud' },
  options: [
- createGenericOption('Enable Hardware-Accelerated Inline Decryption on Strata NGFW', 'Engage the dedicated FE400 silicon hardware acceleration to strip away the encryption veil and inspect the malicious flows at wire speed, without dropping a single frame.', 'Strata NGFW & CDSS', null, -10, 'Strata NGFW exposed the adversarial beaconing with zero latency, halting the exfiltration cold.', 'noc_5'),
- createGenericOption('Deploy a standalone proxy decryption gateway appliance', 'Reroute the suspicious traffic through a clunky, secondary decryption box. You accept the additional network hops and latency in exchange for visibility.', null, 'Proxy Hop Latency', +15, 'The clunky proxy intercepted the payload, but the extra network hops added an agonizing 45ms of latency to all core communications.', 'noc_5')
+ createGenericOption('Enable Hardware-Accelerated Inline Decryption on Strata NGFW', 'Engage the dedicated FE400 silicon hardware acceleration to strip away the encryption veil and inspect the malicious flows at wire speed, without dropping a single frame.', 'Strata NGFW & CDSS', null, -5, 'Strata NGFW exposed the adversarial beaconing with zero latency, halting the exfiltration cold.', 'noc_5'),
+ createGenericOption('Deploy a standalone proxy decryption gateway appliance', 'Reroute the suspicious traffic through a clunky, secondary decryption box. You accept the additional network hops and latency in exchange for visibility.', null, 'Proxy Hop Latency', +8, 'The clunky proxy intercepted the payload, but the extra network hops added an agonizing 45ms of latency to all core communications.', 'noc_5')
  ]
  },
  noc_5: {
- act: 'NOC // 10:30 MST', burst: 'PIPELINE ALARM', speaker: 'ALBERTA SCADA', title: 'Sub-Zero Sabotage',
+ act: 'NOC // STAGE 5', burst: 'SD-WAN MIRAGE', speaker: 'BRANCH ROUTER', title: 'The SD-WAN Mirage',
+ paragraphs: [
+ 'The central dashboard flickers. Fifty branch office routers in Ontario suddenly report that their primary IPsec tunnels have dropped.',
+ 'The adversary is injecting spoofed BGP routes, tricking your legacy SD-WAN overlay into believing the primary data center is offline, attempting to reroute all branch traffic through a malicious proxy.',
+ 'Your physical logistics network is about to be completely blinded and hijacked.'
+ ],
+ telemetry: 'BGP Route Flap detected on AS65001. Branch traffic diverting to unverified secondary overlay path.',
+ options: [
+ createGenericOption('Leverage Prisma SD-WAN with Autonomous Digital Experience Management (ADEM)', 'Use ADEM to instantly verify the true health of the network paths, overriding the spoofed BGP routes automatically based on real-time application performance.', 'Prisma SASE & SD-WAN', null, -5, 'Prisma SD-WAN instantly recognized the route degradation as a spoof, autonomously locking traffic to the verified primary path.', 'noc_6'),
+ createGenericOption('Manually hardcode static routes for all 50 branch routers', 'Open a massive terminal multiplexer and frantically push static IP routes to all 50 branch locations simultaneously via CLI script.', null, 'Manual Routing Friction', +8, 'The brittle static routes bypassed the hijack, but created a massive management headache for future network maintenance.', 'noc_6')
+ ]
+ },
+ noc_6: {
+ act: 'NOC // STAGE 6', burst: 'IOT ZOMBIE SWARM', speaker: 'GUEST WIFI', title: 'The IoT Zombie Swarm',
+ paragraphs: [
+ 'A new alarm blares from the unmanaged device subnet. The adversary has abandoned stealth.',
+ 'They are exploiting a known CVE in hundreds of networked corporate printers and security cameras across the building, forming a localized IoT botnet.',
+ 'This botnet is now attempting to pivot from the guest Wi-Fi directly into the heavily guarded SCADA management VLAN.'
+ ],
+ telemetry: '200+ unauthorized connection attempts originating from Vendor_Printer_MAC pools targeting SCADA VLAN.',
+ options: [
+ createGenericOption('Deploy IoT Security with Zero Trust Device Profiling', 'Let the platform instantly baseline the expected behavior of all IoT devices and automatically enforce strict network segmentation rules that quarantine the rogue hardware.', 'Strata Cloud Manager', null, -5, 'IoT Security instantly recognized the deviation from baseline and completely isolated the botnet on the switch layer.', 'noc_7'),
+ createGenericOption('Unplug the physical PoE switches for the camera network', 'Sprint into the telecom closet and start ripping out Ethernet cables to physically kill the power to the compromised devices.', null, 'Physical Blindness', +8, 'You successfully killed the botnet by yanking the cables, but you completely blinded the physical security team in the process.', 'noc_7')
+ ]
+ },
+ noc_7: {
+ act: 'NOC // STAGE 7', burst: 'BGP HIJACK', speaker: 'EDGE BORDER', title: 'The Border Gateway Hijack',
+ paragraphs: [
+ 'The external border routers are screaming. The threat actor is attempting a massive BGP route leak on the public internet.',
+ 'They are broadcasting false ASN advertisements, attempting to trick global internet backbones into routing all of Boreal’s legitimate incoming customer traffic to a black hole server in Eastern Europe.',
+ 'If this propagation succeeds, Boreal will effectively disappear from the Canadian internet.'
+ ],
+ telemetry: 'Unauthorized BGP prefix advertisement matching Boreal ASN detected on global looking glass servers.',
+ options: [
+ createGenericOption('Activate Cloud-Delivered DNS Security and BGP Monitoring', 'Leverage automated global threat intelligence to instantly detect the route hijack and dynamically update your peering policies to reject the false paths.', 'Strata NGFW & CDSS', null, -5, 'Cloud-Delivered DNS Security automatically corroborated the anomaly and enforced strict route filtering, keeping the traffic local.', 'noc_8'),
+ createGenericOption('Call your Tier 1 ISP and beg for a manual route filter', 'Pick up the phone, sit on hold for ten agonizing minutes, and beg a Tier 1 telecom engineer to manually drop the malicious advertisements.', null, 'ISP Dependency Delay', +8, 'The ISP eventually applied the filter, but the 15-minute delay caused severe global latency and dropped customer sessions.', 'noc_8')
+ ]
+ },
+ noc_8: {
+ act: 'NOC // STAGE 8', burst: 'DGA BEACONS', speaker: 'DNS RESOLVER', title: 'The Sinkhole Evasion',
+ paragraphs: [
+ 'The adversary is adapting to your defenses. They are deploying a Domain Generation Algorithm (DGA) to establish persistent Command and Control (C2).',
+ 'Infected internal hosts are frantically generating and querying thousands of randomized, nonsensical domain names every minute (e.g., `xkqz99j.com`), looking for instructions.',
+ 'Standard DNS blocklists are useless against domains that didn\'t exist ten seconds ago.'
+ ],
+ telemetry: 'Anomalous volume of NXDOMAIN responses. DGA beaconing signature detected on internal resolvers.',
+ options: [
+ createGenericOption('Engage Advanced DNS Security with Inline Machine Learning', 'Turn on inline ML models directly on the NGFW to instantly predict, categorize, and sinkhole the algorithmically generated domains in real-time.', 'Strata NGFW & CDSS', null, -5, 'Advanced DNS Security’s machine learning instantly recognized the mathematical entropy of the DGA and sinkholed every single beacon.', 'noc_9'),
+ createGenericOption('Write a custom regex filter on the legacy proxy', 'Attempt to write a complex Regular Expression to match the nonsensical domains and manually block them on the proxy server.', null, 'Regex Evasion', +8, 'Your regex blocked the first wave, but the adversary simply rotated to a new algorithm, completely evading your manual filter.', 'noc_9')
+ ]
+ },
+ noc_9: {
+ act: 'NOC // STAGE 9', burst: 'PIPELINE ALARM', speaker: 'ALBERTA SCADA', title: 'Sub-Zero Sabotage',
  paragraphs: [
  'A physical master alarm on the industrial OT console triggers, turning the overhead emergency lights in the NOC a harsh amber. The adversary is making their final, physical strike.',
  'Remote field sensors are recording highly anomalous Modbus and DNP3 packet injections originating from a compromised box on the corporate IT subnet.',
@@ -604,15 +654,15 @@ let injection = "";
  ],
  telemetry: 'Modbus function code 16 (Write Multiple Registers) detected moving toward pipeline compressor stations.',
  options: [
- createGenericOption('Activate Strata Industrial OT Security with dedicated ICS App-ID', 'Engage deep packet inspection specifically tuned for industrial protocols. Enforce unidirectional physical zone controls without disrupting the delicate polling loops.', 'Strata NGFW & CDSS', null, -10, 'Strata Industrial OT Security recognized the invalid Modbus commands as a malicious anomaly and severed the breach attempt instantly.', 'noc_6'),
- createGenericOption('Place the industrial network behind a legacy IT firewall with port forwarding', 'Rely on a standard, gritty IT firewall, using simple TCP port 502 forwarding to keep the sensors polling while trying to manually block the attacker IP.', null, 'OT Protocol Blindness', +15, 'The standard firewall treated the malicious Modbus command as ordinary TCP packets, allowing temporary, terrifying actuator manipulation before you cut the cord.', 'noc_6')
+ createGenericOption('Activate Strata Industrial OT Security with dedicated ICS App-ID', 'Engage deep packet inspection specifically tuned for industrial protocols. Enforce unidirectional physical zone controls without disrupting the delicate polling loops.', 'Strata NGFW & CDSS', null, -5, 'Strata Industrial OT Security recognized the invalid Modbus commands as a malicious anomaly and severed the breach attempt instantly.', 'noc_10'),
+ createGenericOption('Place the industrial network behind a legacy IT firewall with port forwarding', 'Rely on a standard, gritty IT firewall, using simple TCP port 502 forwarding to keep the sensors polling while trying to manually block the attacker IP.', null, 'OT Protocol Blindness', +8, 'The standard firewall treated the malicious Modbus command as ordinary TCP packets, allowing temporary, terrifying actuator manipulation before you cut the cord.', 'noc_10')
  ]
  },
- noc_6: { act: 'NOC // DEBRIEF', speaker: 'NOC OPERATIONS REVIEW', title: 'NOC Posture Assessment', isDebrief: true },
+ noc_10: { act: 'NOC // DEBRIEF', speaker: 'NOC OPERATIONS REVIEW', title: 'NOC Posture Assessment', isDebrief: true },
 
  // ==================== SOC TRACK ====================
  soc_1: {
- act: 'SOC // 07:30 MST', burst: 'VISHING COMPROMISE', speaker: 'SOC COMMAND', title: 'The Identity Theft',
+ act: 'SOC // STAGE 1', burst: 'VISHING COMPROMISE', speaker: 'SOC COMMAND', title: 'The Identity Theft',
  paragraphs: [
  'The glow of a dozen analytical monitors reflects in your tired eyes. It is {{LOCAL_TIME}} in the Security Operations Center.',
  'A frantic ticket escalates from the Level 1 helpdesk. A user named "CEO_Admin_01" just called in, panicking about a lost phone, and bullied a junior tech into resetting their Okta multi-factor token.',
@@ -621,14 +671,13 @@ let injection = "";
  ],
  telemetry: 'Successful MFA authentication for exec_admin_01 originating from new Ontario ISP.',
  crossTalk: 'NOC confirms the hijacked token is hitting the edge VPN. Contain the identity immediately before they pivot.',
- handoff: { role: 'noc' },
  options: [
- createGenericOption('Deploy Idira Identity Threat Detection to dynamically revoke the anomalous session', 'Engage Idira to analyze the behavioral deviation across domains and instantly quarantine the hijacked identity, regardless of the valid token.', 'Idira', null, -10, 'Idira instantly recognized the behavioral anomaly and ruthlessly locked the adversary out of the identity fabric.', 'soc_2'),
- createGenericOption('Deploy a standalone User Behavior Analytics (UBA) agent on the endpoint', 'Install a separate behavioral agent to flag the login, knowing the alert will require an analyst to manually verify the anomaly against three different dashboards.', null, 'Siloed UBA Alert', +15, 'The standalone UBA eventually flagged the login, but manual human verification took 40 agonizing minutes, allowing the ghost to move laterally.', 'soc_2')
+ createGenericOption('Deploy Idira Identity Threat Detection to dynamically revoke the anomalous session', 'Engage Idira to analyze the behavioral deviation across domains and instantly quarantine the hijacked identity, regardless of the valid token.', 'Idira', null, -5, 'Idira instantly recognized the behavioral anomaly and ruthlessly locked the adversary out of the identity fabric.', 'soc_2'),
+ createGenericOption('Deploy a standalone User Behavior Analytics (UBA) agent on the endpoint', 'Install a separate behavioral agent to flag the login, knowing the alert will require an analyst to manually verify the anomaly against three different dashboards.', null, 'Siloed UBA Alert', +8, 'The standalone UBA eventually flagged the login, but manual human verification took 40 agonizing minutes, allowing the ghost to move laterally.', 'soc_2')
  ]
  },
  soc_2: {
- act: 'SOC // 08:15 MST', burst: 'FILELESS INJECTION', speaker: 'ENDPOINT SENSOR', title: 'The Hollow Ghost in Memory',
+ act: 'SOC // STAGE 2', burst: 'FILELESS INJECTION', speaker: 'ENDPOINT SENSOR', title: 'The Hollow Ghost in Memory',
  paragraphs: [
  'The intruder is moving laterally, and they are invisible. A developer workstation’s cooling fan is screaming at maximum RPM, but standard disk antivirus software cheerfully reports that all files are 100% clean.',
  'Peering directly into the raw memory telemetry, you spot the anomaly: unmapped executable code dynamically injected into a hollowed-out `svchost.exe` process.',
@@ -636,12 +685,12 @@ let injection = "";
  ],
  telemetry: 'TOR-DEV-088 svchost.exe (PID 4092) thread injection detected. Unmapped memory hook active.',
  options: [
- createGenericOption('Deploy Cortex XDR with behavioral thread protection', 'Unleash Cortex XDR’s behavioral analytics to dive into the kernel, terminate the hollowed thread in memory, and isolate the workstation instantly.', 'Cortex XDR', null, -10, 'Cortex XDR severed the injected thread directly in memory and quarantined the host before a single token could be dumped.', 'soc_3'),
- createGenericOption('Queue a standalone full-disk malware scan and pray', 'Schedule a standard disk-based scan to run in the background, crossing your fingers that the attacker makes a mistake and drops a tangible file to the hard drive.', null, 'Fileless Malware Blindness', +15, 'The antivirus proudly reported zero infected files on disk, completely blind to the memory hook silently dumping master tokens.', 'soc_3')
+ createGenericOption('Deploy Cortex XDR with behavioral thread protection', 'Unleash Cortex XDR’s behavioral analytics to dive into the kernel, terminate the hollowed thread in memory, and isolate the workstation instantly.', 'Cortex XDR', null, -5, 'Cortex XDR severed the injected thread directly in memory and quarantined the host before a single token could be dumped.', 'soc_3'),
+ createGenericOption('Queue a standalone full-disk malware scan and pray', 'Schedule a standard disk-based scan to run in the background, crossing your fingers that the attacker makes a mistake and drops a tangible file to the hard drive.', null, 'Fileless Malware Blindness', +8, 'The antivirus proudly reported zero infected files on disk, completely blind to the memory hook silently dumping master tokens.', 'soc_3')
  ]
  },
  soc_3: {
- act: 'SOC // 09:00 MST', burst: '124K EPS DELUGE', speaker: 'CENTRAL SIEM', title: 'The DDoS Smokescreen',
+ act: 'SOC // STAGE 3', burst: '124K EPS DELUGE', speaker: 'CENTRAL SIEM', title: 'The DDoS Smokescreen',
  paragraphs: [
  'The adversary realizes you are tracking them. They unleash a blinding smokescreen: a massive, volumetric DDoS attack slams into Boreal’s public-facing web infrastructure.',
  'Your traditional SIEM database groans, stalls, and crashes under the sudden 124,000 Events Per Second (EPS) alert flood. Analysts are weeping into their keyboards.',
@@ -649,12 +698,12 @@ let injection = "";
  ],
  telemetry: '124,000 EPS deluge. Traditional databases dropping packets. 4,800 unassigned alerts in queue.',
  options: [
- createGenericOption('Ignore the noise. Use Cortex XSIAM to auto-stitch alerts and hunt the real threat', 'Feed the chaos into XSIAM. Let machine learning auto-stitch the disparate alerts to cut straight through the smokescreen and expose the true attack path.', 'Cortex XSIAM', null, -10, 'Cortex XSIAM ignored the massive, noisy diversion and auto-stitched the true stealth lateral movement path in seconds.', 'soc_4'),
- createGenericOption('Divert all SOC analysts to manually scrub the incoming DDoS traffic', 'Panic. Pull every available human analyst off threat hunting and have them manually write IP block rules to try and save the web servers from melting.', null, 'Analyst Alert Blindness', +15, 'Analysts were totally consumed by the noisy distraction, completely missing the stealthy exfiltration happening underneath their noses.', 'soc_4')
+ createGenericOption('Ignore the noise. Use Cortex XSIAM to auto-stitch alerts and hunt the real threat', 'Feed the chaos into XSIAM. Let machine learning auto-stitch the disparate alerts to cut straight through the smokescreen and expose the true attack path.', 'Cortex XSIAM', null, -5, 'Cortex XSIAM ignored the massive, noisy diversion and auto-stitched the true stealth lateral movement path in seconds.', 'soc_4'),
+ createGenericOption('Divert all SOC analysts to manually scrub the incoming DDoS traffic', 'Panic. Pull every available human analyst off threat hunting and have them manually write IP block rules to try and save the web servers from melting.', null, 'Analyst Alert Blindness', +8, 'Analysts were totally consumed by the noisy distraction, completely missing the stealthy exfiltration happening underneath their noses.', 'soc_4')
  ]
  },
  soc_4: {
- act: 'SOC // 09:45 MST', burst: 'MACHINE THEFT', speaker: 'AD MONITOR', title: 'The Secret Lives of Service Accounts',
+ act: 'SOC // STAGE 4', burst: 'MACHINE THEFT', speaker: 'AD MONITOR', title: 'The Secret Lives of Service Accounts',
  paragraphs: [
  'With analysts distracted by the smokescreen, the adversary pivots tactics. The automated build service account `svc-jenkins-prod` has successfully authenticated from an unauthorized external IP.',
  'Machine identities do not respond to multi-factor authentication prompts. They rely on static, unexpiring Kerberos tickets. The perfect disguise.',
@@ -662,14 +711,65 @@ let injection = "";
  ],
  telemetry: 'Service account `svc-jenkins-prod` authenticated from unauthorized external IP.',
  crossTalk: 'Executive Leadership is frantically demanding answers regarding potential PIPEDA privacy violations. They need this stopped.',
- handoff: { role: 'exec' },
  options: [
- createGenericOption('Deploy Idira Identity Security with Zero Standing Privilege (ZSP)', 'Eradicate static machine credentials entirely. Enforce dynamic, just-in-time token generation so the stolen ticket instantly becomes worthless.', 'Idira', null, -10, 'Idira revoked the compromised machine token instantly, severing the attacker’s exfiltration authorization mid-stride.', 'soc_5'),
- createGenericOption('Add the adversary’s external IP address to a manual edge firewall blocklist', 'Play whack-a-mole. Simply block the attacker’s current IP address on the firewall while leaving the compromised, highly-privileged service account perfectly active.', null, 'IP Rotation Evasion', +15, 'The attacker laughed, rotated their VPN IP address in two seconds, and continued executing commands using the unrevoked ticket.', 'soc_5')
+ createGenericOption('Deploy Idira Identity Security with Zero Standing Privilege (ZSP)', 'Eradicate static machine credentials entirely. Enforce dynamic, just-in-time token generation so the stolen ticket instantly becomes worthless.', 'Idira', null, -5, 'Idira revoked the compromised machine token instantly, severing the attacker’s exfiltration authorization mid-stride.', 'soc_5'),
+ createGenericOption('Add the adversary’s external IP address to a manual edge firewall blocklist', 'Play whack-a-mole. Simply block the attacker’s current IP address on the firewall while leaving the compromised, highly-privileged service account perfectly active.', null, 'IP Rotation Evasion', +8, 'The attacker laughed, rotated their VPN IP address in two seconds, and continued executing commands using the unrevoked ticket.', 'soc_5')
  ]
  },
  soc_5: {
- act: 'SOC // 10:30 MST', burst: 'FINAL SHOWDOWN', speaker: 'ENDPOINT SENSOR', title: 'In-Memory Ransomware Detonation',
+ act: 'SOC // STAGE 5', burst: 'KERNEL ROOTKIT', speaker: 'EDR KERNEL', title: 'The EDR Blindspot',
+ paragraphs: [
+ 'The adversary realizes they are being monitored. They drop a custom, Bring-Your-Own-Vulnerable-Driver (BYOVD) rootkit onto a compromised staging server.',
+ 'This rootkit is attempting to forcefully unhook and blind your legacy EDR sensors at the Windows kernel level.',
+ 'If they successfully blind the sensor, they will have complete, unmonitored reign over the server\'s operating system.'
+ ],
+ telemetry: 'Kernel driver `gdrv.sys` loaded via unauthorized administrative shell. Attempting to unhook EDR callbacks.',
+ options: [
+ createGenericOption('Rely on Cortex XDR Anti-Tampering and Behavioral Threat Protection', 'Allow Cortex XDR’s hardened kernel-level anti-tampering engine to automatically block the vulnerable driver load and terminate the shell.', 'Cortex XDR', null, -5, 'Cortex XDR\'s anti-tamper module effortlessly deflected the rootkit attempt, keeping the sensor firmly rooted in the OS.', 'soc_6'),
+ createGenericOption('Attempt to manually kill the malicious driver via remote PowerShell', 'Frantically execute remote PowerShell commands to try and unload the malicious driver before it fully initializes in the kernel.', null, 'Kernel Panic', +8, 'Your manual PowerShell command collided with the loading rootkit, causing a catastrophic Blue Screen of Death on the staging server.', 'soc_6')
+ ]
+ },
+ soc_6: {
+ act: 'SOC // STAGE 6', burst: 'POWERSHELL ABUSE', speaker: 'PROCESS TREE', title: 'Living Off the Land',
+ paragraphs: [
+ 'Denied their rootkit, the attacker shifts to "Living Off the Land" tactics. They are leveraging perfectly legitimate, built-in Windows administrative tools.',
+ 'A massive, heavily obfuscated PowerShell command is executed via WMI, completely bypassing standard signature-based antivirus.',
+ 'They are using your own infrastructure\'s tools against you, attempting to quietly dump the SAM database for password hashes.'
+ ],
+ telemetry: 'WMI invoked highly obfuscated PowerShell string: `powershell.exe -nop -w hidden -e JABzAD0ATgBlAHcALQBP...`',
+ options: [
+ createGenericOption('Deploy Cortex XDR with Advanced AMSI Integration', 'Use deep Antimalware Scan Interface (AMSI) integration to de-obfuscate the PowerShell script in memory before it can execute its payload.', 'Cortex XDR', null, -5, 'Cortex XDR seamlessly de-obfuscated the script in memory, recognized the malicious intent, and killed the process tree.', 'soc_7'),
+ createGenericOption('Manually restrict PowerShell execution policies globally', 'Slam the emergency brakes by pushing a global Group Policy update to restrict all PowerShell execution across the entire enterprise.', null, 'IT Operations Outage', +8, 'You successfully blocked the attack, but completely broke automated IT patching and Helpdesk scripts company-wide for a day.', 'soc_7')
+ ]
+ },
+ soc_7: {
+ act: 'SOC // STAGE 7', burst: 'GOLDEN TICKET', speaker: 'DOMAIN CONTROLLER', title: 'The Golden Ticket',
+ paragraphs: [
+ 'The adversary makes a desperate play for ultimate domain dominance. They have captured the KRBTGT hash and are forging an Active Directory Golden Ticket.',
+ 'This ticket grants them unrestricted, silent access to any resource on the network, disguised as a fully authenticated Domain Administrator.',
+ 'This is the nightmare scenario. You cannot block them by IP or username; they effectively own the directory.'
+ ],
+ telemetry: 'Anomalous Kerberos TGT requested with 10-year lifetime. Forged PAC signatures detected.',
+ options: [
+ createGenericOption('Leverage Idira and Cortex XSIAM for Identity Threat Response', 'Instantly cross-correlate the anomalous ticket lifetime with behavioral baseline data and automatically force a double-rotation of the KRBTGT password.', 'Idira', null, -5, 'The platform instantly invalidated the forged Golden Ticket and locked the adversary out of the domain completely.', 'soc_8'),
+ createGenericOption('Manually reset all Domain Admin passwords', 'Panic and force an immediate password reset for every single Domain Admin account in the Active Directory.', null, 'Persistent Forgery', +8, 'You reset the passwords, but the Golden Ticket relies on the master KRBTGT hash, so the attacker maintained absolute control regardless.', 'soc_8')
+ ]
+ },
+ soc_8: {
+ act: 'SOC // STAGE 8', burst: 'SUPPLY CHAIN PIVOT', speaker: 'VENDOR UPDATE', title: 'The Poisoned Update',
+ paragraphs: [
+ 'Locked out of the domain, the adversary leverages a sleeper asset. A trusted third-party HR software vendor pushes out a scheduled, digitally signed update.',
+ 'Because the update is signed by a valid certificate, your legacy tools inherently trust it.',
+ 'But the vendor was compromised months ago. Buried in the update payload is a dormant trojan that is slowly waking up and establishing an outbound connection.'
+ ],
+ telemetry: 'Valid, digitally signed binary `hr_update_v4.exe` initiating anomalous outbound connection to untrusted ASN.',
+ options: [
+ createGenericOption('Rely on Cortex XSIAM Analytics to baseline vendor behavior', 'Use continuous machine learning to realize that while the signature is valid, this specific HR software has never connected to a Russian IP address before.', 'Cortex XSIAM', null, -5, 'XSIAM immediately identified the behavioral deviation from the trusted vendor baseline and quarantined the poisoned update.', 'soc_9'),
+ createGenericOption('Add the vendor update server to a temporary allowlist', 'Assume the strange behavior is just a poorly coded update from the vendor and manually allowlist it to avoid disrupting HR operations.', null, 'Supply Chain Blindness', +8, 'Your manual allowlist rolled out the red carpet for the trojan, allowing it to successfully backdoor the HR database.', 'soc_9')
+ ]
+ },
+ soc_9: {
+ act: 'SOC // STAGE 9', burst: 'FINAL SHOWDOWN', speaker: 'ENDPOINT SENSOR', title: 'In-Memory Ransomware Detonation',
  paragraphs: [
  'The final, desperate strike lands. Blocked from exfiltration, the cornered adversary detonates custom, in-memory ransomware targeting Boreal’s primary ESXi hypervisors.',
  'Your monitors light up with rapidly rising disk I/O. The ransomware has begun a terrifyingly fast AES-256 encryption loop, aggressively attempting to overwrite shadow volume backups.',
@@ -677,15 +777,15 @@ let injection = "";
  ],
  telemetry: 'Process `svchost_update.exe` rapidly encrypting `.vmdk` files using AES-256.',
  options: [
- createGenericOption('Deploy Cortex XDR Anti-Ransomware Behavioral Protection', 'Unleash Cortex XDR to instantly terminate the encryption threads in memory and invoke automated shadow-copy restoration before the user even notices.', 'Cortex XDR', null, -10, 'Cortex XDR arrested the ransomware in 200 milliseconds, extracted the key from RAM, and restored the files seamlessly.', 'soc_6'),
- createGenericOption('Issue an emergency physical power-down command to core server racks', 'Scream into the radio for the NOC to pull the literal power plugs. Cut the electrical power to the data center to forcefully halt the encryption processors.', null, 'Data Corruption Risk', +15, 'The brutal power termination stopped the encryption, but the abrupt halt permanently corrupted massive, unrecoverable database transaction logs.', 'soc_6')
+ createGenericOption('Deploy Cortex XDR Anti-Ransomware Behavioral Protection', 'Unleash Cortex XDR to instantly terminate the encryption threads in memory and invoke automated shadow-copy restoration before the user even notices.', 'Cortex XDR', null, -5, 'Cortex XDR arrested the ransomware in 200 milliseconds, extracted the key from RAM, and restored the files seamlessly.', 'soc_10'),
+ createGenericOption('Issue an emergency physical power-down command to core server racks', 'Scream into the radio for the NOC to pull the literal power plugs. Cut the electrical power to the data center to forcefully halt the encryption processors.', null, 'Data Corruption Risk', +8, 'The brutal power termination stopped the encryption, but the abrupt halt permanently corrupted massive, unrecoverable database transaction logs.', 'soc_10')
  ]
  },
- soc_6: { act: 'SOC // DEBRIEF', speaker: 'SOC EVALUATION', title: 'SOC Posture Assessment', isDebrief: true },
+ soc_10: { act: 'SOC // DEBRIEF', speaker: 'SOC EVALUATION', title: 'SOC Posture Assessment', isDebrief: true },
 
  // ==================== CLOUD TRACK ====================
  cloud_1: {
- act: 'CLOUD // 07:30 MST', burst: 'OAUTH COMPROMISE', speaker: 'CLOUD MONITOR', title: 'The Invisible Door',
+ act: 'CLOUD // STAGE 1', burst: 'OAUTH COMPROMISE', speaker: 'CLOUD MONITOR', title: 'The Invisible Door',
  paragraphs: [
  'You log into the cloud architecture dashboard. It is {{LOCAL_TIME}}. While the SOC fights a noisy vishing attack, a deeply silent anomaly occurs in your domain.',
  'An approved, highly-trusted third-party marketing SaaS application has suddenly initiated a mass data scraping event, leveraging its legitimate, delegated OAuth API keys.',
@@ -694,14 +794,13 @@ let injection = "";
  ],
  telemetry: 'Approved OAuth App requesting 450,000 CRM records per minute from an anomalous external IP pool.',
  crossTalk: 'Executive Leadership is tracking the vendor breach on CNN. Determine the blast radius immediately.',
- handoff: { role: 'exec' },
  options: [
- createGenericOption('Deploy Cortex Xpanse & Cortex Cloud to surgically revoke the specific abused token', 'Map the rogue API connection and dynamically revoke only the specific abused identity token, halting the exfiltration without impacting daily operations.', 'Cortex Cloud', null, -10, 'Cortex Cloud dynamically revoked the specific abused token, saving the data while keeping the legitimate marketing pipeline online.', 'cloud_2'),
- createGenericOption('Rotate all API keys for the third-party marketing application manually', 'Panic and hit the big red button. Regenerate all API keys in the vendor portal, forcing angry developers to manually hardcode new access across the entire stack.', null, 'Manual Key Rotation', +15, 'Manual key rotation stopped the scraping, but the marketing platform was offline for 6 hours, infuriating the executives.', 'cloud_2')
+ createGenericOption('Deploy Cortex Xpanse & Cortex Cloud to surgically revoke the specific abused token', 'Map the rogue API connection and dynamically revoke only the specific abused identity token, halting the exfiltration without impacting daily operations.', 'Cortex Cloud', null, -5, 'Cortex Cloud dynamically revoked the specific abused token, saving the data while keeping the legitimate marketing pipeline online.', 'cloud_2'),
+ createGenericOption('Rotate all API keys for the third-party marketing application manually', 'Panic and hit the big red button. Regenerate all API keys in the vendor portal, forcing angry developers to manually hardcode new access across the entire stack.', null, 'Manual Key Rotation', +8, 'Manual key rotation stopped the scraping, but the marketing platform was offline for 6 hours, infuriating the executives.', 'cloud_2')
  ]
  },
  cloud_2: {
- act: 'CLOUD // 08:15 MST', burst: 'TERRAFORM POISON', speaker: 'BUILD FARM', title: 'Malicious Infrastructure Code',
+ act: 'CLOUD // STAGE 2', burst: 'TERRAFORM POISON', speaker: 'BUILD FARM', title: 'Malicious Infrastructure Code',
  paragraphs: [
  'The adversary is expanding their foothold. A compromised developer identity just pushed a seemingly benign update to the main Infrastructure-as-Code (IaC) repository.',
  'Buried deep within a sprawling Terraform module is a subtle script designed to alter AWS Security Groups, opening port 22 (SSH) to the public internet across all production nodes.',
@@ -710,12 +809,12 @@ let injection = "";
  ],
  telemetry: 'Git commit contains Terraform module modifying AWS SG `allow_ssh_global` to 0.0.0.0/0.',
  options: [
- createGenericOption('Enforce Cortex Cloud Shift-Left Guardrails to scan the PR', 'Automatically scan IaC templates directly in the repository and block the malicious commit inline before the merge can even execute.', 'Cortex Cloud', null, -10, 'Cortex Cloud Shift-Left scanners detected the over-permissive security group and brutally rejected the pull request.', 'cloud_3'),
- createGenericOption('Rely on human peer-review processes during DevOps sprint planning', 'Assume a heavily-caffeinated, overworked senior DevOps engineer will catch the subtle misconfiguration during their manual code review.', null, 'Peer Review Failure', +15, 'The exhausted engineer rubber-stamped the pull request, silently exposing production nodes to the internet for 12 terrifying hours.', 'cloud_3')
+ createGenericOption('Enforce Cortex Cloud Shift-Left Guardrails to scan the PR', 'Automatically scan IaC templates directly in the repository and block the malicious commit inline before the merge can even execute.', 'Cortex Cloud', null, -5, 'Cortex Cloud Shift-Left scanners detected the over-permissive security group and brutally rejected the pull request.', 'cloud_3'),
+ createGenericOption('Rely on human peer-review processes during DevOps sprint planning', 'Assume a heavily-caffeinated, overworked senior DevOps engineer will catch the subtle misconfiguration during their manual code review.', null, 'Peer Review Failure', +8, 'The exhausted engineer rubber-stamped the pull request, silently exposing production nodes to the internet for 12 terrifying hours.', 'cloud_3')
  ]
  },
  cloud_3: {
- act: 'CLOUD // 09:00 MST', burst: 'LAMBDA HIJACK', speaker: 'AWS LAMBDA', title: 'Parasites in the Ephemeral Cloud',
+ act: 'CLOUD // STAGE 3', burst: 'LAMBDA HIJACK', speaker: 'AWS LAMBDA', title: 'Parasites in the Ephemeral Cloud',
  paragraphs: [
  'The SOC is battling a massive alert deluge on the ground. Meanwhile, a chaotic anomaly ripples through your serverless cloud compute cluster.',
  'Using compromised credentials, the adversary has maliciously modified the deployment package of thousands of ephemeral serverless functions, embedding heavily obfuscated cryptominers.',
@@ -723,12 +822,12 @@ let injection = "";
  ],
  telemetry: '4,000 Lambda invocations spawning unauthorized binary processes connecting to offshore mining pools.',
  options: [
- createGenericOption('Deploy Cortex Cloud Serverless Runtime Defense & Drift Prevention', 'Enforce absolute immutability. Block unauthorized process spawning within the functions and dynamically revoke the compromised IAM roles on the fly.', 'Cortex Cloud', null, -10, 'Cortex Cloud detected runtime drift, halted the mining binaries instantly, and quarantined the rogue role.', 'cloud_4'),
- createGenericOption('Wait for monthly cloud infrastructure billing alerts to flag the anomaly', 'Shrug it off and postpone action until finance reviews the cloud spend dashboards and flags the massive cost anomaly next week.', null, 'Resource Exhaustion', +15, 'The cryptomining ran unchecked for days, depleting cloud budgets heavily while acting as a perfect, chaotic smokescreen.', 'cloud_4')
+ createGenericOption('Deploy Cortex Cloud Serverless Runtime Defense & Drift Prevention', 'Enforce absolute immutability. Block unauthorized process spawning within the functions and dynamically revoke the compromised IAM roles on the fly.', 'Cortex Cloud', null, -5, 'Cortex Cloud detected runtime drift, halted the mining binaries instantly, and quarantined the rogue role.', 'cloud_4'),
+ createGenericOption('Wait for monthly cloud infrastructure billing alerts to flag the anomaly', 'Shrug it off and postpone action until finance reviews the cloud spend dashboards and flags the massive cost anomaly next week.', null, 'Resource Exhaustion', +8, 'The cryptomining ran unchecked for days, depleting cloud budgets heavily while acting as a perfect, chaotic smokescreen.', 'cloud_4')
  ]
  },
  cloud_4: {
- act: 'CLOUD // 09:45 MST', burst: 'S3 EXFILTRATION', speaker: 'DATA LAKE', title: 'The Bleeding Data Lake',
+ act: 'CLOUD // STAGE 4', burst: 'S3 EXFILTRATION', speaker: 'DATA LAKE', title: 'The Bleeding Data Lake',
  paragraphs: [
  'Through the fog of the ongoing incident, telemetry feeds indicate devastating, high-volume batch downloads originating from an internal Amazon S3 staging bucket.',
  'Using stolen machine credentials (which easily bypassed traditional MFA), the threat actor has established a massive multi-part download stream directed toward an anonymous foreign cloud tenant.',
@@ -736,12 +835,64 @@ let injection = "";
  ],
  telemetry: '18,400 multi-part S3 `GetObject` requests initiated from an unauthorized external IP address.',
  options: [
- createGenericOption('Enforce Cortex Cloud Data Security Posture Management (DSPM)', 'Discover the sensitive data assets autonomously and instantly sever the unauthorized exfiltration streams via real-time enforcement guardrails.', 'Cortex Cloud DSPM', null, -10, 'Cortex Cloud DSPM terminated the exfiltration session immediately and applied zero-trust encryption to the bucket.', 'cloud_5'),
- createGenericOption('Deploy a standalone Data Loss Prevention (DLP) tool to monitor the bucket', 'Install a separate, clunky DLP agent to alert you on the transfer, knowing it requires manual human intervention to actually sever the connection.', null, 'Siloed DLP Alerting', +15, 'The standalone DLP fired bright red alerts, but the manual response latency allowed 2GB of plaintext data to escape into the wild.', 'cloud_5')
+ createGenericOption('Enforce Cortex Cloud Data Security Posture Management (DSPM)', 'Discover the sensitive data assets autonomously and instantly sever the unauthorized exfiltration streams via real-time enforcement guardrails.', 'Cortex Cloud DSPM', null, -5, 'Cortex Cloud DSPM terminated the exfiltration session immediately and applied zero-trust encryption to the bucket.', 'cloud_5'),
+ createGenericOption('Deploy a standalone Data Loss Prevention (DLP) tool to monitor the bucket', 'Install a separate, clunky DLP agent to alert you on the transfer, knowing it requires manual human intervention to actually sever the connection.', null, 'Siloed DLP Alerting', +8, 'The standalone DLP fired bright red alerts, but the manual response latency allowed 2GB of plaintext data to escape into the wild.', 'cloud_5')
  ]
  },
  cloud_5: {
- act: 'CLOUD // 10:30 MST', burst: 'CONTAINER ESCAPE', speaker: 'K8S CLUSTER', title: 'Breaking the Kubernetes Cage',
+ act: 'CLOUD // STAGE 5', burst: 'CONTAINER DRIFT', speaker: 'DOCKER REGISTRY', title: 'The Rogue Container',
+ paragraphs: [
+ 'The adversary is probing the edges of your continuous deployment pipelines. A new, undocumented Docker image has just been spun up in the production Kubernetes cluster.',
+ 'It looks exactly like the legitimate Nginx ingress controller, but the SHA256 image digest does not match any approved build artifact in your secure registry.',
+ 'The container is actively attempting to establish external connections to an unknown domain.'
+ ],
+ telemetry: 'Image `nginx-ingress-v2` running with unverified SHA256 digest. Runtime drift detected.',
+ options: [
+ createGenericOption('Enforce Cortex Cloud Continuous Image Assurance and Drift Control', 'Automatically detect the runtime drift, terminate the unverified pod, and block any future deployments of images that bypass the CI/CD scanning pipeline.', 'Cortex Cloud', null, -5, 'Cortex Cloud immediately detected the signature mismatch, killed the rogue pod, and locked the registry.', 'cloud_6'),
+ createGenericOption('Manually execute a `kubectl delete pod` command', 'Open your terminal, authenticate to the cluster, and manually delete the rogue pod, hoping the deployment controller doesn\'t just spin it back up.', null, 'Whack-a-Mole Defense', +8, 'You deleted the pod, but the compromised deployment controller instantly spun up three more replicas in its place.', 'cloud_6')
+ ]
+ },
+ cloud_6: {
+ act: 'CLOUD // STAGE 6', burst: 'SHADOW API', speaker: 'API GATEWAY', title: 'The API Gateway Shadow',
+ paragraphs: [
+ 'A blip on the radar. The adversary has found an old, undocumented API endpoint (`v1/legacy-auth`) that was supposed to be deprecated two years ago.',
+ 'Because it is a shadow API, it lacks rate limiting and modern OAuth enforcement. The attacker is relentlessly brute-forcing credentials through this forgotten backdoor.',
+ 'You cannot protect what you cannot see, but the platform can.'
+ ],
+ telemetry: 'Unprecedented traffic volume (9,000 req/sec) hitting undocumented endpoint `/api/v1/legacy-auth`.',
+ options: [
+ createGenericOption('Deploy Cortex Xpanse to continuously discover and secure shadow APIs', 'Let the platform automatically map the entire external attack surface, discover the legacy API, and dynamically route it through the secure AI Gateway.', 'Cortex Xpanse', null, -5, 'Cortex Xpanse mapped the forgotten endpoint and immediately placed it behind strict rate-limiting guardrails.', 'cloud_7'),
+ createGenericOption('Ask the engineering team to manually review the API documentation', 'Send an urgent Slack message to the lead developers, asking them to manually audit their codebases to figure out where this endpoint lives.', null, 'Documentation Lag', +8, 'The developers spent three hours searching legacy code repositories while the brute-force attack continued uninterrupted.', 'cloud_7')
+ ]
+ },
+ cloud_7: {
+ act: 'CLOUD // STAGE 7', burst: 'LATERAL CLOUD PIVOT', speaker: 'AZURE BRIDGE', title: 'The Cross-Tenant Pivot',
+ paragraphs: [
+ 'The threat is mutating. Having compromised a minor AWS IAM role, the adversary uses a hardcoded cross-cloud trust relationship to pivot directly into your Azure environment.',
+ 'They are using AWS credentials to assume an Azure service principal, completely bypassing the Azure front door.',
+ 'Your visibility is deeply fragmented across the two disparate cloud providers.'
+ ],
+ telemetry: 'AWS IAM Role `dev-test-01` successfully assumed Azure Service Principal `prod-db-admin`.',
+ options: [
+ createGenericOption('Utilize Cortex Cloud for unified Multi-Cloud Posture Management', 'Visualize the cross-cloud IAM relationships in a single pane of glass and automatically sever the overly permissive trust bridge between the tenants.', 'Cortex Cloud', null, -5, 'Cortex Cloud illuminated the hidden cross-cloud trust vector and automatically revoked the over-privileged permission.', 'cloud_8'),
+ createGenericOption('Log into both AWS and Azure consoles manually to investigate', 'Open a dozen tabs, furiously switching between AWS CloudTrail and Azure Sentinel logs, trying to manually correlate timestamps.', null, 'Console Fatigue', +8, 'By the time you manually pieced together the lateral movement path, the adversary had already dumped the Azure SQL databases.', 'cloud_8')
+ ]
+ },
+ cloud_8: {
+ act: 'CLOUD // STAGE 8', burst: 'SECRETS SPRAWL', speaker: 'GITHUB REPO', title: 'The Hardcoded Key',
+ paragraphs: [
+ 'The adversary is scraping the bottom of the barrel. A junior developer accidentally committed a plaintext AWS root access key into a public GitHub repository branch.',
+ 'Tundra Serpent’s automated scrapers found the key in under 4 seconds. They are preparing to log in as a root administrator.',
+ 'You have seconds to invalidate the key before they gain God-mode access to the entire cloud infrastructure.'
+ ],
+ telemetry: 'High entropy string matching `AKIA...` detected in public commit. Instant revocation required.',
+ options: [
+ createGenericOption('Enable Cortex Cloud Secrets Scanning and Auto-Remediation', 'Automatically scan all code repositories in real-time, detect the exposed secret, and trigger a webhook to instantly invalidate the AWS key.', 'Cortex Cloud', null, -5, 'The secrets scanner caught the key mid-commit and automatically invalidated it before the adversary could even copy it.', 'cloud_9'),
+ createGenericOption('Email the developer and ask them to delete the commit', 'Send a strongly worded email telling the junior developer to frantically rewrite the Git history and issue a manual key rotation request.', null, 'Human Latency', +8, 'The developer was at lunch. The adversary used the active root key to completely delete a minor production cluster.', 'cloud_9')
+ ]
+ },
+ cloud_9: {
+ act: 'CLOUD // STAGE 9', burst: 'CONTAINER ESCAPE', speaker: 'K8S CLUSTER', title: 'Breaking the Kubernetes Cage',
  paragraphs: [
  'Blocked from exfiltrating data, the adversary attempts pure destruction. Inside the production Kubernetes cluster, a compromised microservice triggers an unpatched container runtime escape.',
  'The malicious process is aggressively breaching the container namespace boundaries. It is attempting to mount the underlying Linux host kernel filesystem to lock the primary databases.',
@@ -749,17 +900,16 @@ let injection = "";
  ],
  telemetry: 'Container invoked unauthorized ptrace call and attempted host `/proc` mount.',
  crossTalk: 'The 400 Bitcoin extortion demand just hit the C-Suite. We need verified data integrity right now.',
- handoff: { role: 'exec' },
  options: [
- createGenericOption('Enforce Cortex Cloud eBPF Runtime Container Protection', 'Engage deep eBPF sensors to monitor system calls at the deepest kernel layer, intercepting the exploit and terminating the rogue pod instantly.', 'Cortex Cloud', null, -10, 'Cortex Cloud eBPF sensors intercepted the kernel escape attempt in milliseconds, preserving absolute host integrity.', 'cloud_6'),
- createGenericOption('Deploy a standalone container image scanner to re-check the registry', 'Run a static image scan to see what theoretical vulnerabilities exist on the deployed pod, hoping to find a CVE to patch later.', null, 'Runtime Monitoring Blindness', +15, 'The static scanner found the CVE, but totally failed to stop the active, live runtime escape happening in production memory.', 'cloud_6')
+ createGenericOption('Enforce Cortex Cloud eBPF Runtime Container Protection', 'Engage deep eBPF sensors to monitor system calls at the deepest kernel layer, intercepting the exploit and terminating the rogue pod instantly.', 'Cortex Cloud', null, -5, 'Cortex Cloud eBPF sensors intercepted the kernel escape attempt in milliseconds, preserving absolute host integrity.', 'cloud_10'),
+ createGenericOption('Deploy a standalone container image scanner to re-check the registry', 'Run a static image scan to see what theoretical vulnerabilities exist on the deployed pod, hoping to find a CVE to patch later.', null, 'Runtime Monitoring Blindness', +8, 'The static scanner found the CVE, but totally failed to stop the active, live runtime escape happening in production memory.', 'cloud_10')
  ]
  },
- cloud_6: { act: 'CLOUD // DEBRIEF', speaker: 'CLOUD REVIEW', title: 'Cloud Security Posture', isDebrief: true },
+ cloud_10: { act: 'CLOUD // DEBRIEF', speaker: 'CLOUD REVIEW', title: 'Cloud Security Posture', isDebrief: true },
 
  // ==================== EXEC TRACK ====================
  exec_1: {
- act: 'EXECUTIVE // 07:30 MST', burst: 'VENDOR BREACH', speaker: 'BOARDROOM', title: 'The Boardroom Cross-Examination',
+ act: 'EXECUTIVE // STAGE 1', burst: 'VENDOR BREACH', speaker: 'BOARDROOM', title: 'The Boardroom Cross-Examination',
  paragraphs: [
  'The heavy mahogany doors of the boardroom shut. It is {{LOCAL_TIME}}. The smell of fear and stale coffee hangs in the air.',
  'The Director of Procurement slides a tablet across the table. "One of our critical third-party software vendors just suffered a massive network breach," she whispers.',
@@ -768,14 +918,13 @@ let injection = "";
  ],
  telemetry: 'Enterprise stack: 18 point tools, average MTTR 4.2 hours. Third-party vendor API actively probing.',
  crossTalk: 'Cloud architecture sees the OAuth anomalies from the vendor. Awaiting your containment orders.',
- handoff: { role: 'cloud' },
  options: [
- createGenericOption('Commit to Palo Alto Networks Unified Platformization Strategy', 'Present a bold, unified strategy to collapse the disparate vendors into an integrated architecture, drastically reducing MTTR and isolating the compromised vendor automatically.', 'Enterprise Platformization', null, -10, 'The Board endorsed your aggressive platformization strategy. The platform auto-isolated the compromised vendor API instantly.', 'exec_2'),
- createGenericOption('Maintain "Best-of-Breed" point tools and send a compliance questionnaire', 'Double down on your siloed tools. Email the breached vendor a 50-page PDF compliance questionnaire while leaving the API tunnels wide open during the investigation.', null, 'Ongoing Vendor Sprawl', +15, 'The open API connection allowed the attacker to temporarily pivot into Boreal’s internal subnet while legal reviewed the PDF.', 'exec_2')
+ createGenericOption('Commit to Palo Alto Networks Unified Platformization Strategy', 'Present a bold, unified strategy to collapse the disparate vendors into an integrated architecture, drastically reducing MTTR and isolating the compromised vendor automatically.', 'Enterprise Platformization', null, -5, 'The Board endorsed your aggressive platformization strategy. The platform auto-isolated the compromised vendor API instantly.', 'exec_2'),
+ createGenericOption('Maintain "Best-of-Breed" point tools and send a compliance questionnaire', 'Double down on your siloed tools. Email the breached vendor a 50-page PDF compliance questionnaire while leaving the API tunnels wide open during the investigation.', null, 'Ongoing Vendor Sprawl', +8, 'The open API connection allowed the attacker to temporarily pivot into Boreal’s internal subnet while legal reviewed the PDF.', 'exec_2')
  ]
  },
  exec_2: {
- act: 'EXECUTIVE // 08:15 MST', burst: 'BUDGET CUT', speaker: 'CFO DESK', title: 'The Budget Sledgehammer',
+ act: 'EXECUTIVE // STAGE 2', burst: 'BUDGET CUT', speaker: 'CFO DESK', title: 'The Budget Sledgehammer',
  paragraphs: [
  'As reports of lateral movement sweep the network, the Chief Financial Officer forcefully interjects. Boreal is hemorrhaging cash on duplicate cybersecurity capabilities.',
  '"Our licensing and training overhead has ballooned out of control," the CFO declares, tapping a spreadsheet. "Unless you consolidate these redundant tools immediately, I am slicing your operational security budget by 25%."',
@@ -783,12 +932,12 @@ let injection = "";
  ],
  telemetry: 'Tool sprawl represents $2.8M CAD in overlapping capabilities. CFO actively threatening 25% budget cut.',
  options: [
- createGenericOption('Re-pitch Enterprise Platformization to Achieve 357% Composite ROI', 'Demonstrate a verified 357% ROI by retiring redundant point vendors and streamlining operational headcount, saving the budget.', 'Enterprise Platformization', null, -10, 'The CFO ratified the platform plan, securing a 42% reduction in licensing costs while fiercely protecting the SOC budget.', 'exec_3'),
- createGenericOption('Accept the 25% budget cut and slash tier-1 analyst headcount', 'Bow to the spreadsheet. Accept the budget cut by dropping 24/7 support tiers and firing your junior threat analysts mid-incident.', null, 'Compromised Defensive Coverage', +15, 'Arbitrary budget cuts severely degraded sensor coverage, leaving your remaining SOC analysts exhausted and overwhelmed.', 'exec_3')
+ createGenericOption('Re-pitch Enterprise Platformization to Achieve 357% Composite ROI', 'Demonstrate a verified 357% ROI by retiring redundant point vendors and streamlining operational headcount, saving the budget.', 'Enterprise Platformization', null, -5, 'The CFO ratified the platform plan, securing a 42% reduction in licensing costs while fiercely protecting the SOC budget.', 'exec_3'),
+ createGenericOption('Accept the 25% budget cut and slash tier-1 analyst headcount', 'Bow to the spreadsheet. Accept the budget cut by dropping 24/7 support tiers and firing your junior threat analysts mid-incident.', null, 'Compromised Defensive Coverage', +8, 'Arbitrary budget cuts severely degraded sensor coverage, leaving your remaining SOC analysts exhausted and overwhelmed.', 'exec_3')
  ]
  },
  exec_3: {
- act: 'EXECUTIVE // 09:00 MST', burst: 'INSURANCE AUDIT', speaker: 'RISK MANAGEMENT', title: 'The Underwriter’s Inquisition',
+ act: 'EXECUTIVE // STAGE 3', burst: 'INSURANCE AUDIT', speaker: 'RISK MANAGEMENT', title: 'The Underwriter’s Inquisition',
  paragraphs: [
  'The Corporate Risk Director enters, flanked by a man in a sharp suit. With the SOC fighting a massive 124k EPS DDoS smokescreen, Boreal’s cyber insurance underwriters are panicking.',
  'The underwriter demands immediate, verifiable technical evidence of enterprise-wide zero-trust architecture and sub-minute MTTR to maintain your massive $50M CAD policy.',
@@ -796,12 +945,12 @@ let injection = "";
  ],
  telemetry: 'Policy renewal requires verified proof of enterprise-wide MFA and continuous platform coverage.',
  options: [
- createGenericOption('Present Verified Cortex XSIAM Architectural Attestation Reports', 'Deliver crystal-clear, auditable telemetry reports generated by XSIAM, proving 100% endpoint coverage and sub-minute MTTR despite the ongoing DDoS.', 'Cortex XSIAM', null, -10, 'The underwriter validated Boreal’s comprehensive platform posture, happily renewing the policy with a substantial discount.', 'exec_4'),
- createGenericOption('Submit subjective self-assessment questionnaires', 'Stall for time. Fill out the renewal application using highly estimated IT self-assessments without any technical telemetry validation to back it up.', null, 'Underwriter Surcharge', +15, 'The underwriter easily identified the telemetry gaps, enforcing a painful 45% premium surcharge on the immediate renewal.', 'exec_4')
+ createGenericOption('Present Verified Cortex XSIAM Architectural Attestation Reports', 'Deliver crystal-clear, auditable telemetry reports generated by XSIAM, proving 100% endpoint coverage and sub-minute MTTR despite the ongoing DDoS.', 'Cortex XSIAM', null, -5, 'The underwriter validated Boreal’s comprehensive platform posture, happily renewing the policy with a substantial discount.', 'exec_4'),
+ createGenericOption('Submit subjective self-assessment questionnaires', 'Stall for time. Fill out the renewal application using highly estimated IT self-assessments without any technical telemetry validation to back it up.', null, 'Underwriter Surcharge', +8, 'The underwriter easily identified the telemetry gaps, enforcing a painful 45% premium surcharge on the immediate renewal.', 'exec_4')
  ]
  },
  exec_4: {
- act: 'EXECUTIVE // 09:45 MST', burst: 'PIPEDA CLOCK', speaker: 'GENERAL COUNSEL', title: 'Privacy Commissioner’s Clock',
+ act: 'EXECUTIVE // STAGE 4', burst: 'PIPEDA CLOCK', speaker: 'GENERAL COUNSEL', title: 'Privacy Commissioner’s Clock',
  paragraphs: [
  'General Counsel slams a heavy legal brief onto the table. The cloud team is fighting an active S3 data exfiltration attempt. The mandatory PIPEDA reporting clock is loudly ticking.',
  'You must formally report any risk of significant harm to the Canadian Privacy Commissioner with an exact, forensic accounting of affected records.',
@@ -809,12 +958,64 @@ let injection = "";
  ],
  telemetry: 'Mandatory PIPEDA notification window requires precise forensic accounting of compromised records.',
  options: [
- createGenericOption('Submit Objective Forensic Audit Generated by Cortex Cloud DSPM', 'Submit an objective, mathematically verified forensic audit proving sensitive records remained encrypted and exfiltration was dynamically blocked.', 'Cortex Cloud DSPM', null, -10, 'The Privacy Commissioner happily accepted the verified forensic report and closed the regulatory inquiry cleanly.', 'exec_5'),
- createGenericOption('Delay notification until internal IT reviews are completed weeks later', 'Advise General Counsel to delay the notification until disjointed IT teams finish a comprehensive, multi-week manual log audit in Excel.', null, 'Notification Violation', +15, 'The late filing triggered an aggressive federal investigation, resulting in massive regulatory friction and terrible PR.', 'exec_5')
+ createGenericOption('Submit Objective Forensic Audit Generated by Cortex Cloud DSPM', 'Submit an objective, mathematically verified forensic audit proving sensitive records remained encrypted and exfiltration was dynamically blocked.', 'Cortex Cloud DSPM', null, -5, 'The Privacy Commissioner happily accepted the verified forensic report and closed the regulatory inquiry cleanly.', 'exec_5'),
+ createGenericOption('Delay notification until internal IT reviews are completed weeks later', 'Advise General Counsel to delay the notification until disjointed IT teams finish a comprehensive, multi-week manual log audit in Excel.', null, 'Notification Violation', +8, 'The late filing triggered an aggressive federal investigation, resulting in massive regulatory friction and terrible PR.', 'exec_5')
  ]
  },
  exec_5: {
- act: 'EXECUTIVE // 10:30 MST', burst: 'EXTORTION DEMAND', speaker: 'CRISIS COMMITTEE', title: 'The 400 Bitcoin Ultimatum',
+ act: 'EXECUTIVE // STAGE 5', burst: 'MEDIA LEAK', speaker: 'PR DIRECTOR', title: 'The Media Leak',
+ paragraphs: [
+ 'The VP of Communications rushes in. A prominent cybersecurity journalist has somehow caught wind of the DDoS smokescreen and the anomalous cloud scraping.',
+ 'They are threatening to publish a story claiming Boreal Core has suffered a catastrophic, uncontained mega-breach.',
+ 'You need to issue a definitive, technically sound statement that calms the markets and proves you have absolute situational awareness.'
+ ],
+ telemetry: 'Journalist inquiry from Major News Outlet. Threatening to publish unverified breach rumors in 30 minutes.',
+ options: [
+ createGenericOption('Leverage Unit 42 Retainer for Executive Crisis Communications', 'Engage the elite Unit 42 communications team to draft a hyper-accurate, technically verified statement that controls the narrative and reassures shareholders.', 'Unit 42', null, -5, 'Unit 42 helped craft a perfectly calibrated response, turning a potential PR disaster into a showcase of Boreal’s defensive resilience.', 'exec_6'),
+ createGenericOption('Issue a generic "No Comment" and hope it blows over', 'Tell PR to stonewall the journalist, refusing to provide any technical details or reassurances about the state of the network.', null, 'Reputational Damage', +8, 'The journalist published the worst-case scenario. Boreal’s stock price plummeted 12% in after-hours trading due to the uncertainty.', 'exec_6')
+ ]
+ },
+ exec_6: {
+ act: 'EXECUTIVE // STAGE 6', burst: 'SUPPLY CHAIN PANIC', speaker: 'PROCUREMENT', title: 'The Partner Ultimatum',
+ paragraphs: [
+ 'Your largest upstream logistics partner has seen the news. They are terrified that the Tundra Serpent infection will spread from Boreal into their own networks.',
+ 'They issue a brutal ultimatum: Prove you have zero-trust network segmentation actively containing the threat, or they will sever their physical logistics links within the hour.',
+ 'Losing this partner would halt Canadian supply chain operations indefinitely.'
+ ],
+ telemetry: 'Major partner threatening immediate disconnection due to perceived lateral movement risks.',
+ options: [
+ createGenericOption('Provide Strata Cloud Manager Zero-Trust Architecture Proofs', 'Instantly export dynamic topology maps proving that strict Layer-7 microsegmentation is actively containing the threat away from partner transit links.', 'Strata Cloud Manager', null, -5, 'The undeniable visual proof of strict zero-trust segmentation satisfied the partner, keeping the logistics links fully operational.', 'exec_7'),
+ createGenericOption('Send them a hastily written email promising everything is fine', 'Send a frantic, legally-worded email guaranteeing safety without providing a single shred of actual architectural proof.', null, 'Loss of Trust', +8, 'The partner didn\'t believe you. They severed the B2B VPN, causing millions of dollars in logistical delays.', 'exec_7')
+ ]
+ },
+ exec_7: {
+ act: 'EXECUTIVE // STAGE 7', burst: 'INSIDER THREAT', speaker: 'HR DIRECTOR', title: 'The Insider Panic',
+ paragraphs: [
+ 'HR demands an audience. An automated alert flagged an internal developer who logged in from an anomalous location right before the first breach occurred.',
+ 'HR wants to immediately terminate the employee and involve law enforcement. But you suspect the employee is a victim of identity theft, not a malicious insider.',
+ 'If you act rashly, you destroy an innocent career. If you ignore it, you leave a potential mole active.'
+ ],
+ telemetry: 'HR demanding immediate termination of Developer_04 due to anomalous authentication logs.',
+ options: [
+ createGenericOption('Deploy Idira to mathematically prove session hijacking', 'Use Idira\'s behavioral analytics to definitively prove that the session was hijacked by a deepfake, completely exonerating the innocent developer.', 'Idira', null, -5, 'Idira\'s forensic behavioral proofs cleared the developer\'s name, preventing a massive wrongful termination lawsuit.', 'exec_8'),
+ createGenericOption('Approve the immediate, blind termination to appease HR', 'Give in to the panic and sign the termination paperwork, throwing the developer under the bus to look like you are taking action.', null, 'Toxic Culture', +8, 'You fired an innocent employee. The real threat actor remained active, and engineering morale completely collapsed.', 'exec_8')
+ ]
+ },
+ exec_8: {
+ act: 'EXECUTIVE // STAGE 8', burst: 'SHAREHOLDER REVOLT', speaker: 'THE BOARD', title: 'The Activist Investor',
+ paragraphs: [
+ 'A major activist shareholder group dials into the emergency board meeting. They are furious about the skyrocketing operational costs of managing 18 disjointed security tools.',
+ 'They are threatening a hostile vote to replace you and the CEO unless you can prove that Boreal is actively modernizing and reducing architectural bloat.',
+ 'You must present a vision of the future, not just a defense of the present.'
+ ],
+ telemetry: 'Activist shareholders demanding architectural modernization and reduction in technical debt.',
+ options: [
+ createGenericOption('Present the Platformization Roadmap fueled by AI', 'Showcase a strategic pivot to a single, AI-driven platform (Precision AI) that consolidates the 18 tools, reduces headcount friction, and vastly improves security posture.', 'Enterprise Platformization', null, -5, 'The visionary, cost-saving platform strategy won over the activist investors, securing your position and budget.', 'exec_9'),
+ createGenericOption('Defend the legacy "defense-in-depth" sprawl strategy', 'Argue that having 18 different blinking boxes from 18 different vendors is somehow safer, despite the obvious friction and massive licensing costs.', null, 'Boardroom Friction', +8, 'The shareholders scoffed at your defense of legacy bloat, filing an immediate motion for a vote of no confidence.', 'exec_9')
+ ]
+ },
+ exec_9: {
+ act: 'EXECUTIVE // STAGE 9', burst: 'EXTORTION DEMAND', speaker: 'CRISIS COMMITTEE', title: 'The 400 Bitcoin Ultimatum',
  paragraphs: [
  'A dead silence descends upon the boardroom. The main projector screen flickers, replacing the architecture map with a direct extortion demand from Tundra Serpent: 400 Bitcoin ($45M CAD).',
  'The threat actor claims they have successfully deployed ransomware and hold the master encryption keys to Calgary’s core operational databases.',
@@ -822,20 +1023,19 @@ let injection = "";
  ],
  telemetry: 'Threat actor claims to hold master encryption keys. Ransom deadline approaching rapidly.',
  crossTalk: 'The threat has reached its climax. Unit 42 Incident Command is on standby if you need to pull the ripcord.',
- handoff: { role: 'unit42' },
  options: [
- createGenericOption('Refuse Extortion, Deploy Unit 42 Incident Readiness', 'Rely on Unit 42 digital forensics and absolute platform telemetry to confidently prove to the Board that zero data was actually encrypted.', 'Unit 42', null, -10, 'Unit 42 confirmed zero unauthorized encryption occurred, empowering the Board to publicly and fiercely rebuff the attackers.', 'exec_6'),
- createGenericOption('Authorize confidential negotiations while internal IT runs manual script audits', 'Keep the threat actors talking to buy time while your disjointed teams desperately try to piece together CSV logs to verify if data integrity is compromised.', null, 'Forensic Uncertainty', +15, 'The terrifying lack of definitive proof forced the board to authorize a $2M CAD "hush" payment just to be safe.', 'exec_6')
+ createGenericOption('Refuse Extortion, Deploy Unit 42 Incident Readiness', 'Rely on Unit 42 digital forensics and absolute platform telemetry to confidently prove to the Board that zero data was actually encrypted.', 'Unit 42', null, -5, 'Unit 42 confirmed zero unauthorized encryption occurred, empowering the Board to publicly and fiercely rebuff the attackers.', 'exec_10'),
+ createGenericOption('Authorize confidential negotiations while internal IT runs manual script audits', 'Keep the threat actors talking to buy time while your disjointed teams desperately try to piece together CSV logs to verify if data integrity is compromised.', null, 'Forensic Uncertainty', +8, 'The terrifying lack of definitive proof forced the board to authorize a $2M CAD "hush" payment just to be safe.', 'exec_10')
  ]
  },
- exec_6: { act: 'EXECUTIVE // DEBRIEF', speaker: 'BOARD DEBRIEF', title: 'Executive Risk Assessment', isDebrief: true },
+ exec_10: { act: 'EXECUTIVE // DEBRIEF', speaker: 'BOARD DEBRIEF', title: 'Executive Risk Assessment', isDebrief: true },
 
  // ==================== UNIT 42 TRACK (EMERGENCY OVERRIDE) ====================
  unit42_1: {
- act: 'UNIT 42 // 10:30 MST', burst: 'EMERGENCY OVERRIDE', speaker: 'UNIT 42 LEAD', title: 'The Burning Data Center',
+ act: 'UNIT 42 // STAGE 1', burst: 'EMERGENCY OVERRIDE', speaker: 'UNIT 42 LEAD', title: 'The Burning Data Center',
  paragraphs: [
  'SYSTEM OVERRIDE. LOCAL CREDENTIALS REVOKED.',
- 'The localized IT response has escalated risk beyond safe thresholds. The Board of Directors has panicked, invoked emergency powers, and air-dropped you, a Unit 42 Incident Commander, straight into the terminal.',
+ 'The localized IT response has escalated risk beyond safe thresholds. The Board of Directors has panicked, invoked emergency powers, and air-dropped you, an elite Unit 42 Incident Commander, straight into the terminal.',
  'You are now in absolute command. The immediate threat: AES-256 ransomware is actively encrypting the primary hypervisors. You have seconds to act.'
  ],
  telemetry: 'Ransomware deployment active. 14% of ESXi host files currently locked.',
@@ -845,19 +1045,110 @@ let injection = "";
  ]
  },
  unit42_2: {
- act: 'UNIT 42 // 10:45 MST', burst: 'FORENSIC AUDIT', speaker: 'UNIT 42 COMMAND', title: 'The Final Stitch',
+ act: 'UNIT 42 // STAGE 2', burst: 'PERSISTENCE HUNT', speaker: 'UNIT 42 COMMAND', title: 'Hunting the Beacons',
  paragraphs: [
- 'The active attacks are suppressed, the servers are cooling down, but the Board and federal regulators demand absolute, ironclad proof that Tundra Serpent has been fully eradicated from the network.',
+ 'The ransomware is stopped, but Tundra Serpent is still breathing inside the network. They have established deep persistence.',
+ 'They are using highly sophisticated, polymorphic C2 beacons that change their signatures every few minutes to evade detection.',
+ 'You must hunt them down and sever their lifelines before they can launch a secondary attack.'
+ ],
+ telemetry: 'Polymorphic beaconing detected. Connections established to 14 varying untrusted ASNs.',
+ options: [
+ createGenericOption('Leverage Cortex XSIAM Advanced Analytics for threat hunting', 'Unleash XSIAM\'s machine learning algorithms to identify the subtle behavioral patterns of the beacons across all endpoints simultaneously.', 'Cortex XSIAM', null, -10, 'XSIAM mapped the entire C2 infrastructure in seconds, allowing you to cleanly sever the connections.', 'unit42_3'),
+ createGenericOption('Manually parse firewall logs for anomalous outbound traffic', 'Download massive CSV files from the legacy firewalls and attempt to manually filter for strange outbound connections in Excel.', null, 'Manual Parsing Fatigue', +10, 'Manual log hunting took hours. The adversary used the time to quietly exfiltrate an additional gigabyte of encrypted data.', 'unit42_3')
+ ]
+ },
+ unit42_3: {
+ act: 'UNIT 42 // STAGE 3', burst: 'MALWARE DETONATION', speaker: 'SANDBOX', title: 'The Sandbox Detonation',
+ paragraphs: [
+ 'You have captured a dormant payload left behind by the attackers on a compromised server. It is heavily obfuscated and incredibly dangerous.',
+ 'You need to reverse-engineer it to understand what it does and extract potential decryption keys or Indicators of Compromise (IoCs).',
+ 'If you analyze it incorrectly, it might deploy anti-analysis techniques and destroy itself, leaving you blind.'
+ ],
+ telemetry: 'Unknown binary `sys_update_v2.exe` isolated. High obfuscation detected.',
+ options: [
+ createGenericOption('Submit to WildFire Advanced Malware Analysis', 'Push the payload into WildFire\'s cloud-based hypervisor sandbox, letting it safely detonate while capturing every single API call and memory hook.', 'Strata NGFW & CDSS', null, -10, 'WildFire tore the malware apart, instantly distributing custom prevention signatures globally across your entire enterprise.', 'unit42_4'),
+ createGenericOption('Attempt to manually reverse-engineer using local debuggers', 'Spin up a local VM and attempt to manually step through the assembly code using IDA Pro and grit.', null, 'Anti-Analysis Trigger', +10, 'The malware detected your debugger, triggered an anti-analysis routine, and securely wiped itself, destroying the evidence.', 'unit42_4')
+ ]
+ },
+ unit42_4: {
+ act: 'UNIT 42 // STAGE 4', burst: 'ROOTKIT EVASION', speaker: 'KERNEL SPACE', title: 'Eradicating the Rootkit',
+ paragraphs: [
+ 'The adversary is fighting back. They have deployed a kernel-level rootkit on a critical database server to hide their remaining processes.',
+ 'Traditional antivirus tools are reporting the system is completely clean because the rootkit is actively lying to the operating system.',
+ 'You have to excise this cancer at the deepest level of the machine.'
+ ],
+ telemetry: 'Kernel integrity compromised. Unsigned driver bypassing OS checks.',
+ options: [
+ createGenericOption('Use Cortex XDR Anti-Rootkit and Kernel Hardening', 'Deploy Cortex XDR\'s specialized anti-rootkit modules to bypass the OS lies, identify the hidden driver, and forcefully rip it out of the kernel.', 'Cortex XDR', null, -10, 'Cortex XDR bypassed the OS hooks, identified the malicious driver, and excised the rootkit without requiring a reboot.', 'unit42_5'),
+ createGenericOption('Schedule an emergency physical server rebuild', 'Accept defeat at the software layer. Order the IT team to completely wipe the physical server, format the drives, and rebuild it from scratch.', null, 'Downtime Friction', +10, 'Wiping the server eliminated the rootkit, but caused massive operational downtime and destroyed valuable local forensic evidence.', 'unit42_5')
+ ]
+ },
+ unit42_5: {
+ act: 'UNIT 42 // STAGE 5', burst: 'ROGUE ADMIN', speaker: 'IDENTITY FABRIC', title: 'The Rogue Admin Trap',
+ paragraphs: [
+ 'A secondary alert fires. The attacker has compromised a legacy, highly privileged service account and is attempting to create a new, rogue Domain Admin account.',
+ 'They are trying to build a permanent backdoor into the identity infrastructure that will survive even if you kick them out of the current sessions.',
+ 'You must stop the creation of this phantom administrator.'
+ ],
+ telemetry: '`svc-legacy-db` attempting `net user add` and Domain Admin group modification.',
+ options: [
+ createGenericOption('Deploy Idira to enforce continuous identity verification', 'Use Idira to instantly detect the anomalous privilege escalation attempt and autonomously block the account creation, locking the legacy service account.', 'Idira', null, -10, 'Idira recognized the massive privilege escalation anomaly and ruthlessly terminated the rogue admin creation.', 'unit42_6'),
+ createGenericOption('Attempt to manually delete the account via Active Directory', 'Log into the Domain Controller and frantically try to delete the rogue account faster than the automated script can recreate it.', null, 'Whack-A-Mole Fatigue', +10, 'You got stuck in an endless loop of deleting the account while the script instantly recreated it, wasting valuable time.', 'unit42_6')
+ ]
+ },
+ unit42_6: {
+ act: 'UNIT 42 // STAGE 6', burst: 'SHADOW CLOUD', speaker: 'AWS TENANT', title: 'Sealing the Cloud Breach',
+ paragraphs: [
+ 'The on-premise fires are dying down, but Tundra Serpent is pivoting to the cloud. They have found an exposed, over-privileged IAM role in your AWS environment.',
+ 'They are attempting to spin up massive GPU instances for cryptomining, disguised as legitimate AI research workloads.',
+ 'You have to lock down the cloud perimeter immediately.'
+ ],
+ telemetry: 'Anomalous `RunInstances` API calls detected for `p3.16xlarge` instances in AWS us-east-1.',
+ options: [
+ createGenericOption('Enforce Cortex Cloud Runtime Protection', 'Leverage Cortex Cloud to instantly detect the unauthorized API calls, block the instance creation, and dynamically quarantine the abused IAM role.', 'Cortex Cloud', null, -10, 'Cortex Cloud identified the anomalous workload request, blocked it instantly, and locked down the compromised IAM role.', 'unit42_7'),
+ createGenericOption('Log into AWS and manually revoke permissions', 'Open the AWS console and try to manually hunt down the compromised role in the IAM dashboard to strip its permissions.', null, 'Cloud Console Lag', +10, 'Manual revocation was too slow. The attacker managed to spin up $10,000 worth of compute instances before you stopped them.', 'unit42_7')
+ ]
+ },
+ unit42_7: {
+ act: 'UNIT 42 // STAGE 7', burst: 'LATERAL PIVOT', speaker: 'SASE OVERLAY', title: 'The Lateral Chase',
+ paragraphs: [
+ 'The adversary is boxed in, so they try to run. They are attempting to pivot through a compromised remote contractor\'s VPN tunnel to escape into a subsidiary\'s network.',
+ 'They are using legitimate traffic lanes to move laterally, attempting to infect a completely different corporate entity.',
+ 'You must sever this connection without cutting off the entire remote workforce.'
+ ],
+ telemetry: 'Anomalous lateral traffic volume originating from Contractor_VPN pool targeting Subsidiary_Subnet.',
+ options: [
+ createGenericOption('Activate Prisma SASE Zero Trust App-ID Enforcement', 'Use Prisma SASE to apply strict, identity-based microsegmentation at the cloud edge, instantly severing the lateral pivot without dropping other users.', 'Prisma SASE & SD-WAN', null, -10, 'Prisma SASE instantly identified the unauthorized lateral application flow and severed the specific connection cleanly.', 'unit42_8'),
+ createGenericOption('Manually sever the entire contractor VPN gateway', 'Panic and shut down the entire contractor remote access gateway, kicking hundreds of legitimate users offline to stop the one attacker.', null, 'Business Disruption', +10, 'You stopped the lateral movement, but infuriated hundreds of legitimate remote contractors who were instantly dropped from their work.', 'unit42_8')
+ ]
+ },
+ unit42_8: {
+ act: 'UNIT 42 // STAGE 8', burst: 'DATA LAKE', speaker: 'CORTEX DSPM', title: 'Protecting the Shadows',
+ paragraphs: [
+ 'In a final, desperate act of spite, the adversary triggers a script designed to rapidly delete backups stored in an obscure, lightly monitored cloud data lake.',
+ 'They are attempting to permanently destroy critical recovery data, increasing the leverage of any ransomware they managed to deploy.',
+ 'You have to protect the data at rest.'
+ ],
+ telemetry: 'Massive `DeleteObject` requests hitting secondary backup S3 buckets.',
+ options: [
+ createGenericOption('Rely on Cortex Cloud DSPM Data Guardrails', 'Allow Cortex Cloud Data Security Posture Management to instantly recognize the anomalous deletion pattern and enforce an immutable lock on the buckets.', 'Cortex Cloud DSPM', null, -10, 'Cortex Cloud DSPM instantly locked the data lake, rejecting the malicious delete requests and preserving the critical backups.', 'unit42_9'),
+ createGenericOption('Attempt to manually modify bucket policies via AWS CLI', 'Frantically type out AWS CLI commands to deny all delete permissions on the bucket before the script finishes running.', null, 'Command Line Panic', +10, 'Your manual commands were too slow. The script managed to delete 15% of the backup archives before you locked it down.', 'unit42_9')
+ ]
+ },
+ unit42_9: {
+ act: 'UNIT 42 // STAGE 9', burst: 'FORENSIC AUDIT', speaker: 'UNIT 42 COMMAND', title: 'The Final Stitch',
+ paragraphs: [
+ 'The active attacks are completely suppressed. The servers are cooling down, but the Board and federal regulators demand absolute, ironclad proof that Tundra Serpent has been fully eradicated from the network.',
  'You need a unified forensic timeline that spans the endpoint, network, and cloud domains simultaneously.',
  'Fragmented logs and subjective guesses will not satisfy the Canadian Centre for Cyber Security.'
  ],
  telemetry: 'Regulators awaiting mandatory attestation of absolute threat eradication.',
  options: [
- createGenericOption('Leverage Cortex XSIAM to auto-stitch cross-domain forensics into a single narrative', 'Compile a comprehensive, cryptographically verified incident timeline spanning all domains instantly to hand to the feds.', 'Cortex XSIAM', null, -20, 'XSIAM elegantly stitched millions of logs into a single definitive eradication report, satisfying the regulators perfectly.', 'unit42_6'),
- createGenericOption('Mandate a 48-hour manual threat hunt across disconnected tool logs', 'Tell the exhausted analysts to start parsing disparate CSV files in Excel, hoping to manually build the timeline before the deadline.', null, 'Manual Log Parsing Delays', +15, 'Manual parsing took 5 agonizing days. Regulators fined Boreal heavily for completely missing the mandatory reporting window.', 'unit42_6')
+ createGenericOption('Leverage Cortex XSIAM to auto-stitch cross-domain forensics into a single narrative', 'Compile a comprehensive, cryptographically verified incident timeline spanning all domains instantly to hand to the feds.', 'Cortex XSIAM', null, -20, 'XSIAM elegantly stitched millions of logs into a single definitive eradication report, satisfying the regulators perfectly.', 'unit42_10'),
+ createGenericOption('Mandate a 48-hour manual threat hunt across disconnected tool logs', 'Tell the exhausted analysts to start parsing disparate CSV files in Excel, hoping to manually build the timeline before the deadline.', null, 'Manual Log Parsing Delays', +15, 'Manual parsing took agonizing days. Regulators fined Boreal heavily for completely missing the mandatory reporting window.', 'unit42_10')
  ]
  },
- unit42_6: { act: 'UNIT 42 // DEBRIEF', speaker: 'UNIT 42 FORENSIC', title: 'Post-Incident Assessment', isDebrief: true }
+ unit42_10: { act: 'UNIT 42 // DEBRIEF', speaker: 'UNIT 42 FORENSIC', title: 'Post-Incident Assessment', isDebrief: true }
  };
 
  function getDefconLevel(risk) {
@@ -896,17 +1187,74 @@ let injection = "";
  '<text x="500" y="105" fill="#e2e8f0" font-family="monospace" font-size="8.5" text-anchor="middle">CISO Risk</text>' +
  '</svg>';
  },
- renderStageArt: function(persona, stageNum, title, defcon) {
- const pColors = { noc: { p: '#00c0f7', a: '#00ff41' }, soc: { p: '#fa582d', a: '#ff2a2a' }, cloud: { p: '#c084fc', a: '#00c0f7' }, exec: { p: '#00ff41', a: '#00c0f7' }, unit42: { p: '#ff2a2a', a: '#ffb000' } };
- const col = pColors[persona] || pColors.noc;
- let opac = defcon <= 3 ? 0.6 : 0.3;
- return '<svg viewBox="0 0 600 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">' +
- '<rect width="600" height="200" fill="transparent"/>' +
- '<circle cx="300" cy="100" r="' + (30 + (stageNum%8)*4) + '" stroke="' + col.p + '" stroke-width="1.2" fill="none" opacity="' + opac + '" stroke-dasharray="5 3"/>' +
- '<circle cx="300" cy="100" r="' + (60 + (stageNum%5)*4) + '" stroke="' + col.a + '" stroke-width="0.8" fill="none" opacity="0.2" stroke-dasharray="2 4"/>' +
- '<line x1="100" y1="100" x2="500" y2="100" stroke="' + col.p + '" stroke-width="1" opacity="0.4"/>' +
- '<text x="25" y="25" fill="' + col.p + '" font-family="monospace" font-size="10" font-weight="bold">> ' + persona.toUpperCase() + ' // RECORDING STAGE</text>' +
- '</svg>';
+ renderStageArt: function(persona, stageNum, title, defcon, history) {
+ var pColors = { noc: '#00c0f7', soc: '#fa582d', cloud: '#c084fc', exec: '#00ff41', unit42: '#ff2a2a' };
+ var baseCol = pColors[persona] || '#00c0f7';
+ 
+ var svg = '<svg viewBox="0 0 600 180" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">';
+ svg += '<rect width="600" height="180" fill="transparent"/>';
+ svg += '<text x="20" y="25" fill="' + baseCol + '" font-family="monospace" font-size="10" font-weight="bold">> ' + persona.toUpperCase() + ' // TACTICAL PATH</text>';
+
+ var decisions = [];
+ if (history) {
+ for (var j = 0; j < history.length; j++) {
+ if (history[j].isDecision) decisions.push(history[j]);
+ }
+ }
+ 
+ var startX = 35;
+ var spacing = 58;
+ var startY = 100;
+
+ // Draw Connecting Lines
+ for (var i = 0; i < stageNum - 1; i++) {
+ var histNode = decisions[i];
+ var lineColor = (histNode && histNode.isPlatform) ? '#00c0f7' : '#fa582d'; 
+ var x1 = startX + (i * spacing);
+ var x2 = startX + ((i + 1) * spacing);
+ 
+ // Background base line
+ svg += '<line x1="' + x1 + '" y1="' + startY + '" x2="' + x2 + '" y2="' + startY + '" stroke="' + lineColor + '" stroke-width="1" opacity="0.3"/>';
+ // Animated data pulse line
+ svg += '<line x1="' + x1 + '" y1="' + startY + '" x2="' + x2 + '" y2="' + startY + '" stroke="' + lineColor + '" stroke-width="3" stroke-dasharray="4 4">';
+ svg += '<animate attributeName="stroke-dashoffset" values="8;0" dur="0.5s" repeatCount="indefinite" linear/>';
+ svg += '</line>';
+ }
+
+ // Draw Nodes
+ for (var k = 0; k < stageNum; k++) {
+ var cx = startX + (k * spacing);
+ var isCurrent = (k === stageNum - 1);
+ 
+ if (isCurrent) {
+ // Active Current Node
+ svg += '<circle cx="' + cx + '" cy="' + startY + '" r="12" stroke="' + baseCol + '" stroke-width="1" fill="#010205"/>';
+ svg += '<circle cx="' + cx + '" cy="' + startY + '" r="18" stroke="' + baseCol + '" stroke-width="1" fill="none" opacity="0.6">';
+ svg += '<animate attributeName="r" values="12; 22; 12" dur="2s" repeatCount="indefinite"/>';
+ svg += '<animate attributeName="opacity" values="0.8; 0; 0.8" dur="2s" repeatCount="indefinite"/>';
+ svg += '</circle>';
+ svg += '<circle cx="' + cx + '" cy="' + startY + '" r="5" fill="' + baseCol + '"/>';
+ 
+ // Active Label
+ svg += '<text x="' + cx + '" y="' + (startY + 32) + '" fill="' + baseCol + '" font-family="monospace" font-size="8" font-weight="bold" text-anchor="middle">ACTIVE</text>';
+ svg += '<text x="' + cx + '" y="' + (startY + 44) + '" fill="#fff" font-family="monospace" font-size="7" text-anchor="middle">STG ' + (k+1) + '</text>';
+ } else {
+ // Past Decision Node
+ var pNode = decisions[k];
+ var nodeColor = (pNode && pNode.isPlatform) ? '#00c0f7' : '#fa582d';
+ var nodeLabel = (pNode && pNode.isPlatform) ? 'PLATFORM' : 'MANUAL';
+ 
+ svg += '<circle cx="' + cx + '" cy="' + startY + '" r="8" fill="#010205" stroke="' + nodeColor + '" stroke-width="1.5"/>';
+ svg += '<circle cx="' + cx + '" cy="' + startY + '" r="3" fill="' + nodeColor + '"/>';
+ 
+ // Status Label
+ svg += '<text x="' + cx + '" y="' + (startY + 22) + '" fill="' + nodeColor + '" font-family="monospace" font-size="7" text-anchor="middle" font-weight="bold">' + nodeLabel + '</text>';
+ svg += '<text x="' + cx + '" y="' + (startY + 32) + '" fill="#64748b" font-family="monospace" font-size="7" text-anchor="middle">STG ' + (k+1) + '</text>';
+ }
+ }
+ 
+ svg += '</svg>';
+ return svg;
  },
  renderProductAnimation: function(productName) {
  let content = '';
@@ -936,9 +1284,9 @@ let injection = "";
  let tier = 'failure';
  
 if (persona === 'unit42') {
- tier = platformPicks >= 2 ? 'excellence' : (platformPicks >= 1 ? 'partial' : 'failure');
+ tier = platformPicks >= 6 ? 'excellence' : (platformPicks >= 3 ? 'partial' : 'failure');
  } else {
- tier = platformPicks >= 4 ? 'excellence' : (platformPicks >= 2 ? 'partial' : 'failure');
+ tier = platformPicks >= 7 ? 'excellence' : (platformPicks >= 4 ? 'partial' : 'failure');
  }
 
  const epilogues = {
@@ -1053,15 +1401,6 @@ appState.panwPillarsActivated = [];
  renderStage();
  }
 
- function switchPersonaScreen() {
- if (!appState.persona) {
- document.getElementById('cli-bar').style.display = 'none';
- renderPersonaSelection();
- return;
- }
- openRoleSwitchModal();
- }
-
  function renderPersonaSelection() {
  document.getElementById('sim-badge').className = 'role-badge badge-soc';
  document.getElementById('sim-badge').textContent = 'CHOOSE OPERATIONAL LENS';
@@ -1107,12 +1446,12 @@ let desc = '';
  function runDecryptEffect() {
  const decryptElements = document.querySelectorAll('.decrypt');
  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&*';
- decryptElements.forEach(el => {
+ decryptElements.forEach(function(el) {
  const targetText = el.getAttribute('data-text');
  if(!targetText) return;
  let iterations = 0;
- const interval = setInterval(() => {
- el.innerText = targetText.split('').map((char, index) => {
+ const interval = setInterval(function() {
+ el.innerText = targetText.split('').map(function(char, index) {
  if(index < iterations) return targetText[index];
  if(char === ' ') return ' ';
  return chars[Math.floor(Math.random() * chars.length)];
@@ -1148,30 +1487,14 @@ let desc = '';
  document.getElementById('sim-badge').textContent = node.act + ' // ENGAGED';
  document.getElementById('sim-clock').textContent = appState.timezonePrefix + ': ' + getSimTime(appState.stageCount);
  document.getElementById('sim-status').textContent = 'ACTIVE DEFENSE';
- document.getElementById('art-container').innerHTML = stageSvgEngine.renderStageArt(appState.persona, appState.stageCount, node.title, getDefconLevel(appState.riskLevel));
+ 
+ // Inject dynamic network diagram
+ document.getElementById('art-container').innerHTML = stageSvgEngine.renderStageArt(appState.persona, appState.stageCount, node.title, getDefconLevel(appState.riskLevel), appState.history);
  document.getElementById('action-burst-badge').textContent = node.burst || 'TACTICAL ALERT';
 
  container.innerHTML = '';
  const contentBox = document.createElement('div');
  contentBox.className = 'terminal-body';
-
- if (node.crossTalk) {
- const ctBanner = document.createElement('div');
- ctBanner.className = 'crosstalk-banner';
- ctBanner.innerHTML = '<span class="crosstalk-label">SYS-INTERCEPT</span><span>' + node.crossTalk + '</span>';
- 
-if (node.handoff) {
- const hBtn = document.createElement('button');
- hBtn.className = 'btn-system';
- hBtn.style.marginLeft = 'auto';
- hBtn.textContent = '[ HANDOFF TO ' + node.handoff.role.toUpperCase() + ' ]';
- hBtn.onclick = function() { 
-shiftLens(node.handoff.role); 
-};
- ctBanner.appendChild(hBtn);
- }
- contentBox.appendChild(ctBanner);
- }
 
  contentBox.innerHTML += 
 '<div class="mission-header-bar">' +
@@ -1255,7 +1578,15 @@ btn.innerHTML =
  }
 
  appState.lastDecision = { label: opt.label, outcome: opt.telemetryLog, isPlatform: !!opt.panw };
- appState.history.push({ stage: appState.stageCount, title: node.title, choiceLabel: opt.label, telemetryLog: opt.telemetryLog, time: getSimTime(appState.stageCount) });
+ appState.history.push({ 
+ stage: appState.stageCount, 
+ title: node.title, 
+ choiceLabel: opt.label, 
+ telemetryLog: opt.telemetryLog, 
+ time: getSimTime(appState.stageCount),
+ isPlatform: !!opt.panw,
+ isDecision: true
+ });
  
 appState.stageCount++;
  appState.currentNode = opt.next;
@@ -1566,11 +1897,15 @@ if(wasHidden) setTimeout(() => cliBar.style.display = 'none', 300);
  appState.persona = newRole;
  appState.currentNode = newRole + '_' + appState.stageCount;
  
-// Safety check for Unit 42 debrief consistency
- if (newRole === 'unit42' && !storyGraphs[appState.currentNode]) {
- appState.currentNode = 'unit42_6';
- } else if (!storyGraphs[appState.currentNode] && appState.stageCount >= 6) {
- appState.currentNode = newRole + '_6';
+ // Safety check for tracking consistency
+ if (newRole === 'unit42') {
+ if (appState.stageCount === 9) {
+ appState.currentNode = 'unit42_1'; // Drop straight into Unit 42 command
+ } else if (!storyGraphs[appState.currentNode]) {
+ appState.currentNode = 'unit42_10';
+ }
+ } else if (!storyGraphs[appState.currentNode] && appState.stageCount >= 10) {
+ appState.currentNode = newRole + '_10';
  }
  
 const config = personaConfigs[newRole];
